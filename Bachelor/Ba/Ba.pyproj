@@ -23,6 +23,88 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Ba.py" />
+    <Compile Include="lib\errors.py" />
+    <Compile Include="lib\pytesser.py" />
+    <Compile Include="lib\util.py" />
+    <Compile Include="lib\_init_.py" />
+    <Compile Include="testing.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\" />
+    <Folder Include="images\" />
+    <Folder Include="images\traincascade\" />
+    <Folder Include="images\traincascade\negExamples\" />
+    <Folder Include="images\traincascade\posExample\" />
+    <Folder Include="lib\" />
+    <Folder Include="lib\tessdata\" />
+    <Folder Include="lib\tessdata\configs\" />
+    <Folder Include="lib\tessdata\tessconfigs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\druid.png" />
+    <Content Include="images\gew_Spiel.png" />
+    <Content Include="images\hunter.png" />
+    <Content Include="images\mage.png" />
+    <Content Include="images\MainMenu.png" />
+    <Content Include="images\Own_Decks.png" />
+    <Content Include="images\paladin.png" />
+    <Content Include="images\priest.png" />
+    <Content Include="images\rogue.png" />
+    <Content Include="images\shaman.png" />
+    <Content Include="images\StartScreen.png" />
+    <Content Include="images\traincascade\badExam.txt" />
+    <Content Include="images\traincascade\Hearthstone_Screenshot_11.13.2014.11.04.39.png" />
+    <Content Include="images\traincascade\negExamples\Hearthstone_Screenshot_11.13.2014.11.04.06.png" />
+    <Content Include="images\traincascade\negExamples\Hearthstone_Screenshot_11.13.2014.11.04.41.png" />
+    <Content Include="images\traincascade\negExamples\Hearthstone_Screenshot_11.13.2014.11.05.45.png" />
+    <Content Include="images\traincascade\negExamples\Hearthstone_Screenshot_11.13.2014.11.05.48.png" />
+    <Content Include="images\traincascade\negExamples\Hearthstone_Screenshot_11.13.2014.11.09.39.png" />
+    <Content Include="images\traincascade\posExam.info" />
+    <Content Include="images\traincascade\posExam.vec" />
+    <Content Include="images\traincascade\posExample\EnemyAction.png" />
+    <Content Include="images\warlock.png" />
+    <Content Include="images\warrior.png" />
+    <Content Include="lib\AUTHORS" />
+    <Content Include="lib\ChangeLog" />
+    <Content Include="lib\errors.pyc" />
+    <Content Include="lib\fnord.tif" />
+    <Content Include="lib\fonts_test.png" />
+    <Content Include="lib\LICENSE" />
+    <Content Include="lib\NOTICE" />
+    <Content Include="lib\phototest.tif" />
+    <Content Include="lib\pytesser.pyc" />
+    <Content Include="lib\README" />
+    <Content Include="lib\tessdata\blackText.params" />
+    <Content Include="lib\tessdata\configs\api_config" />
+    <Content Include="lib\tessdata\configs\api_resaljet" />
+    <Content Include="lib\tessdata\configs\box.train" />
+    <Content Include="lib\tessdata\configs\inter" />
+    <Content Include="lib\tessdata\configs\oldapi_config" />
+    <Content Include="lib\tessdata\configs\oldbox.train" />
+    <Content Include="lib\tessdata\configs\variable_config" />
+    <Content Include="lib\tessdata\configs\var_api_config" />
+    <Content Include="lib\tessdata\configs\var_box.train" />
+    <Content Include="lib\tessdata\confsets" />
+    <Content Include="lib\tessdata\DangAmbigs" />
+    <Content Include="lib\tessdata\fmtable.cls" />
+    <Content Include="lib\tessdata\fnetwts" />
+    <Content Include="lib\tessdata\freq-dawg" />
+    <Content Include="lib\tessdata\inttemp" />
+    <Content Include="lib\tessdata\netwts" />
+    <Content Include="lib\tessdata\newdiff.asccodes" />
+    <Content Include="lib\tessdata\normproto" />
+    <Content Include="lib\tessdata\pffmtable" />
+    <Content Include="lib\tessdata\soptable.cls" />
+    <Content Include="lib\tessdata\tessconfigs\batch" />
+    <Content Include="lib\tessdata\tessconfigs\matdemo" />
+    <Content Include="lib\tessdata\tessconfigs\old_batch" />
+    <Content Include="lib\tessdata\tessconfigs\segdemo" />
+    <Content Include="lib\tessdata\tessconfigs\var_batch" />
+    <Content Include="lib\tessdata\test_matrix" />
+    <Content Include="lib\tessdata\user-words" />
+    <Content Include="lib\tessdata\word-dawg" />
+    <Content Include="lib\tesseract.exe" />
+    <Content Include="lib\util.pyc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -10,7 +10,7 @@ import time
 from itertools import izip
 import os
 import sys
-sys.path.insert(0, 'D:\\BA\\v1\\BA_v1\\BA_v1\\lib')
+sys.path.insert(0, 'D:\\BA\\Bachelor\\Bachelor\\Ba\\lib')
 import pytesser
 
 
@@ -19,27 +19,14 @@ def takingScreen():
     plt.imshow(im), plt.show()
 
 def testing_img():
-    time.sleep(5)
-   # img = cv2.imread('D:\BA\Pictures\StartScreen.png',0)
-    _img = Image.open('D:\BA\Pictures\StartScreen.png')
-    imgwidth, imgheight = _img.size
-    print _img.size
-    surf = cv2.SURF(1000)
-    kp, des = surf.detectAndCompute(img,None)
-    kp, des = surf.detectAndCompute(img,None)
+    image = cv2.imread("D:\\Pictures\\Hearthstone\\rdy\\rdy04.jpg")
+    img_gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)
+    surf = cv2.SURF(100)
     surf.upright = True
-    kp = surf.detect(img,None)
     surf.extended = True
-    kp, des = surf.detectAndCompute(img,None)
-    img2 = cv2.drawKeypoints(img,kp,None,(255,0,0),4)  
-    im = ImageGrab.grab(bbox=(0,0,imgwidth,imgheight))
-    print im.size
-    sec_img = numpy.asarray(im)
-    sec_img_gray =cv2.cvtColor(sec_img,cv2.COLOR_BGR2GRAY)
-    kp2, des2 = surf.detectAndCompute(sec_img_gray,None)
-    secImg = cv2.drawKeypoints(sec_img_gray,kp2,None,(255,0,0),4)
-
-    #plt.imshow(secImg), plt.show()
+    kp, des = surf.detectAndCompute(img_gray,None)
+    img2 = cv2.drawKeypoints(image,kp,None,(255,0,0),4)  
+    plt.imshow(img2), plt.show()
     #plt.imshow(img2), plt.show()
     
     print cv2.cv.CalcEMD2(img, sec_img, cv2.cv.CV_DIST_L2)
@@ -153,3 +140,11 @@ def openProcess():
     
     print processHandle
   
+
+def blobs():
+    image = cv2.imread("D:\\Pictures\\Hearthstone\\rdy\\rdy04.jpg")
+    img_gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)
+    ret,thresh = cv2.threshold(img_gray,127,255,0)
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    cv2.drawContours(image, contours, -1, (0,255,0), 3)
+    plt.imshow(image), plt.show()
