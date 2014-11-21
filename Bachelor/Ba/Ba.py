@@ -85,6 +85,7 @@ def read_memory():
 #testing.pytesser_test()
 
 #testing.blobs()
-testing.testing_img()
+
+testing.object_detect()
 
 
