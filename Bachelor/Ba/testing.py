@@ -154,7 +154,7 @@ def object_detect():
     img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\pos\\Taunt-pc-games.jpg')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     #cv2.CascadeClassifier.detectMultiScale(image[, scaleFactor[, minNeighbors[, flags[, minSize[, maxSize]]]]])
-    end = end_turn.detectMultiScale(gray, 1.3, 5)
+    end = end_turn.detectMultiScale(img, 1.1, 1)
     for (x,y,w,h) in end:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
     cv2.imshow('img', img)
