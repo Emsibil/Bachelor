@@ -150,13 +150,24 @@ def blobs():
     plt.imshow(image), plt.show()
 
 def object_detect():
-    end_turn= cv2.CascadeClassifier('D:\\BA\\Bachelor\\Bachelor\\Ba\\data\\cascade.xml')
-    img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\pos\\Taunt-pc-games.jpg')
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #cv2.CascadeClassifier.detectMultiScale(image[, scaleFactor[, minNeighbors[, flags[, minSize[, maxSize]]]]])
+    end_turn= cv2.CascadeClassifier('D:\\BA\\Bachelor\\Bachelor\\Ba\\data\\color_cascade.xml')
+    img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\bad\\new19.png')
+    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     end = end_turn.detectMultiScale(img, 1.1, 1)
     for (x,y,w,h) in end:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
     cv2.imshow('img', img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
+import subprocess
+def grayscale():
+    path = "D:\\opencv\\build\\x64\\vc12\\bin\\pos"
+    name = "grayscale"
+    num = 1
+    for file in os.listdir(path):
+        img = Image.open(path+"\\"+file).convert('LA')
+        img.save(name+str(num)+".png")
+        num += 1
+    

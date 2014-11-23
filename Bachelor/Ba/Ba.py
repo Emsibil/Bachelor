@@ -31,8 +31,8 @@ def isMyTurn():
     while True:
         tmp_img = grab.grab()
         np_img = np.asarray(tmp_img)
-        #gray = cv2.cvtColor(np_img, cv2.COLOR_BGR2GRAY)   if i want to change it to grayscale images
-        end = end_turn.detectMultiScale(np_img, 1.1, 1)
+        gray = cv2.cvtColor(np_img, cv2.COLOR_BGR2GRAY)   #if i want to change it to grayscale images
+        end = end_turn.detectMultiScale(gray, 1.1, 1)
         count = len(end)
         if count == 1:
             print "My Turn"
@@ -50,7 +50,7 @@ def whoseTurn():
         else:
             time.sleep(10)
 
-whoseTurn()
-
+#whoseTurn()
+testing.object_detect()
 
 
