@@ -10,7 +10,13 @@ import time
 from itertools import izip
 import os
 import sys
-sys.path.insert(0, 'D:\\BA\\Bachelor\\Bachelor\\Ba\\lib')
+def path(fileName):
+    script_dir = os.path.dirname(__file__)
+    rel_path = fileName
+    abs_file_path = os.path.join(script_dir, rel_path)
+    return abs_file_path
+
+sys.path.insert(0, path('lib'))
 import pytesser
 
 
@@ -150,10 +156,11 @@ def blobs():
     plt.imshow(image), plt.show()
 
 def object_detect():
-    end_turn= cv2.CascadeClassifier('D:\\BA\\Bachelor\\Bachelor\\Ba\\data\\color_cascade.xml')
-    img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\bad\\new19.png')
+    end_turn= cv2.CascadeClassifier(path('data\\color_cascade.xml'))
+    img = cv2.imread(path('images\\pos\\IMG30.png'))
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     end = end_turn.detectMultiScale(img, 1.1, 1)
+    print len(end)
     for (x,y,w,h) in end:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
     cv2.imshow('img', img)
@@ -161,13 +168,4 @@ def object_detect():
     cv2.destroyAllWindows()
 
 
-import subprocess
-def grayscale():
-    path = "D:\\opencv\\build\\x64\\vc12\\bin\\pos"
-    name = "grayscale"
-    num = 1
-    for file in os.listdir(path):
-        img = Image.open(path+"\\"+file).convert('LA')
-        img.save(name+str(num)+".png")
-        num += 1
     
