@@ -13,6 +13,11 @@ import sys
 sys.path.insert(0, 'D:\\BA\\Bachelor\\Bachelor\\Ba\\lib')
 import pytesser
 
+def path(fileName):
+    script_dir = os.path.dirname(__file__)
+    rel_path = fileName
+    abs_file_path = os.path.join(script_dir, rel_path)
+    return abs_file_path
 
 def takingScreen():
     im = ImageGrab.grab()
@@ -150,10 +155,11 @@ def blobs():
     plt.imshow(image), plt.show()
 
 def object_detect():
-    end_turn= cv2.CascadeClassifier('D:\\BA\\Bachelor\\Bachelor\\Ba\\data\\color_cascade.xml')
-    img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\bad\\new19.png')
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    end = end_turn.detectMultiScale(img, 1.1, 1)
+    end_turn= cv2.CascadeClassifier('D:\\BA\\Bachelor\\Bachelor\\Ba\\data\\cascade.xml')
+    img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\pos\\IMG11.png')
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    end = end_turn.detectMultiScale(gray, 1.1, 1)
+    print len(end)
     for (x,y,w,h) in end:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
     cv2.imshow('img', img)
@@ -170,4 +176,12 @@ def grayscale():
         img = Image.open(path+"\\"+file).convert('LA')
         img.save(name+str(num)+".png")
         num += 1
-    
+
+def screenshots():
+    num = 246
+    while True:
+        img=ImageGrab.grab()
+        img2 = img.convert('LA')
+        img2.save(path('images\\Screens')+'\\Screen'+str(num)+'.png')
+        num += 1
+        time.sleep(2)

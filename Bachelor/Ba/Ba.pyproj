@@ -36,6 +36,7 @@
     <Folder Include="doc\" />
     <Folder Include="images\" />
     <Folder Include="images\bad\" />
+    <Folder Include="images\Screens\" />
     <Folder Include="images\pos\" />
     <Folder Include="images\traincascade\" />
     <Folder Include="images\traincascade\negExamples\" />
@@ -46,6 +47,7 @@
     <Folder Include="lib\tessdata\tessconfigs\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\cascade.xml" />
     <Content Include="data\color\cascade.xml" />
     <Content Include="data\color_cascade.xml">
       <SubType>Code</SubType>

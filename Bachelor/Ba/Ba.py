@@ -6,6 +6,7 @@ import testing
 import Image
 import time
 from itertools import izip
+import os
 
 #tests if Hearthstone is already in my processlist of Windows.
 def isHearthstoneRunning():
@@ -27,7 +28,7 @@ def path(fileName):
 
 #Takes a Screenshot and compares if there is an End Turn button in the image and evaluate if it's your turn or the opponents one
 def isMyTurn():
-    end_turn= cv2.CascadeClassifier(path("cascade.xml"))
+    end_turn= cv2.CascadeClassifier(path("data\\endturn_cascade.xml"))
     while True:
         tmp_img = grab.grab()
         np_img = np.asarray(tmp_img)
@@ -40,7 +41,7 @@ def isMyTurn():
             print "His Turn or Menu"
         else:
             print "More than one End-Turn-Image. The training need to be more detailed!"
-        time.sleep(5)
+        time.sleep(2)
             
 
 def whoseTurn():
@@ -48,9 +49,9 @@ def whoseTurn():
         if isHearthstoneRunning():
             isMyTurn()
         else:
-            time.sleep(10)
+            time.sleep(3)
 
 #whoseTurn()
-testing.object_detect()
-
+t#esting.object_detect()
+#testing.screenshots()
 
