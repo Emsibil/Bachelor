@@ -52,6 +52,6 @@ def whoseTurn():
             time.sleep(3)
 
 #whoseTurn()
-t#esting.object_detect()
+#testing.object_detect()
 #testing.screenshots()
-
+testing.image_slicing()

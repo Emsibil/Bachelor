@@ -10,14 +10,17 @@ import time
 from itertools import izip
 import os
 import sys
-sys.path.insert(0, 'D:\\BA\\Bachelor\\Bachelor\\Ba\\lib')
-import pytesser
 
 def path(fileName):
     script_dir = os.path.dirname(__file__)
     rel_path = fileName
     abs_file_path = os.path.join(script_dir, rel_path)
     return abs_file_path
+
+sys.path.insert(0, path('lib'))
+import pytesser
+
+
 
 def takingScreen():
     im = ImageGrab.grab()
@@ -185,3 +188,36 @@ def screenshots():
         img2.save(path('images\\Screens')+'\\Screen'+str(num)+'.png')
         num += 1
         time.sleep(2)
+        
+def image_sizing():
+    width = 800
+    height = 600
+    img = Image.open(path('images\\pos\\IMG26.png'))
+    img = img.resize((width, height), Image.BICUBIC)
+    img = img.convert('LA')
+    img.save(path('images')+'\\testsize.png')
+    print 'DONE'
+    
+def image_slicing():
+    img = Image.open(path('images\\testsize.png'))
+    #ow, oh = img.size()
+    enemySide = img.crop((158, 177, 611, 279))
+    mySide = img.crop((158 , 281, 611, 383))
+    turn = img.crop((612, 248, 685, 292))
+    enemy = img.crop((361, 48, 449, 167))
+    me = img.crop((361, 394, 442, 513))
+    enemy_mana = img.crop((490, 26, 528, 50))
+    my_mana = img.crop((508, 543, 546, 567))
+    stack = img.crop((118, 169, 149, 411))
+    enemySide.save(path('images\\enemySide.png'))
+    mySide.save(path('images\\mySide.png'))
+    turn.save(path('images\\turn.png'))
+    enemy.save(path('images\\enemy.png'))
+    me.save(path('images\\me.png'))
+    enemy_mana.save(path('images\\enemy_mana.png'))
+    my_mana.save(path('images\\my_mana.png'))
+    stack.save(path('images\\stack.png'))
+    print 'Done'
+    
+    
+    
