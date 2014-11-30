@@ -54,4 +54,10 @@ def whoseTurn():
 #whoseTurn()
 #testing.object_detect()
 #testing.screenshots()
-testing.image_slicing()
+
+num = 1100
+while True:
+    time.sleep(2)
+    testing.image_slicing(str(num))
+    num += 1
+   
