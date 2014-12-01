@@ -215,4 +215,40 @@ def image_slicing(num):
     print 'Done'
     
     
+def gridControl(From, count):
+    if((From - 29) < 0): 
+        return (count - 1)
+    if gridChanges(From):
+        gridControl((From - 29), (count + 1))
+    else:    
+        return count
+
+def gridSearch():
+    print 'There are ' + gridControl(242, 0) + ' enemy minions on the board!'
     
+def gridChanges(From, img, board):
+    w, h = img.SIZE
+    img = img.crop((From - 29, 0, From, h))
+    board = board.crop((From - 29, 0, From, h))
+    #board vllt als global für das Spiel speichern
+    return imgcompare(img, board)
+    
+
+from itertools import izip
+def imgcompare(img1, img2):
+    assert img1.mode == img2.mode
+    assert img1.size == img2.size
+    
+    pairs = izip(img1.getdata(), img2.getdata())
+    if len(img1.getbands()) == 1:
+        dif = sum(abs(p1-p2) for p1,p2 in pairs)
+    else:
+        dif = sum(abs(c1-c2) for p1,p2 in pairs for c1,c2 in zip(p1,p2))
+        
+    ncomponents = img1.size[0] * img1.size[1] * 3
+    percantage = (dif / 255.0 * 100) / ncomponents
+    print "Difference (percentage):", percantage
+    if (percantage/100) < 0.9:
+        return False
+    else:
+        return True
