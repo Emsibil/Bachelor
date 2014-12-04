@@ -10,6 +10,8 @@ import time
 from itertools import izip
 import os
 import sys
+from boto.dynamodb.condition import NULL
+from networkx.generators.community import caveman_graph
 
 def path(fileName):
     script_dir = os.path.dirname(__file__)
@@ -37,7 +39,7 @@ def testing_img():
     plt.imshow(img2), plt.show()
     #plt.imshow(img2), plt.show()
     
-    print cv2.cv.CalcEMD2(img, sec_img, cv2.cv.CV_DIST_L2)
+    #print cv2.cv.CalcEMD2(img, sec_img, cv2.cv.CV_DIST_L2)
 
 def testing_img2():
     time.sleep(5)
@@ -196,8 +198,8 @@ def image_slicing(num):
     img = ImageGrab.grab()
     img = img.resize((800, 600), Image.BICUBIC)
     #img = img.convert('LA')
-    enemySide = img.crop((158, 177, 611, 279))
-    mySide = img.crop((158 , 281, 611, 383))
+    enemySide = img.crop((197, 177, 605, 279))
+    mySide = img.crop((197 , 281, 605, 383))
     turn = img.crop((614, 248, 685, 292))
     enemy = img.crop((361, 48, 442, 167))
     me = img.crop((361, 394, 442, 513))
@@ -214,41 +216,109 @@ def image_slicing(num):
     stack.save(path('images\\stack')+'\\stack'+number+'.png')
     print 'Done'
     
+def colorAvg(img):
+    w, h = img.size
+    pixels = img.load()
+    data = []
+    for x in range(w):
+        for y in range(h):
+            cpixel = pixels[x, y]
+            data.append(cpixel)
+    r = 0
+    g = 0
+    b = 0
+    counter = 0
+    for x in range(len(data)):
+        #if data[x][3] > 200:
+        r+=data[x][0]
+        g+=data[x][1]
+        b+=data[x][2]
+        counter+=1;
+ 
+    rAvg = r/counter
+    gAvg = g/counter
+    bAvg = b/counter
     
-def gridControl(From, count):
-    if((From - 29) < 0): 
-        return (count - 1)
-    if gridChanges(From):
-        gridControl((From - 29), (count + 1))
-    else:    
-        return count
+    return (rAvg, gAvg, bAvg)
 
-def gridSearch():
-    print 'There are ' + gridControl(242, 0) + ' enemy minions on the board!'
-    
-def gridChanges(From, img, board):
-    w, h = img.SIZE
-    img = img.crop((From - 29, 0, From, h))
-    board = board.crop((From - 29, 0, From, h))
-    #board vllt als global für das Spiel speichern
-    return imgcompare(img, board)
-    
+colorValue = []
+imgValue = []
 
-from itertools import izip
-def imgcompare(img1, img2):
-    assert img1.mode == img2.mode
-    assert img1.size == img2.size
+def blobDetection(img, GameStart):
+    w, h = img.size
+    x = w - 8 
+    if GameStart:
+        while(x >= w/2):
+            imgValue.append(img.crop((x-10, 0, x, h)))
+            colorValue.append(colorAvg(img.crop((x - 10, 0, x, h))))
+            x -= 29
+        #for x in colorValue: print x
+    else:
+        count = 0
+        maxCount = 7
+        while(x >= w/2):
+            pix = img.crop((x-10, 0, x, h))
+            cav = colorAvg(img.crop((x - 10, 0, x, h)))
+            
+            pix = numpy.asarray(pix)
+            base = numpy.asarray(imgValue[count])
+            
+            hist1 = cv2.calcHist([base], [0], None, [256],[0, 255])
+            hist1 = cv2.normalize(hist1).flatten()
+            hist2 = cv2.calcHist([pix],[0], None, [256],[0, 255])
+            hist2 = cv2.normalize(hist2).flatten()
+            
+            #result1 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CORREL)
+            #result2 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CHISQR)
+            #result3 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_INTERSECT)
+            result4 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
+            
+            #print cav
+            #print colorValue[count]
+            if(cav != colorValue[count]): 
+                if(result4 <= 0.25):
+                    maxCount -= 1
+                    count += 1
+                    x -= 29
+                    continue
+                print str(maxCount) + ' minions on board'
+                return
+            else:
+                maxCount -= 1
+                count += 1
+                x -= 29
+                
+def blob(img, GameStart):
+    w, h = img.size
+    x = (w / 2)
+    if GameStart:
+        while x <= w:
+            colorValue.append(img.crop((x - 1, 0, x, h)))
+            x += 29
+    else:
+        count = 0
+        while x <= w:
+            cva = img.crop((x - 1, 0, x, h))
+            base = numpy.asarray(colorValue[count])
+            cva = numpy.asarray(cva)
+            if count == 0:
+                 plt.imshow(cva), plt.show()
+                 plt.imshow(base), plt.show()
+            hist1 = cv2.calcHist([base], [0], None, [256],[0, 255])
+            hist1 = cv2.normalize(hist1).flatten()
+            hist2 = cv2.calcHist([cva],[0], None, [256],[0, 255])
+            hist2 = cv2.normalize(hist2).flatten()
+            
+            result1 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CORREL)
+            result2 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CHISQR)
+            result3 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_INTERSECT)
+            result4 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
+            #result5 = cv2.cv.CalcEMD2(base, cva, cv2.cv.CV_DIST_L1)
+            print str(count) + ": " + str(result1)
+            print str(count) + ": " + str(result2)
+            print str(count) + ": " + str(result3)
+            print str(count) + ": " + str(result4)
+            #print str(count) + ": " + str(result5)
+            x += 29
+            count += 1
     
-    pairs = izip(img1.getdata(), img2.getdata())
-    if len(img1.getbands()) == 1:
-        dif = sum(abs(p1-p2) for p1,p2 in pairs)
-    else:
-        dif = sum(abs(c1-c2) for p1,p2 in pairs for c1,c2 in zip(p1,p2))
-        
-    ncomponents = img1.size[0] * img1.size[1] * 3
-    percantage = (dif / 255.0 * 100) / ncomponents
-    print "Difference (percentage):", percantage
-    if (percantage/100) < 0.9:
-        return False
-    else:
-        return True

@@ -55,9 +55,24 @@ def whoseTurn():
 #testing.object_detect()
 #testing.screenshots()
 
-num = 1100
-while True:
-    time.sleep(2)
-    testing.image_slicing(str(num))
-    num += 1
-   
+#num = 1100
+#while True:
+#    time.sleep(2)
+#    testing.image_slicing(str(num))
+#    num += 1
+im0 = Image.open(path("images\\enemyField\\efield1105.png")) #0
+im1 = Image.open(path("images\\enemyField\\efield1109.png")) #1
+im2 = Image.open(path("images\\enemyField\\efield1124.png")) #2
+im3 = Image.open(path("images\\enemyField\\efield1156.png")) #3
+im4 = Image.open(path("images\\enemyField\\efield1229.png")) #4
+im5 = Image.open(path("images\\enemyField\\efield1218.png")) #5
+im6 = Image.open(path("images\\enemyField\\efield1245.png")) #6
+im7 = Image.open(path("images\\enemyField\\efield1255.png")) #7
+testing.blobDetection(im0, True)
+testing.blobDetection(im1, False) #1
+testing.blobDetection(im2, False) #2
+testing.blobDetection(im3, False) #3
+testing.blobDetection(im4, False) #4
+testing.blobDetection(im5, False) #5
+testing.blobDetection(im6, False) #6
+testing.blobDetection(im7, False) #7
