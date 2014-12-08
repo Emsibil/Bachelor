@@ -287,38 +287,36 @@ def blobDetection(img, GameStart):
                 maxCount -= 1
                 count += 1
                 x -= 29
-                
-def blob(img, GameStart):
-    w, h = img.size
-    x = (w / 2)
-    if GameStart:
-        while x <= w:
-            colorValue.append(img.crop((x - 1, 0, x, h)))
-            x += 29
-    else:
-        count = 0
-        while x <= w:
-            cva = img.crop((x - 1, 0, x, h))
-            base = numpy.asarray(colorValue[count])
-            cva = numpy.asarray(cva)
-            if count == 0:
-                 plt.imshow(cva), plt.show()
-                 plt.imshow(base), plt.show()
-            hist1 = cv2.calcHist([base], [0], None, [256],[0, 255])
-            hist1 = cv2.normalize(hist1).flatten()
-            hist2 = cv2.calcHist([cva],[0], None, [256],[0, 255])
-            hist2 = cv2.normalize(hist2).flatten()
+        
+def objdetect():
+    s_arr = ['Paladin', 'Priest', 'Shaman', 'Warrior', 'Warlock', 'Mage', 'Druid', 'Hunter', 'Rogue']
+    px = path('images\\character')
+    file3 = open(px+'\\counter.txt', 'w')
+    for s in s_arr:
+        p = path('images\\character')
+        file = open(p+'\\pos_'+s+'.info', 'w')
+        file2 = open(p+'\\bad'+s+'.txt', 'w')  
+        p = p + '\\' + s
+        num = 0
+        num2 = 0
+        for f in os.listdir(p):
+            num += 1
+            img = Image.open(p + '\\' + f)
+            w, h = img.size
+            file.write(s+'/'+f+ ' 1 0 0 ' + str(w) + ' ' + str(h) + '\n')
+        file3.write(s + ": pos: " + str(num))
+        for s2 in s_arr:
+            if s == s2:
+                continue
+            p2 = path('images\\character\\' + s2)
+            for f2 in os.listdir(p2):
+                num2 += 1
+                img2 = Image.open(p2 + '\\' + f2)
+                w, h = img2.size
+                file2.write(s2+'/'+f2 + '\n')
+        file3.write(' neg: ' + str(num2) + '\n')            
             
-            result1 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CORREL)
-            result2 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CHISQR)
-            result3 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_INTERSECT)
-            result4 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
-            #result5 = cv2.cv.CalcEMD2(base, cva, cv2.cv.CV_DIST_L1)
-            print str(count) + ": " + str(result1)
-            print str(count) + ": " + str(result2)
-            print str(count) + ": " + str(result3)
-            print str(count) + ": " + str(result4)
-            #print str(count) + ": " + str(result5)
-            x += 29
-            count += 1
+            
+            
+                
     
