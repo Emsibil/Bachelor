@@ -49,6 +49,8 @@
     <Folder Include="images\myField\" />
     <Folder Include="images\enemyField\" />
     <Folder Include="images\mana\" />
+    <Folder Include="images\myHand\" />
+    <Folder Include="images\enemyHand\" />
     <Folder Include="images\stack\" />
     <Folder Include="images\turn\" />
     <Folder Include="images\Screens\" />

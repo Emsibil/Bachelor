@@ -198,22 +198,26 @@ def image_slicing(num):
     img = ImageGrab.grab()
     img = img.resize((800, 600), Image.BICUBIC)
     #img = img.convert('LA')
-    enemySide = img.crop((197, 177, 605, 279))
-    mySide = img.crop((197 , 281, 605, 383))
-    turn = img.crop((614, 248, 685, 292))
-    enemy = img.crop((361, 48, 442, 167))
-    me = img.crop((361, 394, 442, 513))
-    enemy_mana = img.crop((490, 26, 528, 50))
-    my_mana = img.crop((508, 543, 546, 567))
-    stack = img.crop((118, 169, 149, 411))
-    enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
-    mySide.save(path('images\\myField')+'\\field'+number+'.png')
-    turn.save(path('images\\turn')+'\\turn'+number+'.png')
-    enemy.save(path('images\\character\\Paladin')+'\\paladin'+number+'.png')
-    me.save(path('images\\character\\Shaman')+'\\shaman'+number+'.png')
-    enemy_mana.save(path('images\\mana')+'\\e_mana'+number+'.png')
-    my_mana.save(path('images\\mana')+'\\mana'+number+'.png')
-    stack.save(path('images\\stack')+'\\stack'+number+'.png')
+    #enemySide = img.crop((197, 177, 605, 279))
+    #mySide = img.crop((197 , 281, 605, 383))
+    #turn = img.crop((614, 248, 685, 292))
+    #enemy = img.crop((361, 48, 442, 167))
+    #me = img.crop((361, 394, 442, 513))
+    #enemy_mana = img.crop((490, 26, 528, 50))
+    #my_mana = img.crop((508, 543, 546, 567))
+    #stack = img.crop((118, 169, 149, 411))
+    my_Hand = img.crop((240, 515, 525, 600))
+    enemy_Hand = img.crop((240, 0, 525, 85))
+    #enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
+    #mySide.save(path('images\\myField')+'\\field'+number+'.png')
+    #turn.save(path('images\\turn')+'\\turn'+number+'.png')
+    #enemy.save(path('images\\character\\Paladin')+'\\paladin'+number+'.png')
+    #me.save(path('images\\character\\Shaman')+'\\shaman'+number+'.png')
+    #enemy_mana.save(path('images\\mana')+'\\e_mana'+number+'.png')
+    #my_mana.save(path('images\\mana')+'\\mana'+number+'.png')
+    #stack.save(path('images\\stack')+'\\stack'+number+'.png')
+    my_Hand.save(path('images\\myHand')+'\\myhand'+number+'.png')
+    enemy_Hand.save(path('images\\enemyHand')+'\\enemyhand'+number+'.png')
     print 'Done'
     
 def colorAvg(img):
@@ -316,7 +320,23 @@ def objdetect():
                 file2.write(s2+'/'+f2 + '\n')
         file3.write(' neg: ' + str(num2) + '\n')            
             
-            
+def blue():
+    img = Image.open(path('images\\Handtest.png'))
+    img.show()
+    pix = img.load()
+    w, h = img.size
+    count = 0
+    for x in range(w):
+        for y in range(h):
+            data = pix[x,y]
+            if data[2] > 200:
+                #print '('+str(x)+' '+str(y)+')'
+                pix[x,y] = (255, 0, 0)
+                count += 1
+    print count
+    #img.show()
+
+                 
             
                 
     

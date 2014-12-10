@@ -52,6 +52,8 @@ def takingScreenshot():
     enemy_mana = img.crop((490, 26, 528, 50))
     my_mana = img.crop((508, 543, 546, 567))
     stack = img.crop((118, 169, 149, 411))
+    my_Hand = img.crop((240, 515, 525, 600))
+    enemy_Hand = img.crop((240, 0, 525, 85))
 
 #Takes a Screenshot and compares if there is an End Turn button in the image and evaluate if it's your turn or the opponents one
 def isMyTurn():
@@ -148,11 +150,11 @@ def whoseTurn():
 #testing.object_detect()
 #testing.screenshots()
 
-#num = 1100
+#num = 1
 #while True:
-#    time.sleep(2)
-#    testing.image_slicing(str(num))
-#    num += 1
+ #   time.sleep(2)
+  #  testing.image_slicing(str(num))
+   # num += 1
 
 #im0 = Image.open(path("images\\enemyField\\efield1105.png")) #0
 #im1 = Image.open(path("images\\enemyField\\efield1109.png")) #1
@@ -172,3 +174,5 @@ def whoseTurn():
 #testing.blobDetection(im7, False) #7
 
 #testing.objdetect()
+
+testing.blue()
