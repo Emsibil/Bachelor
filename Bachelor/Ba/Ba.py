@@ -150,11 +150,11 @@ def whoseTurn():
 #testing.object_detect()
 #testing.screenshots()
 
-num = 1
-while True:
-    time.sleep(2)
-    testing.image_slicing(str(num))
-    num += 1
+#num = 1
+#while True:
+ #   time.sleep(2)
+  #  testing.image_slicing(str(num))
+   # num += 1
 
 #im0 = Image.open(path("images\\enemyField\\efield1105.png")) #0
 #im1 = Image.open(path("images\\enemyField\\efield1109.png")) #1
@@ -176,3 +176,11 @@ while True:
 #testing.objdetect()
 
 #testing.blue()
+#p= path('images\\emptyHandboard')
+#for file in os.listdir(p):
+ #   img = Image.open(p+'\\'+file)
+  #  print str(colorAvg(img)) + '   ' + str(file)
+p2= path('images\\myHand')
+for file2 in os.listdir(p2):
+    img1 = Image.open(p2+'\\'+file2)
+    print colorAvg(img1)
