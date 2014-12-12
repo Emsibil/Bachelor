@@ -336,7 +336,30 @@ def blue():
     print count
     #img.show()
 
-                 
+def handcount(img):
+    w,h = img.size
+    pixels = img.load()
+    for x in range(w):
+        r = 0
+        g = 0
+        b = 0
+        for y in range(h):
+            if x <= 52 and y <= 33:
+                continue
+            r += pixels[x,y][0]
+            g += pixels[x,y][1]
+            b += pixels[x,y][2]
+        avgR = r/h
+        avgG = g/h
+        avgB = b/h
+        print 'x:' +str(x) +'  ('+str(avgR)+' ' +str(avgG)+ ' '+str(avgB)+')'
+        if not(avgB >= 32 and avgB <= 49):
+            if ((avgR >= 50 and avgR <= 90) or (avgG >= 30 and avgG <= 69)):
+                continue
+            else:
+                print 'First handcard a x-coord: ' + str(x)
+                break
+                                           
             
                 
     

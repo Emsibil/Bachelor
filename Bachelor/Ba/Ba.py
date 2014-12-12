@@ -7,7 +7,6 @@ import Image
 import time
 from itertools import izip
 import os
-from boto.dynamodb.condition import NULL
 
 #tests if Hearthstone is already in my processlist of Windows.
 def isHearthstoneRunning():
@@ -27,17 +26,7 @@ def path(fileName):
     abs_file_path = os.path.join(script_dir, rel_path)
     return abs_file_path
 
-enemy_side = NULL
-my_Side = NULL
-turn = NULL
-enemy = NULL
-me = NULL
-enemy_Mana = NULL
-my_Mana = NULL
-turn = NULL
-stack = NULL
-my_Hand = NULL
-enemy_Hand = NULL
+
 
 #takes a Screenshot of the current board, resizes it too 800x600 and cuts it into needed smaller imags
 def takingScreenshot():
@@ -79,6 +68,8 @@ def colorAvg(img):
     data = []
     for x in range(w):
         for y in range(h):
+            if x <= 52 and y <= 33:
+                continue
             cpixel = pixels[x, y]
             data.append(cpixel)
     r = 0
@@ -179,8 +170,20 @@ def whoseTurn():
 #p= path('images\\emptyHandboard')
 #for file in os.listdir(p):
  #   img = Image.open(p+'\\'+file)
-  #  print str(colorAvg(img)) + '   ' + str(file)
-p2= path('images\\myHand')
-for file2 in os.listdir(p2):
-    img1 = Image.open(p2+'\\'+file2)
-    print colorAvg(img1)
+  #/  print str(colorAvg(img)) + '   ' + str(file)
+
+#p2= path('images\\myHand')
+#for file2 in os.listdir(p2):
+#    img1 = Image.open(p2+'\\'+file2)
+#    print colorAvg(img1)
+
+im1 = Image.open(path('images\\myHand\\myHand1.png'))
+im2 = Image.open(path('images\\myHand\\myHand9.png'))
+im3 = Image.open(path('images\\myHand\\myHand25.png'))
+im4 = Image.open(path('images\\myHand\\myHand100.png'))
+im5 = Image.open(path('images\\myHand\\myHand219.png'))
+testing.handcount(im1)
+testing.handcount(im2)
+testing.handcount(im3)
+testing.handcount(im4)
+testing.handcount(im5)
