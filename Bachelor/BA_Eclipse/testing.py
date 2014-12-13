@@ -155,11 +155,11 @@ def blobs():
     cv2.drawContours(image, contours, -1, (0,255,0), 3)
     plt.imshow(image), plt.show()
 
-def object_detect():
+def object_detect(): 
     end_turn= cv2.CascadeClassifier(path('data\\color_cascade.xml'))
-    img = cv2.imread(path('images\\pos\\IMG30.png'))
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    end = end_turn.detectMultiScale(img, 1.1, 1)
+    img = cv2.imread(path('images\\pos\\IMG06.png'))
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    end = end_turn.detectMultiScale(gray, 1.1, 1)
     print len(end)
     for (x,y,w,h) in end:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)

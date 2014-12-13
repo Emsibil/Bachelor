@@ -10,6 +10,12 @@ import time
 from itertools import izip
 import os
 import sys
+<<<<<<< HEAD
+=======
+from boto.dynamodb.condition import NULL
+from networkx.generators.community import caveman_graph
+
+>>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
 def path(fileName):
     script_dir = os.path.dirname(__file__)
     rel_path = fileName
@@ -18,6 +24,7 @@ def path(fileName):
 
 sys.path.insert(0, path('lib'))
 import pytesser
+
 
 
 def takingScreen():
@@ -35,7 +42,7 @@ def testing_img():
     plt.imshow(img2), plt.show()
     #plt.imshow(img2), plt.show()
     
-    print cv2.cv.CalcEMD2(img, sec_img, cv2.cv.CV_DIST_L2)
+    #print cv2.cv.CalcEMD2(img, sec_img, cv2.cv.CV_DIST_L2)
 
 def testing_img2():
     time.sleep(5)
@@ -156,10 +163,17 @@ def blobs():
     plt.imshow(image), plt.show()
 
 def object_detect():
+<<<<<<< HEAD
     end_turn= cv2.CascadeClassifier(path('data\\color_cascade.xml'))
     img = cv2.imread(path('images\\pos\\IMG30.png'))
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     end = end_turn.detectMultiScale(img, 1.1, 1)
+=======
+    end_turn= cv2.CascadeClassifier('D:\\BA\\Bachelor\\Bachelor\\Ba\\data\\cascade.xml')
+    img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\pos\\IMG11.png')
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    end = end_turn.detectMultiScale(gray, 1.1, 1)
+>>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
     print len(end)
     for (x,y,w,h) in end:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
@@ -168,4 +182,197 @@ def object_detect():
     cv2.destroyAllWindows()
 
 
+<<<<<<< HEAD
+=======
+import subprocess
+def grayscale():
+    path = "D:\\opencv\\build\\x64\\vc12\\bin\\pos"
+    name = "grayscale"
+    num = 1
+    for file in os.listdir(path):
+        img = Image.open(path+"\\"+file).convert('LA')
+        img.save(name+str(num)+".png")
+        num += 1
+
+def screenshots():
+    num = 246
+    while True:
+        img=ImageGrab.grab()
+        img2 = img.convert('LA')
+        img2.save(path('images\\Screens')+'\\Screen'+str(num)+'.png')
+        num += 1
+        time.sleep(2)
+        
+    
+def image_slicing(num):
+    number = str(num)
+    #img = Image.open(_path)
+    img = ImageGrab.grab()
+    img = img.resize((800, 600), Image.BICUBIC)
+    #img = img.convert('LA')
+    #enemySide = img.crop((197, 177, 605, 279))
+    #mySide = img.crop((197 , 281, 605, 383))
+    #turn = img.crop((614, 248, 685, 292))
+    #enemy = img.crop((361, 48, 442, 167))
+    #me = img.crop((361, 394, 442, 513))
+    #enemy_mana = img.crop((490, 26, 528, 50))
+    #my_mana = img.crop((508, 543, 546, 567))
+    #stack = img.crop((118, 169, 149, 411))
+    my_Hand = img.crop((246, 518, 483, 591))
+    enemy_Hand = img.crop((246, 0, 483, 44))
+    #enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
+    #mySide.save(path('images\\myField')+'\\field'+number+'.png')
+    #turn.save(path('images\\turn')+'\\turn'+number+'.png')
+    #enemy.save(path('images\\character\\Paladin')+'\\paladin'+number+'.png')
+    #me.save(path('images\\character\\Shaman')+'\\shaman'+number+'.png')
+    #enemy_mana.save(path('images\\mana')+'\\e_mana'+number+'.png')
+    #my_mana.save(path('images\\mana')+'\\mana'+number+'.png')
+    #stack.save(path('images\\stack')+'\\stack'+number+'.png')
+    my_Hand.save(path('images\\myHand')+'\\myhand'+number+'.png')
+    enemy_Hand.save(path('images\\enemyHand')+'\\enemyhand'+number+'.png')
+    print 'Done'
+    
+def colorAvg(img):
+    w, h = img.size
+    pixels = img.load()
+    data = []
+    for x in range(w):
+        for y in range(h):
+            cpixel = pixels[x, y]
+            data.append(cpixel)
+    r = 0
+    g = 0
+    b = 0
+    counter = 0
+    for x in range(len(data)):
+        #if data[x][3] > 200:
+        r+=data[x][0]
+        g+=data[x][1]
+        b+=data[x][2]
+        counter+=1;
+ 
+    rAvg = r/counter
+    gAvg = g/counter
+    bAvg = b/counter
+    
+    return (rAvg, gAvg, bAvg)
+
+colorValue = []
+imgValue = []
+
+def blobDetection(img, GameStart):
+    w, h = img.size
+    x = w - 8 
+    if GameStart:
+        while(x >= w/2):
+            imgValue.append(img.crop((x-10, 0, x, h)))
+            colorValue.append(colorAvg(img.crop((x - 10, 0, x, h))))
+            x -= 29
+        #for x in colorValue: print x
+    else:
+        count = 0
+        maxCount = 7
+        while(x >= w/2):
+            pix = img.crop((x-10, 0, x, h))
+            cav = colorAvg(img.crop((x - 10, 0, x, h)))
+            
+            pix = numpy.asarray(pix)
+            base = numpy.asarray(imgValue[count])
+            
+            hist1 = cv2.calcHist([base], [0], None, [256],[0, 255])
+            hist1 = cv2.normalize(hist1).flatten()
+            hist2 = cv2.calcHist([pix],[0], None, [256],[0, 255])
+            hist2 = cv2.normalize(hist2).flatten()
+            
+            #result1 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CORREL)
+            #result2 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_CHISQR)
+            #result3 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_INTERSECT)
+            result4 = cv2.compareHist(hist1, hist2, cv2.cv.CV_COMP_BHATTACHARYYA)
+            
+            #print cav
+            #print colorValue[count]
+            if(cav != colorValue[count]): 
+                if(result4 <= 0.25):
+                    maxCount -= 1
+                    count += 1
+                    x -= 29
+                    continue
+                print str(maxCount) + ' minions on board'
+                return
+            else:
+                maxCount -= 1
+                count += 1
+                x -= 29
+        
+def objdetect():
+    s_arr = ['Paladin', 'Priest', 'Shaman', 'Warrior', 'Warlock', 'Mage', 'Druid', 'Hunter', 'Rogue']
+    px = path('images\\character')
+    file3 = open(px+'\\counter.txt', 'w')
+    for s in s_arr:
+        p = path('images\\character')
+        file = open(p+'\\pos_'+s+'.info', 'w')
+        file2 = open(p+'\\bad'+s+'.txt', 'w')  
+        p = p + '\\' + s
+        num = 0
+        num2 = 0
+        for f in os.listdir(p):
+            num += 1
+            img = Image.open(p + '\\' + f)
+            w, h = img.size
+            file.write(s+'/'+f+ ' 1 0 0 ' + str(w) + ' ' + str(h) + '\n')
+        file3.write(s + ": pos: " + str(num))
+        for s2 in s_arr:
+            if s == s2:
+                continue
+            p2 = path('images\\character\\' + s2)
+            for f2 in os.listdir(p2):
+                num2 += 1
+                img2 = Image.open(p2 + '\\' + f2)
+                w, h = img2.size
+                file2.write(s2+'/'+f2 + '\n')
+        file3.write(' neg: ' + str(num2) + '\n')            
+            
+def blue():
+    img = Image.open(path('images\\Handtest.png'))
+    img.show()
+    pix = img.load()
+    w, h = img.size
+    count = 0
+    for x in range(w):
+        for y in range(h):
+            data = pix[x,y]
+            if data[2] > 200:
+                #print '('+str(x)+' '+str(y)+')'
+                pix[x,y] = (255, 0, 0)
+                count += 1
+    print count
+    #img.show()
+
+def handcount(img):
+    w,h = img.size
+    pixels = img.load()
+    for x in range(w):
+        r = 0
+        g = 0
+        b = 0
+        for y in range(h):
+            if x <= 52 and y <= 33:
+                continue
+            r += pixels[x,y][0]
+            g += pixels[x,y][1]
+            b += pixels[x,y][2]
+        avgR = r/h
+        avgG = g/h
+        avgB = b/h
+        print 'x:' +str(x) +'  ('+str(avgR)+' ' +str(avgG)+ ' '+str(avgB)+')'
+        if not(avgB >= 32 and avgB <= 49):
+            if ((avgR >= 50 and avgR <= 90) or (avgG >= 30 and avgG <= 69)):
+                continue
+            else:
+                print 'First handcard a x-coord: ' + str(x)
+                break
+                                           
+            
+                
+>>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
     

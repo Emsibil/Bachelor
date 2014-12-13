@@ -1,0 +1,9 @@
+Paladin: pos: 337 neg: 1781
+Priest: pos: 394 neg: 1724
+Shaman: pos: 252 neg: 1866
+Warrior: pos: 270 neg: 1848
+Warlock: pos: 120 neg: 1998
+Mage: pos: 288 neg: 1830
+Druid: pos: 177 neg: 1941
+Hunter: pos: 123 neg: 1995
+Rogue: pos: 157 neg: 1961
