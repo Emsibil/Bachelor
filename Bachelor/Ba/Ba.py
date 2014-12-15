@@ -142,7 +142,7 @@ def whoseTurn():
 #testing.object_detect()
 #testing.screenshots()
 
-#num = 742
+#num = 1147
 #while True:
  #   time.sleep(2)
   #  testing.image_slicing(str(num))
@@ -192,68 +192,94 @@ def whoseTurn():
 #testing.handcount(im5)
 
 #print "pic"
-#testing.edge(path('images\\emptyHandboard\\emptyHuman.png'))
+testing.edge(path('images\\emptyHandboard\\emptyHuman.png'))
+print "ab hier 4"
+testing.edge(path('images\\myHand\\myHand207.png')) #4
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand207.png'), 4)
+testing.edge(path('images\\myHand\\myHand405.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand405.png'), 4)
+testing.edge(path('images\\myHand\\myHand613.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand613.png'), 4)
+testing.edge(path('images\\myHand\\myHand763.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand763.png'), 4)
+#testing.edge(path('images\\myHand\\myHand759.png')) eher 5er
+print "ab hier 5"
+testing.edge(path('images\\myHand\\myHand1.png')) #5
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand759.png'), 4)
-print "pic"
-testing.edge(path('images\\myHand\\myHand1.png'), 5)
-print "pic"
-testing.edge(path('images\\myHand\\myHand204.png'), 5)
-print "pic"
-testing.edge(path('images\\myHand\\myHand303.png'), 5)
-print "pic"
-testing.edge(path('images\\myHand\\myHand422.png'), 5)
-print "pic"
-testing.edge(path('images\\myHand\\myHand454.png'), 5)
-print "pic"
-testing.edge(path('images\\myHand\\myHand614.png'), 5)
-print "pic"
-testing.edge(path('images\\myHand\\myHand615.png'), 5)
+testing.edge(path('images\\myHand\\myHand204.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand9.png'), 6)
+testing.edge(path('images\\myHand\\myHand303.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand395.png'), 6)
+testing.edge(path('images\\myHand\\myHand422.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand271.png'), 6)
+#testing.edge(path('images\\myHand\\myHand454.png')) eher 6er
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand258.png'), 6)
+testing.edge(path('images\\myHand\\myHand614.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand291.png'), 6)
+testing.edge(path('images\\myHand\\myHand615.png'))
+print "ab hier 6"
+testing.edge(path('images\\myHand\\myHand9.png')) #6
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand637.png'), 6)
+testing.edge(path('images\\myHand\\myHand395.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand638.png'), 6)
+testing.edge(path('images\\myHand\\myHand271.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand486.png'), 6)
+testing.edge(path('images\\myHand\\myHand258.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand487.png'), 6)
+testing.edge(path('images\\myHand\\myHand291.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand699.png'), 6)
+testing.edge(path('images\\myHand\\myHand637.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand24.png'), 7)
+testing.edge(path('images\\myHand\\myHand638.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand33.png'), 7)
+testing.edge(path('images\\myHand\\myHand486.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand196.png'), 7)
+testing.edge(path('images\\myHand\\myHand487.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand177.png'), 7)
+testing.edge(path('images\\myHand\\myHand699.png'))
+print 'ab hier 7'
+testing.edge(path('images\\myHand\\myHand24.png')) #7
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand549.png'), 7)
+testing.edge(path('images\\myHand\\myHand33.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand515.png'), 7)
+testing.edge(path('images\\myHand\\myHand196.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand27.png'), 8)
+testing.edge(path('images\\myHand\\myHand177.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand100.png'), 9)
+testing.edge(path('images\\myHand\\myHand549.png'))
 #print "pic"
-#testing.edge(path('images\\myHand\\myHand219.png'), 3)
+testing.edge(path('images\\myHand\\myHand515.png'))
+print "ab hier 8"
+testing.edge(path('images\\myHand\\myHand27.png'))#8
 #print "pic"
-#testing.edge(path('images\\handtest.png'), 10)
+testing.edge(path('images\\myHand\\myHand45.png'))
+#print "pic"
+testing.edge(path('images\\myHand\\myHand46.png'))
+print 'ab hier 9'
+testing.edge(path('images\\myHand\\myHand100.png'))#9
+#print "pic"
+testing.edge(path('images\\myHand\\myHand79.png'))
+print "ab hier 3"
+testing.edge(path('images\\myHand\\myHand219.png'))#3
+#print "pic"
+testing.edge(path('images\\myHand\\myHand725.png'))
+#print "pic"
+testing.edge(path('images\\myHand\\myHand721.png'))
+print "ab hier 2"
+testing.edge(path('images\\myHand\\myHand723.png'))#2
+#print "pic"
+testing.edge(path('images\\myHand\\myHand1234.png'))
+#print "pic"
+testing.edge(path('images\\myHand\\myHand1212.png'))
+#print "pic"
+testing.edge(path('images\\myHand\\myHand1209.png'))
+#print "pic"
+testing.edge(path('images\\myHand\\myHand1252.png'))
+print "ab hier 1"
+testing.edge(path('images\\myHand\\myHand1243.png'))#1
+#print "pic"
+testing.edge(path('images\\myHand\\myHand1219.png'))
+#print "pic"
+testing.edge(path('images\\myHand\\myHand1254.png'))
+print "ab hier 10"
+testing.edge(path('images\\handtest.png'))

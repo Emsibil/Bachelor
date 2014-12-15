@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import cv2
 import psutil
 from PIL import Image
@@ -265,8 +265,8 @@ def blobDetection(img, GameStart):
             pix = img.crop((x-10, 0, x, h))
             cav = colorAvg(img.crop((x - 10, 0, x, h)))
             
-            pix = numpy.asarray(pix)
-            base = numpy.asarray(imgValue[count])
+            pix = np.asarray(pix)
+            base = np.asarray(imgValue[count])
             
             hist1 = cv2.calcHist([base], [0], None, [256],[0, 255])
             hist1 = cv2.normalize(hist1).flatten()
@@ -375,34 +375,38 @@ def handcount(img):
         x += rows
         print '(' + str(avgR) + ' ' + str(avgG) + ' ' + str(avgB) + ')'
 
-def edge(p, count):
+def edge(p):
+    ranges = np.array([[111,120,1],[84,90,2],[57,63,3],[27,36,4],[23,31,5],[16,23,6],[14,21,7],[7,15,8],[3,7,10]]) 
+    
     img = cv2.imread(p,0)
     edges = cv2.Canny(img,237,73)
-    cardedges = []
-    printx = False
+    two = 0
+    leftEdges = np.array([238, 238])
     for x in range(237):
-       if edges[72, x] == 255:
-           if not printx:
-               print 'first x value:' + str(x)
-               printx = True
-           cardedges.append(x)
-    highest = []
-    twice = False
-    for i in range(len(cardedges) - 1):
-        x = cardedges[i+1]-cardedges[i]
-        if len(highest) < count:
-            highest.append(x)
-        
-        y = min(highest)
-        
-        if y < x:
-            if(twice == True):
-                twice = False
-            highest.remove(y)
-            highest.append(x)
-        if y == x:
-            twice == True
-    for n in range(len(highest)):
-        print highest[n]                
-    print twice   
+        if edges[72, x] == 255:
+            if two < 2:
+                #print x
+                leftEdges[two] = x
+                two += 1
+            if two == 2:
+                break
+    if(leftEdges[1] > ranges[0,1]):
+        print '0 Handcards'
+        return 
+    tmp = 0
+    for r in ranges:
+        if(leftEdges[0] >= r[0] and leftEdges[1] <= r[1]):
+            if(leftEdges[1] == 21 and r[2] == 6):
+                tmp = 6
+                continue
+            if((leftEdges[1] - leftEdges[0]) <= 3):
+                print str(r[2]) + ' Handcards sicher'
+                return
+            print str(r[2]) + ' Handcards'
+            return
+    print '10 Handcards'
+    
+            
+           
+    
     
