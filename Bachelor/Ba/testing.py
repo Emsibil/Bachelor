@@ -10,12 +10,10 @@ import time
 from itertools import izip
 import os
 import sys
-<<<<<<< HEAD
-=======
 from boto.dynamodb.condition import NULL
 from networkx.generators.community import caveman_graph
 
->>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
+
 def path(fileName):
     script_dir = os.path.dirname(__file__)
     rel_path = fileName
@@ -163,17 +161,10 @@ def blobs():
     plt.imshow(image), plt.show()
 
 def object_detect():
-<<<<<<< HEAD
-    end_turn= cv2.CascadeClassifier(path('data\\color_cascade.xml'))
-    img = cv2.imread(path('images\\pos\\IMG30.png'))
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    end = end_turn.detectMultiScale(img, 1.1, 1)
-=======
     end_turn= cv2.CascadeClassifier('D:\\BA\\Bachelor\\Bachelor\\Ba\\data\\cascade.xml')
     img = cv2.imread('D:\\BA\\Bachelor\\Bachelor\\Ba\\images\\pos\\IMG11.png')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     end = end_turn.detectMultiScale(gray, 1.1, 1)
->>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
     print len(end)
     for (x,y,w,h) in end:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
@@ -182,8 +173,6 @@ def object_detect():
     cv2.destroyAllWindows()
 
 
-<<<<<<< HEAD
-=======
 import subprocess
 def grayscale():
     path = "D:\\opencv\\build\\x64\\vc12\\bin\\pos"
@@ -351,28 +340,69 @@ def blue():
 def handcount(img):
     w,h = img.size
     pixels = img.load()
-    for x in range(w):
+    x = 0
+    while x < w:
+        
         r = 0
         g = 0
         b = 0
-        for y in range(h):
-            if x <= 52 and y <= 33:
-                continue
-            r += pixels[x,y][0]
-            g += pixels[x,y][1]
-            b += pixels[x,y][2]
-        avgR = r/h
-        avgG = g/h
-        avgB = b/h
-        print 'x:' +str(x) +'  ('+str(avgR)+' ' +str(avgG)+ ' '+str(avgB)+')'
-        if not(avgB >= 32 and avgB <= 49):
-            if ((avgR >= 50 and avgR <= 90) or (avgG >= 30 and avgG <= 69)):
-                continue
+        rows = 0
+
+        if(x >= 52):
+            y = 0
+            h2 = 0
+        else:
+            y = 33
+            h2 = 33
+        while y < h:
+            if x >= 52:
+                inner_x = 4
             else:
-                print 'First handcard a x-coord: ' + str(x)
-                break
-                                           
-            
-                
->>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
+                inner_x = 3
+            rows = inner_x + 1 
+            while inner_x >= 0:
+                tmp_x = x + inner_x
+                r += pixels[tmp_x,y][0]
+                g += pixels[tmp_x,y][1]
+                b += pixels[tmp_x,y][2]
+                inner_x -= 1
+            y += 1
+        count = (h - h2) * rows
+        avgR = r/count
+        avgG = g/count
+        avgB = b/count
+        print x
+        x += rows
+        print '(' + str(avgR) + ' ' + str(avgG) + ' ' + str(avgB) + ')'
+
+def edge(p, count):
+    img = cv2.imread(p,0)
+    edges = cv2.Canny(img,237,73)
+    cardedges = []
+    printx = False
+    for x in range(237):
+       if edges[72, x] == 255:
+           if not printx:
+               print 'first x value:' + str(x)
+               printx = True
+           cardedges.append(x)
+    highest = []
+    twice = False
+    for i in range(len(cardedges) - 1):
+        x = cardedges[i+1]-cardedges[i]
+        if len(highest) < count:
+            highest.append(x)
+        
+        y = min(highest)
+        
+        if y < x:
+            if(twice == True):
+                twice = False
+            highest.remove(y)
+            highest.append(x)
+        if y == x:
+            twice == True
+    for n in range(len(highest)):
+        print highest[n]                
+    print twice   
     

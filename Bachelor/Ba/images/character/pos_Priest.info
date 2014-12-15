@@ -203,6 +203,7 @@ Priest/char80.png 1 0 0 81 119
 Priest/char88.png 1 0 0 81 119
 Priest/char9.png 1 0 0 81 119
 Priest/char99.png 1 0 0 81 119
+Priest/priest.png 1 0 0 95 140
 Priest/priest750.png 1 0 0 81 119
 Priest/priest751.png 1 0 0 81 119
 Priest/priest753.png 1 0 0 81 119
@@ -260,7 +261,6 @@ Priest/priest808.png 1 0 0 81 119
 Priest/priest809.png 1 0 0 81 119
 Priest/priest810.png 1 0 0 81 119
 Priest/priest811.png 1 0 0 81 119
-Priest/priest813.png 1 0 0 81 119
 Priest/priest814.png 1 0 0 81 119
 Priest/priest815.png 1 0 0 81 119
 Priest/priest817.png 1 0 0 81 119
@@ -390,5 +390,4 @@ Priest/priest961.png 1 0 0 81 119
 Priest/priest962.png 1 0 0 81 119
 Priest/priest963.png 1 0 0 81 119
 Priest/priest964.png 1 0 0 81 119
-Priest/priest965.png 1 0 0 81 119
 Priest/priest967.png 1 0 0 81 119

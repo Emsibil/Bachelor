@@ -46,11 +46,7 @@ def takingScreenshot():
 
 #Takes a Screenshot and compares if there is an End Turn button in the image and evaluate if it's your turn or the opponents one
 def isMyTurn():
-<<<<<<< HEAD
-    end_turn= cv2.CascadeClassifier(path("color_cascade.xml"))
-=======
     end_turn= cv2.CascadeClassifier(path("data\\endturn_cascade.xml"))
->>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
     while True:
         tmp_img = grab.grab()
         np_img = np.asarray(tmp_img)
@@ -63,10 +59,8 @@ def isMyTurn():
             print "His Turn or Menu"
         else:
             print "More than one End-Turn-Image. The training need to be more detailed!"
-<<<<<<< HEAD
         time.sleep(1)
-=======
-        time.sleep(2)
+
 
 #Calculates the avergage colour values of the given image
 def colorAvg(img):
@@ -113,7 +107,6 @@ def blobDetection(img, GameStart):
         while(x >= w/2):
             pix = img.crop((x-10, 0, x, h))
             cav = colorAvg(img.crop((x - 10, 0, x, h)))
->>>>>>> 519b96e1b8d49c598d1ce53a0b3545f05c1cb137
             
             pix = np.asarray(pix)
             base = np.asarray(imgValue[count])
@@ -149,7 +142,7 @@ def whoseTurn():
 #testing.object_detect()
 #testing.screenshots()
 
-#num = 1
+#num = 742
 #while True:
  #   time.sleep(2)
   #  testing.image_slicing(str(num))
@@ -177,21 +170,90 @@ def whoseTurn():
 #testing.blue()
 #p= path('images\\emptyHandboard')
 #for file in os.listdir(p):
- #   img = Image.open(p+'\\'+file)
-  #/  print str(colorAvg(img)) + '   ' + str(file)
+    #img = Image.open(p+'\\'+file)
+    #print str(colorAvg(img)) + '   ' + str(file)
 
 #p2= path('images\\myHand')
 #for file2 in os.listdir(p2):
 #    img1 = Image.open(p2+'\\'+file2)
 #    print colorAvg(img1)
 
-im1 = Image.open(path('images\\myHand\\myHand1.png'))
-im2 = Image.open(path('images\\myHand\\myHand9.png'))
-im3 = Image.open(path('images\\myHand\\myHand25.png'))
-im4 = Image.open(path('images\\myHand\\myHand100.png'))
-im5 = Image.open(path('images\\myHand\\myHand219.png'))
-testing.handcount(im1)
-testing.handcount(im2)
-testing.handcount(im3)
-testing.handcount(im4)
-testing.handcount(im5)
+#im = Image.open(path('images\\emptyHandboard\\emptyHuman.png'))  #0
+#im1 = Image.open(path('images\\myHand\\myHand1.png'))  #5
+#im2 = Image.open(path('images\\myHand\\myHand9.png')) #6
+#im3 = Image.open(path('images\\myHand\\myHand25.png'))  #7
+#im4 = Image.open(path('images\\myHand\\myHand100.png'))  #9
+#im5 = Image.open(path('images\\myHand\\myHand219.png')) #3
+#testing.handcount(im)
+#testing.handcount(im1)
+#testing.handcount(im2)
+#testing.handcount(im3)
+#testing.handcount(im4)
+#testing.handcount(im5)
+
+#print "pic"
+#testing.edge(path('images\\emptyHandboard\\emptyHuman.png'))
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand207.png'), 4)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand405.png'), 4)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand613.png'), 4)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand763.png'), 4)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand759.png'), 4)
+print "pic"
+testing.edge(path('images\\myHand\\myHand1.png'), 5)
+print "pic"
+testing.edge(path('images\\myHand\\myHand204.png'), 5)
+print "pic"
+testing.edge(path('images\\myHand\\myHand303.png'), 5)
+print "pic"
+testing.edge(path('images\\myHand\\myHand422.png'), 5)
+print "pic"
+testing.edge(path('images\\myHand\\myHand454.png'), 5)
+print "pic"
+testing.edge(path('images\\myHand\\myHand614.png'), 5)
+print "pic"
+testing.edge(path('images\\myHand\\myHand615.png'), 5)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand9.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand395.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand271.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand258.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand291.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand637.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand638.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand486.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand487.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand699.png'), 6)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand24.png'), 7)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand33.png'), 7)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand196.png'), 7)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand177.png'), 7)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand549.png'), 7)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand515.png'), 7)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand27.png'), 8)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand100.png'), 9)
+#print "pic"
+#testing.edge(path('images\\myHand\\myHand219.png'), 3)
+#print "pic"
+#testing.edge(path('images\\handtest.png'), 10)
