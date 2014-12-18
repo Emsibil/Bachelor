@@ -407,6 +407,40 @@ def edge(p):
     print '10 Handcards'
     
             
-           
+def singleMinions(img, minionsOnBoard):
+    uneven = minionsOnBoard % 2
+    w, h = img.size
+    minions = np.array()
+    if uneven == 1:
+        minionsInfo.append(img.crop((w/2 - 29, 0, w/2 +29, h)))
+        minionsOnBoard -= 1
+        if minionsOnBoard > 0:
+            minions = singleMinionsSupport(img, minionsOnBoard/2, w/2 + 29, minions)
+            minions = singleMinionsSupport(img, minionsOnBoard/2, ((w/2 - 29) - (58 * (minionsOnBoard/2))), minions)
+    else:
+       minions = singleMinionsSupport(img, minionsOnBoard/2, w/2, minions)
+       minions = singleMinionsSupport(img, minionsOnBoard/2, (w/2 - (58 * (minionsOnBoard/2))), minions, h, 58)
+    return minions
+        
+
+
+def singleMinionsSupport(img, count, xStart, array, height, stepRange):
+    array.append(img.crop(xStart, 0, xStart + stepRange, height))
+    count -= 1
+    if (count == 0):
+        return array
+    else:
+        array = singleMinionsSupport(img, count, xStart + stepRange, array, height, stepRange)
+        
+
+def singleMinionsValues(minions):
+    for minion in minions:
+        attack = minion.crop((8, 68, 17, 82))
+        life = minion.crop((40, 68, 49, 82))
+        attack.save(path('images\\attack')+'\\attack'+ +'.tif')
+        life.save(path('images\\life')+'\\life'+ +'.tif')
+    
+
+             
     
     
