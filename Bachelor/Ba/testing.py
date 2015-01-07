@@ -23,8 +23,6 @@ def path(fileName):
 sys.path.insert(0, path('lib'))
 import pytesser
 
-
-
 def takingScreen():
     im = ImageGrab.grab()
     plt.imshow(im), plt.show()
@@ -65,8 +63,7 @@ def testing_img2():
     print result3
     print result4
     print result5
-
-        
+            
 # cv2.cv.CalcEMD2(img, img2, cv2.cv.CV_DIST_L1, distance_func=None, cost_matrix=None, flow=None, lower_bound=None, userdata=None) 
 
 def mousemov(x, y):
@@ -149,8 +146,7 @@ def openProcess():
 
     processHandle = OpenProcess(PROCESS_ALL_ACCESS, False, pid)
     
-    print processHandle
-  
+    print processHandle  
 
 def blobs():
     image = cv2.imread("D:\\Pictures\\Hearthstone\\rdy\\rdy04.jpg")
@@ -171,7 +167,6 @@ def object_detect():
     cv2.imshow('img', img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
 
 import subprocess
 def grayscale():
@@ -208,17 +203,17 @@ def image_slicing(num):
     #my_mana = img.crop((508, 543, 546, 567))
     #stack = img.crop((118, 169, 149, 411))
     my_Hand = img.crop((246, 518, 483, 591))
-    enemy_Hand = img.crop((246, 0, 483, 44))
+    #enemy_Hand = img.crop((246, 0, 483, 44))
     #enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
     #mySide.save(path('images\\myField')+'\\field'+number+'.png')
     #turn.save(path('images\\turn')+'\\turn'+number+'.png')
-    #enemy.save(path('images\\character\\Paladin')+'\\paladin'+number+'.png')
-    #me.save(path('images\\character\\Shaman')+'\\shaman'+number+'.png')
+    #enemy.save(path('images\\character\\Hunter')+'\\hunter'+number+'.png')
+    #me.save(path('images\\character\\Warlock')+'\\warlock'+number+'.png')
     #enemy_mana.save(path('images\\mana')+'\\e_mana'+number+'.png')
     #my_mana.save(path('images\\mana')+'\\mana'+number+'.png')
     #stack.save(path('images\\stack')+'\\stack'+number+'.png')
     my_Hand.save(path('images\\myHand')+'\\myhand'+number+'.png')
-    enemy_Hand.save(path('images\\enemyHand')+'\\enemyhand'+number+'.png')
+    #enemy_Hand.save(path('images\\enemyHand')+'\\enemyhand'+number+'.png')
     print 'Done'
     
 def colorAvg(img):
@@ -257,6 +252,7 @@ def blobDetection(img, GameStart):
             imgValue.append(img.crop((x-10, 0, x, h)))
             colorValue.append(colorAvg(img.crop((x - 10, 0, x, h))))
             x -= 29
+        return 0
         #for x in colorValue: print x
     else:
         count = 0
@@ -287,11 +283,12 @@ def blobDetection(img, GameStart):
                     x -= 29
                     continue
                 print str(maxCount) + ' minions on board'
-                return
+                return maxCount
             else:
                 maxCount -= 1
                 count += 1
                 x -= 29
+        return 0
         
 def objdetect():
     s_arr = ['Paladin', 'Priest', 'Shaman', 'Warrior', 'Warlock', 'Mage', 'Druid', 'Hunter', 'Rogue']
@@ -376,7 +373,7 @@ def handcount(img):
         print '(' + str(avgR) + ' ' + str(avgG) + ' ' + str(avgB) + ')'
 
 def edge(p):
-    ranges = np.array([[111,120,1],[84,90,2],[57,63,3],[27,36,4],[23,31,5],[16,23,6],[14,21,7],[7,15,8],[3,7,10]]) 
+    ranges = np.array([[111,120,1],[84,90,2],[57,63,3],[27,36,4],[23,31,5],[16,23,6],[14,21,7],[7,15,8],[2, 9, 9], [3,7,10]]) 
     
     img = cv2.imread(p,0)
     edges = cv2.Canny(img,237,73)
@@ -399,48 +396,107 @@ def edge(p):
             if(leftEdges[1] == 21 and r[2] == 6):
                 tmp = 6
                 continue
+            elif (r[2] == 8):
+                r[2] = testingFromRight(edges)
             if((leftEdges[1] - leftEdges[0]) <= 3):
+                print str(leftEdges[0]) + '---' + str(leftEdges[1])
                 print str(r[2]) + ' Handcards sicher'
                 return
+            print str(leftEdges[0]) + '---' + str(leftEdges[1])
             print str(r[2]) + ' Handcards'
             return
-    print '10 Handcards'
-    
-            
+    print '10 Handcards'    
+
+def testingFromRight(edges):
+    handcards = None
+    count8 = 0   
+    count9 = 0
+    y = 51
+    while y < 70:
+        if edges[y, 2] == 255:
+            count9 += 1
+        if edges[y, 4] == 255:
+            count8 += 1
+        y += 1
+    if count8 > count9:
+        handcards = 8
+    elif count8 < count9:
+        handcards = 9   
+    else:
+        print str(count8) + '   ' + str(count9)
+    return handcards
+
+
 def singleMinions(img, minionsOnBoard):
-    uneven = minionsOnBoard % 2
+    minions = []   
+    if minionsOnBoard == 0:
+        return minions
+    uneven = minionsOnBoard % 2.0
     w, h = img.size
-    minions = np.array()
     if uneven == 1:
-        minionsInfo.append(img.crop((w/2 - 29, 0, w/2 +29, h)))
+        minions.append(img.crop((w/2 - 29, 0, w/2 +29, h)))
         minionsOnBoard -= 1
         if minionsOnBoard > 0:
-            minions = singleMinionsSupport(img, minionsOnBoard/2, w/2 + 29, minions)
-            minions = singleMinionsSupport(img, minionsOnBoard/2, ((w/2 - 29) - (58 * (minionsOnBoard/2))), minions)
+            minions = singleMinionsSupport(img, minionsOnBoard/2, w/2 + 29, minions, h, 58)
+            minions = singleMinionsSupport(img, minionsOnBoard/2, ((w/2 - 29) - (58 * (minionsOnBoard/2))), minions, h, 58)
     else:
-       minions = singleMinionsSupport(img, minionsOnBoard/2, w/2, minions)
+       minions = singleMinionsSupport(img, minionsOnBoard/2, w/2, minions, h, 58)
        minions = singleMinionsSupport(img, minionsOnBoard/2, (w/2 - (58 * (minionsOnBoard/2))), minions, h, 58)
     return minions
-        
-
 
 def singleMinionsSupport(img, count, xStart, array, height, stepRange):
-    array.append(img.crop(xStart, 0, xStart + stepRange, height))
+    array.append(img.crop((xStart, 0, xStart + stepRange, height)))
     count -= 1
     if (count == 0):
         return array
     else:
-        array = singleMinionsSupport(img, count, xStart + stepRange, array, height, stepRange)
-        
+        array = singleMinionsSupport(img, count, xStart + stepRange, array, height, stepRange)     
+    return array   
 
 def singleMinionsValues(minions):
+    if len(minions) == 0:
+        return
+    num = len(os.listdir(path('images\\attack')))
     for minion in minions:
         attack = minion.crop((8, 68, 17, 82))
         life = minion.crop((40, 68, 49, 82))
-        attack.save(path('images\\attack')+'\\attack'+ +'.tif')
-        life.save(path('images\\life')+'\\life'+ +'.tif')
+        attack.save(path('images\\attack')+'\\attack'+ str(num) +'.tif')
+        life.save(path('images\\life')+'\\life'+ str(num) +'.tif')
+        num += 1
+        
+
+def enemyDetection(img):
+    detected = 0
+    for cascade in os.listdir(path('data\\characters')):
+        casc = cv2.CascadeClassifier(path('data\\characters')+'\\'+cascade)
+        _img = np.asarray(img)
+        char = casc.detectMultiScale(_img, 1.1, 1)
+        if len(char) == 1:
+            detected += 1
+            print cascade
+    if detected == 1:
+        print 'Enemy Hero detected'
+    elif detected == 0:
+        print 'No Enemy Hero detected'
+    else:
+        print 'detection not clear'
+
     
 
-             
-    
+def renameAttack():
+    p = path('images\\attack')
+    num = 1
+    for file in os.listdir(p):
+        s, end = file.split('.')
+        name = s[:6] + str(num) + '.' + end
+        Image.open(p+'\\'+file).save(p+'\\'+name)
+        num += 1
+    p = path('images\\life')
+    num = 1
+    for file in os.listdir(p):
+        s, end = file.split('.')
+        name = s[:4] + str(num) + '.' + end
+        Image.open(p+'\\'+file).save(p+'\\'+name)
+        num += 1
+            
     
