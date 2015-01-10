@@ -194,8 +194,8 @@ def image_slicing(num):
     img = ImageGrab.grab()
     img = img.resize((800, 600), Image.BICUBIC)
     #img = img.convert('LA')
-    #enemySide = img.crop((197, 177, 605, 279))
-    #mySide = img.crop((197 , 281, 605, 383))
+    enemySide = img.crop((197, 177, 605, 279))
+    mySide = img.crop((197 , 281, 605, 383))
     #turn = img.crop((614, 248, 685, 292))
     #enemy = img.crop((361, 48, 442, 167))
     #me = img.crop((361, 394, 442, 513))
@@ -204,8 +204,8 @@ def image_slicing(num):
     #stack = img.crop((118, 169, 149, 411))
     my_Hand = img.crop((246, 518, 483, 591))
     #enemy_Hand = img.crop((246, 0, 483, 44))
-    #enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
-    #mySide.save(path('images\\myField')+'\\field'+number+'.png')
+    enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
+    mySide.save(path('images\\myField')+'\\field'+number+'.png')
     #turn.save(path('images\\turn')+'\\turn'+number+'.png')
     #enemy.save(path('images\\character\\Hunter')+'\\hunter'+number+'.png')
     #me.save(path('images\\character\\Warlock')+'\\warlock'+number+'.png')
@@ -388,8 +388,8 @@ def edge(p):
             if two == 2:
                 break
     if(leftEdges[1] > ranges[0,1]):
-        print '0 Handcards'
-        return 
+        #print '0 Handcards'
+        return 0 
     tmp = 0
     for r in ranges:
         if(leftEdges[0] >= r[0] and leftEdges[1] <= r[1]):
@@ -399,13 +399,14 @@ def edge(p):
             elif (r[2] == 8):
                 r[2] = testingFromRight(edges)
             if((leftEdges[1] - leftEdges[0]) <= 3):
-                print str(leftEdges[0]) + '---' + str(leftEdges[1])
-                print str(r[2]) + ' Handcards sicher'
-                return
-            print str(leftEdges[0]) + '---' + str(leftEdges[1])
-            print str(r[2]) + ' Handcards'
-            return
-    print '10 Handcards'    
+                #print str(leftEdges[0]) + '---' + str(leftEdges[1])
+                #print str(r[2]) + ' Handcards sicher'
+                return r[2]
+            #print str(leftEdges[0]) + '---' + str(leftEdges[1])
+            #print str(r[2]) + ' Handcards'
+            #return
+    #print '10 Handcards'
+    return 10    
 
 def testingFromRight(edges):
     handcards = None
@@ -458,13 +459,12 @@ def singleMinionsValues(minions):
         return
     num = len(os.listdir(path('images\\attack')))
     for minion in minions:
-        attack = minion.crop((8, 68, 17, 82))
-        life = minion.crop((40, 68, 49, 82))
+        attack = minion.crop((6, 68, 21, 82))
+        life = minion.crop((38, 68, 53, 82))
         attack.save(path('images\\attack')+'\\attack'+ str(num) +'.tif')
         life.save(path('images\\life')+'\\life'+ str(num) +'.tif')
         num += 1
         
-
 def enemyDetection(img):
     detected = 0
     for cascade in os.listdir(path('data\\characters')):
@@ -480,8 +480,6 @@ def enemyDetection(img):
         print 'No Enemy Hero detected'
     else:
         print 'detection not clear'
-
-    
 
 def renameAttack():
     p = path('images\\attack')
@@ -499,4 +497,29 @@ def renameAttack():
         Image.open(p+'\\'+file).save(p+'\\'+name)
         num += 1
             
-    
+def isMouseMoved():
+    NotMoved = True
+    pos =  win32api.GetCursorPos()
+    oldpos = pos
+    count = 0
+    while NotMoved:
+        pos = win32api.GetCursorPos()
+        if not pos == oldpos:
+            NotMoved = False
+            print NotMoved
+            isMouseMoved()
+        count += 1
+        if count == 30:
+            return True
+        time.sleep(0.1)
+        print NotMoved
+
+def boxing():
+    p = path('images\\life')
+    for file in os.listdir(p):
+        name, end = file.split('.')
+        box = name + '.box'
+        if end == 'tif' and not (box in os.listdir(p)):
+            newBox = open(p + '\\' + name + '.box', 'w')
+            newBox.write('? 0 0 15 14 0')
+        

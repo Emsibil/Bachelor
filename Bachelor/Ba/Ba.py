@@ -217,7 +217,7 @@ def enemyDetection(img):
         char = casc.detectMultiScale(_img, 1.1, 1)
         if len(char) == 1:
             detected += 1
-            print cascade
+            #print cascade
     if detected == 1:
         print 'Enemy Hero detected'
         name, tag = cascade.split('.')
@@ -333,7 +333,7 @@ def myEnemy():
 #testing.object_detect()
 #testing.screenshots()
 
-#num = 1260
+#num = 2000
 #while True:
  #   time.sleep(2)
   #  testing.image_slicing(str(num))
@@ -349,7 +349,6 @@ def boardCutting():
             GameStart = False
         else: 
             testing.singleMinionsValues(testing.singleMinions(img, blobDetection(img, GameStart, 'ENEMY')))
-
 #boardCutting()
 #testing.renameAttack()
 #myEnemy()
@@ -365,7 +364,6 @@ def boardCutting():
 #print "pic"
 #testing.edge(path('images\\myHand\\myHand79.png'))
 
-
-
-    
+#testing.isMouseMoved()
+testing.boxing()
     
