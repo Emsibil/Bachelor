@@ -301,7 +301,7 @@ def gameStart():
     global enemyHero
 
     #firstScreen
-    takingScreeshot()
+    takingScreenshot()
 
     #save which background is used
     blobDetection(enemySide, True, 'ENEMY')
@@ -333,11 +333,11 @@ def myEnemy():
 #testing.object_detect()
 #testing.screenshots()
 
-num = 3000
-while True:
-    time.sleep(2)
-    testing.image_slicing(str(num))
-    num += 1
+#num = 3000
+#while True:
+ #   time.sleep(2)
+  #  testing.image_slicing(str(num))
+   # num += 1
 
 def boardCutting():
     GameStart = True
@@ -366,4 +366,5 @@ def boardCutting():
 
 #testing.isMouseMoved()
 #testing.boxing()
+testing.numberChange()
     

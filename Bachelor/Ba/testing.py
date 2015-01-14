@@ -46,7 +46,7 @@ def testing_img2():
     img1 = Image.open('D:\BA\Pictures\StartScreen.png')
     img_width, img_height = img1.size
     img2 = ImageGrab.grab(bbox=(0,0,img_width,img_height))
-    img_2 = numpy.asarray(img2)
+    img_2 = np.asarray(img2)
     #imgTwo = cv2.cvtColor(img_2,cv2.COLOR_BGR2GRAY)
 
     hist1 = cv2.calcHist([img], [0], None, [256],[0, 255])
@@ -523,3 +523,23 @@ def boxing():
             newBox = open(p + '\\' + name + '.box', 'w')
             newBox.write('? 0 0 15 14 0')
         
+def numberChange():
+    p = path('images\\life')
+    for file in os.listdir(p):
+        name, end = file.split('.')
+        if end == 'box':
+            box = open(p+'\\'+file, 'r+')
+            line = box.read()
+            if '?' in line:
+                img = cv2.imread(p+'\\'+name + '.tif', 1)
+                plt.imshow(img), plt.show()
+                input = raw_input('Enter the number: ')
+                print 'number: ' + str(input)
+                line.replace('?', str(input))
+                box.write(line)
+            box.close()
+                
+                
+                
+            
+            
