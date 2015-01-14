@@ -202,7 +202,7 @@ def image_slicing(num):
     #enemy_mana = img.crop((490, 26, 528, 50))
     #my_mana = img.crop((508, 543, 546, 567))
     #stack = img.crop((118, 169, 149, 411))
-    my_Hand = img.crop((246, 518, 483, 591))
+    #my_Hand = img.crop((246, 518, 483, 591))
     #enemy_Hand = img.crop((246, 0, 483, 44))
     enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
     mySide.save(path('images\\myField')+'\\field'+number+'.png')
@@ -212,7 +212,7 @@ def image_slicing(num):
     #enemy_mana.save(path('images\\mana')+'\\e_mana'+number+'.png')
     #my_mana.save(path('images\\mana')+'\\mana'+number+'.png')
     #stack.save(path('images\\stack')+'\\stack'+number+'.png')
-    my_Hand.save(path('images\\myHand')+'\\myhand'+number+'.png')
+    #my_Hand.save(path('images\\myHand')+'\\myhand'+number+'.png')
     #enemy_Hand.save(path('images\\enemyHand')+'\\enemyhand'+number+'.png')
     print 'Done'
     
