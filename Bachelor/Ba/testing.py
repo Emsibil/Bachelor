@@ -515,31 +515,18 @@ def isMouseMoved():
         print NotMoved
 
 def boxing():
-    p = path('images\\life')
+    p = path('images\\attack')
     for file in os.listdir(p):
         name, end = file.split('.')
         box = name + '.box'
         if end == 'tif' and not (box in os.listdir(p)):
             newBox = open(p + '\\' + name + '.box', 'w')
-            newBox.write('? 0 0 15 14 0')
-        
-def numberChange():
-    p = path('images\\life')
-    for file in os.listdir(p):
-        name, end = file.split('.')
-        if end == 'box':
-            box = open(p+'\\'+file, 'r+')
-            line = box.read()
-            if '?' in line:
-                img = cv2.imread(p+'\\'+name + '.tif', 1)
-                plt.imshow(img), plt.show()
-                input = raw_input('Enter the number: ')
-                print 'number: ' + str(input)
-                line.replace('?', str(input))
-                box.write(line)
-            box.close()
-                
-                
-                
             
+            input = raw_input('Enter the number: ')
+            print 'number: ' + str(input)
+            newBox.write(str(input) + ' 0 0 15 14 0')
+
+
+
+
             

@@ -365,6 +365,4 @@ def boardCutting():
 #testing.edge(path('images\\myHand\\myHand79.png'))
 
 #testing.isMouseMoved()
-#testing.boxing()
-testing.numberChange()
-    
+testing.boxing()
