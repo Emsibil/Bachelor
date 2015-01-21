@@ -527,6 +527,61 @@ def boxing():
             newBox.write(str(input) + ' 0 0 15 14 0')
 
 
+def sort():
+     p = path('images\\attack')
+     toDel = []
+     for file in os.listdir(p):
+        name, end = file.split('.')
+        if end == 'box':
+            file2 = open(p+'\\'+file, 'r')
+            content = file2.read()
+            if '?' in content:
+                print name
+                toDel.append(p+'\\'+name+'.tif')
+                toDel.append(p+'\\'+name+'.box')
+            file2.close()
+     for k in toDel:
+         print k
+         os.remove(k)
+        
 
+     p = path('images\\life')
+     toDel = []
+     for file in os.listdir(p):
+        name, end = file.split('.')
+        if end == 'box':
+            file2 = open(p+'\\'+file, 'r')
+            content = file2.read()
+            if '?' in content:
+                print name
+                toDel.append(p+'\\'+name+'.tif')
+                toDel.append(p+'\\'+name+'.box')
+                file2.close()
+     for k in toDel:
+         print k
+         os.remove(k)
 
-            
+def rename():
+    p = path('images\\combined')
+    num = 0
+    name = 'hearth'
+    for file in os.listdir(p):
+        front , dict, end = file.split('.')
+        os.rename(p+'\\'+file, p+'\\'+front+'.'+name+'.exp'+str(num)+'.'+end)
+        if end == 'tif':
+            num +=1
+
+def eight():
+   # p= path('images\\attack')
+    p2 = path('images\\attack_grey')
+   # for file in os.listdir(p):
+    #    name, end = file.split('.')
+     #   if end == 'tif':
+        #    img = Image.open(p +'\\' + file)
+           # img.save(p2+'\\'+name+'.png')
+    
+    for file in os.listdir(p2):
+        img = Image.open(p2+'\\'+file)
+        img = img.resize((8,8), Image.BICUBIC)
+        img =  img.convert('LA')
+        img.save(p2+'\\'+file)
