@@ -585,3 +585,89 @@ def eight():
         img = img.resize((8,8), Image.BICUBIC)
         img =  img.convert('LA')
         img.save(p2+'\\'+file)
+        
+def decoloringNumbers(img):
+    w, h = img.size
+    pixels = img.load()
+    tmp_pixels = controllingGreen(pixels, w, h)
+    if(tmp_pixels == None):
+        tmp_pixels = controllingRed(pixels, w, h)
+    if(tmp_pixels == None):
+        tmp_pixels = controllingWhite(pixels, w, h)
+    pixels = tmp_pixels
+    num = len(os.listdir(path('images\\black_white')))
+    img.save(path('images\\black_white')+'\\num'+str(num)+'.png')
+    
+
+def controllingGreen(pixels, w, h):    
+    count = 0
+    for x in range(w):
+        for y in range(h):
+            r, g, b = pixels[x,y]
+            if x >= (w/2) and count == 0:
+                return None;
+            if r > 100 and g == 0 and b == 0:
+                pixels[x,y] = (255, 255, 255)
+                count += 1
+            else:
+                pixels[x,y]= (0, 0, 0)
+    return pixels
+
+def controllingRed(pixels, w, h):                
+    count = 0
+    for x in range(w):
+        for y in range(h):
+            r, g, b = pixels[x,y]
+            if x >= (w/2) and count == 0:
+                return None
+            if r==0 and g > 100 and b == 0:
+                pixels[x,y] = 255
+            else:
+                pixels[x,y]= (0, 0, 0)
+    return pixels 
+          
+def controllingWhite(pixels, w, h):             
+    for x in range(w):
+        for y in range(h):
+            r, g, b = pixels[x,y]
+            if (r > 100) and (b > 100) and (g > 100):
+                diffrb = np.abs(r-b)
+                diffrg = np.abs(r-g)
+                diffgb = np.abs(g-b)
+                if diffrg < 25 and diffrb < 25 and diffgb <25:
+                    pixels[x,y]= (255, 255, 255)
+                else: 
+                    pixels[x,y] = (0,0,0)
+            else:
+                pixels[x,y]= (0, 0, 0)
+    return pixels
+
+def testdecolor():
+    p= path('images\\attack')
+    for file in os.listdir(p):
+        name, end = file.split('.')
+        if end == 'tif':
+            img = Image.open(p+'\\'+file)
+            decoloringNumbers(img)
+            
+    p2= path('images\\life')
+    for file2 in os.listdir(p2):
+        name, end = file2.split('.')
+        if end == 'tif':
+            img = Image.open(p2+'\\'+file2)
+            decoloringNumbers(img)  
+four = []            
+def createNumberMatrix():
+    global four
+    img = Image.open(path('images\\black_white\\num2195.png'))
+    pixels = img.load()
+    w, h = img.size
+    for y in range(h):
+        for x in range(w):
+            if pixels[x,y] == (255, 255, 255):
+                four.append((x, y))
+            
+import sklearn
+
+ 
+                

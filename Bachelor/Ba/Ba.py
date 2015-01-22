@@ -368,4 +368,5 @@ def boardCutting():
 #testing.boxing()
 #testing.sort()
 #testing.rename()
-testing.eight()
+#testing.eight()
+testing.testdecolor()
