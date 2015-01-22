@@ -1,8 +1,8 @@
 import numpy as np
 import cv2
 import psutil
-from PIL import Image
-from PIL import ImageGrab
+import Image
+import ImageGrab
 import matplotlib.pyplot as plt
 from threading import Timer
 import win32api, win32con
@@ -594,7 +594,8 @@ def decoloringNumbers(img):
         tmp_pixels = controllingRed(pixels, w, h)
     if(tmp_pixels == None):
         tmp_pixels = controllingWhite(pixels, w, h)
-    pixels = tmp_pixels
+    
+    pixels = makeBlack(tmp_pixels, w, h)
     num = len(os.listdir(path('images\\black_white')))
     img.save(path('images\\black_white')+'\\num'+str(num)+'.png')
     
@@ -607,10 +608,9 @@ def controllingGreen(pixels, w, h):
             if x >= (w/2) and count == 0:
                 return None;
             if r > 100 and g == 0 and b == 0:
-                pixels[x,y] = (255, 255, 255)
+                pixels[x,y] = (0, 0, 0)
                 count += 1
-            else:
-                pixels[x,y]= (0, 0, 0)
+
     return pixels
 
 def controllingRed(pixels, w, h):                
@@ -621,25 +621,29 @@ def controllingRed(pixels, w, h):
             if x >= (w/2) and count == 0:
                 return None
             if r==0 and g > 100 and b == 0:
-                pixels[x,y] = 255
-            else:
-                pixels[x,y]= (0, 0, 0)
+                pixels[x,y] = (0, 0, 0)
+                count += 1
+            
     return pixels 
           
 def controllingWhite(pixels, w, h):             
     for x in range(w):
         for y in range(h):
             r, g, b = pixels[x,y]
-            if (r > 100) and (b > 100) and (g > 100):
+            if (r > 150) and (b > 150) and (g > 150):
                 diffrb = np.abs(r-b)
                 diffrg = np.abs(r-g)
                 diffgb = np.abs(g-b)
-                if diffrg < 25 and diffrb < 25 and diffgb <25:
-                    pixels[x,y]= (255, 255, 255)
-                else: 
-                    pixels[x,y] = (0,0,0)
-            else:
-                pixels[x,y]= (0, 0, 0)
+                if (diffrg < 25) and (diffrb < 25) and (diffgb < 25):
+                    pixels[x,y]= (0, 0, 0)
+
+    return pixels
+
+def makeBlack(pixels, w, h):
+    for x in range(w):
+        for y in range(h):
+            if not pixels[x,y] == (0, 0, 0):
+                pixels[x, y] = (255, 255, 255)
     return pixels
 
 def testdecolor():
@@ -656,18 +660,8 @@ def testdecolor():
         if end == 'tif':
             img = Image.open(p2+'\\'+file2)
             decoloringNumbers(img)  
-four = []            
-def createNumberMatrix():
-    global four
-    img = Image.open(path('images\\black_white\\num2195.png'))
-    pixels = img.load()
-    w, h = img.size
-    for y in range(h):
-        for x in range(w):
-            if pixels[x,y] == (255, 255, 255):
-                four.append((x, y))
-            
-import sklearn
+
+
 
  
                 
