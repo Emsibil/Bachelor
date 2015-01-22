@@ -79,6 +79,7 @@ def isMyTurn(img):
         return False
     
 
+
 #Calculates the avergage colour values of the given image
 def colorAvg(img):
     w, h = img.size
@@ -369,4 +370,5 @@ def boardCutting():
 #testing.sort()
 #testing.rename()
 #testing.eight()
-testing.testdecolor()
+#testing.testdecolor()
+testing.digits()

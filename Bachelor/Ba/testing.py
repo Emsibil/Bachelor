@@ -662,6 +662,18 @@ def testdecolor():
             decoloringNumbers(img)  
 
 
+import pylab as pl
+from sklearn import datasets, svm, metrics
 
- 
-                
+def digits():
+    img1 = Image.open(path('images\\black_white\\num0_1.png'))
+    img2 = Image.open(path('images\\black_white\\num7_1.png'))
+    pics = [img1, img2]
+    digits = datasets.load_digits()
+    n_samples=digits.images.shape[0]
+    classifier = svm.SVC(gamma=0.001)
+    classifier.fit(digits.data[:n_samples], digits.target[:n_samples])
+    predicted = classifier.predict(pics)
+    
+
+    
