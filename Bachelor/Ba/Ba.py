@@ -371,4 +371,6 @@ def boardCutting():
 #testing.rename()
 #testing.eight()
 #testing.testdecolor()
-testing.digits()
+#print testing.digit_data()[0]
+#testing.resort_number()
+testing.data()

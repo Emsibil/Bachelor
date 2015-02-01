@@ -674,6 +674,110 @@ def digits():
     classifier = svm.SVC(gamma=0.001)
     classifier.fit(digits.data[:n_samples], digits.target[:n_samples])
     predicted = classifier.predict(pics)
+
+def digit_data():
+    p = path('images/black_white')
+    img_arr = []
+    for f in os.listdir(p):
+        name, end = f.split('.')
+        if end == 'png':
+            img = Image.open(p+'/'+f)
+            w, h = img.size
+            pixel = img.load()
+            y_arr = []
+            for y in range(h):
+                x_arr = []
+                for x in range(w):
+                    r , g, b = pixel[x,y]
+                    sum = ((255 - (r + g + b)/3) / 255)
+                    x_arr.append(sum)
+                x_arr = np.array(x_arr)
+                y_arr.append(x_arr)
+            y_arr = np.array(y_arr)
+            img_arr.append(y_arr)
+    return np.array(img_arr)
+
+def  resort_number():
+    p = path('images/black_white')
+    f = open(p+'/target.info', 'w')
+    arr = []
+    n = 0
+    while n <= 3243:
+        for file in os.listdir(p):
+            name, end = file.split('.')
+            if str(n) == name[3:]:
+                num = raw_input(str(n) + ' -- Number: ')
+                arr.append((n, num))
+        n += 1
+    for i in arr:
+        f.write(str(i[0]) + ' ' + str(i[1]) +'\n')
+  
+def naming():
+    file = open(path('images/black_white/target.info'), 'w')
+    arr = ['0','1','2','3','4','5','6','7','8','9','0','x']
+    for s in arr:
+        p = path('images/'+s)
+        for f in os.listdir(p):
+            name, end = f.split('.')
+            file.write(str(name[3:]) + ' ' + s + '\n')
+
+def resort():
+    f = open(path('images/black_white/target.info'), 'r')
+    c = f.readlines()
+
+    start = (0, 0)
+
+    arr1 = []
+
+    for l in c:     
+        arr1.append(str(l))
+
+    arr = np.array(arr1)
+    arr.sort()
+    
+    f2 = open(path('images/black_white/target3.info'), 'w')
+    for a in arr:
+        f2.write(a.split(' ')[1])
+
+def data():
+    f = open(path('images/black_white/target3.info'), 'r')
+    content = f.readlines()
+    numbers = []
+    for l in content:
+        num = str(l)[:1]
+        numbers.append(num)
+    numbers = np.array(numbers)
+    n = 0
+    data = np.array(digit_data())
+    while n < len(data):
+        print n
+        print data[n], numbers[n]
+        n += 1
+        input = raw_input(' ')
+
+
+
+
+
+
+    
+    
+            
+            
+
+
+
+
+
+
+
+  
+        
+
+
+            
+
+
     
 
     
