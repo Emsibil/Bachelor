@@ -373,4 +373,6 @@ def boardCutting():
 #testing.testdecolor()
 #print testing.digit_data()[0]
 #testing.resort_number()
-testing.data()
+#testing.data()
+testing.my_digits()
+#testing.digits()

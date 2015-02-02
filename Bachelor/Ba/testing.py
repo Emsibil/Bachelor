@@ -666,14 +666,26 @@ import pylab as pl
 from sklearn import datasets, svm, metrics
 
 def digits():
-    img1 = Image.open(path('images\\black_white\\num0_1.png'))
-    img2 = Image.open(path('images\\black_white\\num7_1.png'))
-    pics = [img1, img2]
+    # The digits dataset
     digits = datasets.load_digits()
-    n_samples=digits.images.shape[0]
+
+    # To apply a classifier on this data, we need to flatten the image, to
+    # turn the data in a (samples, feature) matrix:
+    n_samples = len(digits.images)
+    data = digits.images.reshape((n_samples, -1))
+    print data
+    print data.shape
+    print digits.images.shape
+    
+    # Create a classifier: a support vector classifier
     classifier = svm.SVC(gamma=0.001)
-    classifier.fit(digits.data[:n_samples], digits.target[:n_samples])
-    predicted = classifier.predict(pics)
+
+    # We learn the digits on the first half of the digits
+    classifier.fit(data[:n_samples / 2], digits.target[:n_samples / 2])
+
+    # Now predict the value of the digit on the second half:
+    expected = digits.target[n_samples / 2:]
+    predicted = classifier.predict(data[n_samples / 2:])
 
 def digit_data():
     p = path('images/black_white')
@@ -686,13 +698,13 @@ def digit_data():
             pixel = img.load()
             y_arr = []
             for y in range(h):
-                x_arr = []
+                #x_arr = []
                 for x in range(w):
                     r , g, b = pixel[x,y]
                     sum = ((255 - (r + g + b)/3) / 255)
-                    x_arr.append(sum)
-                x_arr = np.array(x_arr)
-                y_arr.append(x_arr)
+                    y_arr.append(np.float(sum))
+                #x_arr = np.array(x_arr)
+                #y_arr.append(x_arr)
             y_arr = np.array(y_arr)
             img_arr.append(y_arr)
     return np.array(img_arr)
@@ -739,22 +751,58 @@ def resort():
     for a in arr:
         f2.write(a.split(' ')[1])
 
-def data():
-    f = open(path('images/black_white/target3.info'), 'r')
+class Bunch(dict):
+    def __init__(self, **kwargs):
+        dict.__init__(self, kwargs)
+        self.__dict__ = self
+
+def _data():
+    f = open(path('images/black_white/target4.info'), 'r')
     content = f.readlines()
     numbers = []
     for l in content:
-        num = str(l)[:1]
-        numbers.append(num)
-    numbers = np.array(numbers)
+        num = str(l).split(' ')[1]
+        num = num[:1]
+        if num == 'x':
+            num = 10
+        numbers.append(np.int(num))
+    target = np.array(numbers)
     n = 0
     data = np.array(digit_data())
-    while n < len(data):
-        print n
-        print data[n], numbers[n]
-        n += 1
-        input = raw_input(' ')
+    images = data.view()
+    images.shape = (-1, 14, 15)
 
+    return Bunch(data = data,
+                 target = target.astype(np.int),
+                 target_names=np.arange(11),
+                 images=images,
+                 DESCR = 'my digits')
+    
+
+
+    #while n < len(data):
+     #  dataset[0].append(data[n])
+      # dataset[1].append(numbers[n])
+       #n += 1
+   # return Bunch(data = dataset[0]
+    #             target = 
+     #            target_names =
+      #           images =
+       #          DESCR =
+        #)
+
+def my_digits():
+    digits = _data()
+    
+    n_samples = len(digits.images)
+    datas = digits.images.reshape((n_samples, -1))
+    classifier = svm.SVC(gamma=0.001)
+    classifier.fit(datas[:n_samples / 2], digits.target[:n_samples / 2])
+
+    expected = digits.target[n_samples / 2:]
+    predicted = classifier.predict(datas[n_samples / 2:])
+    print expected
+    print predicted
 
 
 
