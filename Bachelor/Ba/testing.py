@@ -12,6 +12,7 @@ import os
 import sys
 from boto.dynamodb.condition import NULL
 from networkx.generators.community import caveman_graph
+from sympy.core.sets import imageset
 
 
 def path(fileName):
@@ -801,8 +802,81 @@ def my_digits():
 
     expected = digits.target[n_samples / 2:]
     predicted = classifier.predict(datas[n_samples / 2:])
-    print expected
-    print predicted
+    
+    #n = 0
+    #count = 0
+    #while n < len(predicted):
+     #   if not predicted[n] == expected[n]:
+      #      print predicted[n], expected[n]
+       #     count += 1
+        #n += 1
+    #print len(predicted)
+    #print 'wrong: ' + str(count)
+     
+def biggerThanNine(new_digit, clf):
+    zeroArr = np.zeros(15)
+    images = new_digit.images
+    for array in images:
+        for i in range(2, len(array) - 3):
+            if array[i] == 0:
+                zeroArr[i] += 1
+    indexOfMax = np.argwhere(zeroArr == np.amax(zeroArr))
+    image_one = []
+    image_two = []
+    for array in images:
+        i = 0
+        tmp_arr1 = []
+        tmp_arr2 = []
+        while i < len(array):
+            if i < indexOfMax:
+                tmp_arr1.append(array[i])
+            elif i == indexOfMax:
+                tmp_arr1.append(array[i])
+                tmp_arr2.append(array[i])
+            else:
+                tmp_arr2.append(array[i])
+            i += 1
+        image_one.append(np.array(tmp_arr1))
+        image_two.append(np.array(tmp_arr2))
+    image_one = np.array(image_one)
+    image_two = np.array(image_two)
+    
+    for arr in image_one:
+        half = (15 - len(arr))/2
+        while half > 0:
+            np.insert(arr, 0, 0)
+            arr.append(0)
+            half -= 1
+        if not len(arr) == 15:
+            arr.append(0)
+            
+    for arr in image_two:
+        half = (15 - len(arr))/2
+        while half > 0:
+            np.insert(arr, 0, 0)
+            arr.append(0)
+            half -= 1
+        if not len(arr) == 15:
+            arr.append(0)
+    
+    dataOne = image_one.flatten(),
+                   
+    dataTwo =image_two.flatten()
+        
+    pr1 = clf.predict(dataOne)
+    pr2 = clf.predict(dataTwo)
+    
+    return int(str(pr1)+str(pr2))    
+
+
+    
+            
+        
+        
+    
+    
+    
+       
 
 
 

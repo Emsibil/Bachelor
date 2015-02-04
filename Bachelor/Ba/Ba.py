@@ -7,7 +7,7 @@ import Image
 import time
 from itertools import izip
 import os
-
+from sklearn import svm
 #tests if Hearthstone is already in my processlist of Windows.
 def isHearthstoneRunning():
     processes = psutil.get_pid_list()
@@ -67,6 +67,7 @@ def takingScreenshot():
     enemy_Hand = img.crop((246, 0, 483, 44))
 
 #returns bool and detects if it's my turn
+
 def isMyTurn(img):
     end_turn= cv2.CascadeClassifier(path("data\\turn\\turn.xml"))
     _img = np.asarray(img)
@@ -78,8 +79,6 @@ def isMyTurn(img):
         print "Enemy Turn"
         return False
     
-
-
 #Calculates the avergage colour values of the given image
 def colorAvg(img):
     w, h = img.size
@@ -108,10 +107,12 @@ def colorAvg(img):
     return (rAvg, gAvg, bAvg)
 
 #global vars for blobDetection()
+
 colorValue = []
 imgValue = []
 eColorValue = []
 eImgValue = []
+
 #detects how many minions are on the board. "GameStart" needs to be True for the first Screenshot in a Game
 def blobDetection(img, GameStart, side):
     
@@ -190,8 +191,8 @@ def singleMinions(img, minionsOnBoard):
             minions = singleMinionsSupport(img, minionsOnBoard/2, w/2 + 29, minions, h, 58)
             minions = singleMinionsSupport(img, minionsOnBoard/2, ((w/2 - 29) - (58 * (minionsOnBoard/2))), minions, h, 58)
     else:
-       minions = singleMinionsSupport(img, minionsOnBoard/2, w/2, minions, h, 58)
-       minions = singleMinionsSupport(img, minionsOnBoard/2, (w/2 - (58 * (minionsOnBoard/2))), minions, h, 58)
+        minions = singleMinionsSupport(img, minionsOnBoard/2, w/2, minions, h, 58)
+        minions = singleMinionsSupport(img, minionsOnBoard/2, (w/2 - (58 * (minionsOnBoard/2))), minions, h, 58)
     return minions   
 
 def singleMinionsSupport(img, count, xStart, array, height, stepRange):
@@ -201,9 +202,19 @@ def singleMinionsSupport(img, count, xStart, array, height, stepRange):
         return array
     else:
         array = singleMinionsSupport(img, count, xStart + stepRange, array, height, stepRange)     
-    return array     
+    return array      
 
 #global var for saving the enemy Hero
+
+def singleMinionsValues(minions):
+    if len(minions) == 0:
+        return
+    for minion in minions:
+        attack = minion.crop((6, 68, 21, 82))
+        life = minion.crop((38, 68, 53, 82))
+        
+        print str(minion) + "Attack: " + str(numberClassifier(attack)) + "Life: " + str(numberClassifier(life))
+        
 enemyHero = None
 
 #which hero plays the enemy
@@ -266,6 +277,7 @@ def countHandcards(img):
     return 10    
 
 #Method for more a detailled test if there are 8 or 9 handcards
+
 def testingFromRight(edges):
     handcards = None
     count8 = 0   
@@ -285,8 +297,129 @@ def testingFromRight(edges):
         print str(count8) + '   ' + str(count9)
     return handcards
 
+number_clf = None
+
+def decoloringNumbers(img):
+    w, h = img.size
+    pixels = img.load()
+    tmp_pixels = controllingGreen(pixels, w, h)
+    if(tmp_pixels == None):
+        tmp_pixels = controllingRed(pixels, w, h)
+    if(tmp_pixels == None):
+        tmp_pixels = controllingWhite(pixels, w, h)
+    
+    pixels = makeBlack(tmp_pixels, w, h)
+ 
+def controllingGreen(pixels, w, h):    
+    count = 0
+    for x in range(w):
+        for y in range(h):
+            r, g, b = pixels[x,y]
+            if x >= (w/2) and count == 0:
+                return None;
+            if r > 100 and g == 0 and b == 0:
+                pixels[x,y] = (0, 0, 0)
+                count += 1
+
+    return pixels
+
+def controllingRed(pixels, w, h):                
+    count = 0
+    for x in range(w):
+        for y in range(h):
+            r, g, b = pixels[x,y]
+            if x >= (w/2) and count == 0:
+                return None
+            if r==0 and g > 100 and b == 0:
+                pixels[x,y] = (0, 0, 0)
+                count += 1
+            
+    return pixels 
+          
+def controllingWhite(pixels, w, h):             
+    for x in range(w):
+        for y in range(h):
+            r, g, b = pixels[x,y]
+            if (r > 150) and (b > 150) and (g > 150):
+                diffrb = np.abs(r-b)
+                diffrg = np.abs(r-g)
+                diffgb = np.abs(g-b)
+                if (diffrg < 25) and (diffrb < 25) and (diffgb < 25):
+                    pixels[x,y]= (0, 0, 0)
+
+    return pixels
+
+def makeBlack(pixels, w, h):
+    for x in range(w):
+        for y in range(h):
+            if not pixels[x,y] == (0, 0, 0):
+                pixels[x, y] = (255, 255, 255)
+    return pixels
+
+class Bunch(dict):
+    def __init__(self, **kwargs):
+        dict.__init__(self, kwargs)
+        self.__dict__ = self
+        
+def formatImageToSVCData(img):
+    w, h = img.size
+    pixel = img.load()
+    y_arr = []
+    for y in range(h):
+        for x in range(w):
+            y_arr.append(np.float(((255 - (pixel[x,y][0] + pixel[x,y][1] + pixel[x,y][2])/3) / 255)))  
+        y_arr = np.array(y_arr)
+        
+    image = y_arr.view()
+    image.shape = (-1, 14, 15)
+    
+    return Bunch(data = np.array(y_arr),
+                 target = np.int(0),
+                 target_name = np.arange(0),
+                 image = image,
+                 DESCR = 'my digits')
+
+def my_digits():
+    global number_clf
+    
+    digits = testing._data()
+    
+    n_samples = len(digits.images)
+    datas = digits.images.reshape((n_samples, -1))
+    classifier = svm.SVC(gamma=0.001)
+    classifier.fit(datas, digits.target)
+    
+    number_clf = classifier
+
+def numberClassifier(img):
+
+    global number_clf
+    
+    digit = formatImageToSVCData(img)
+    
+    predict = number_clf.predict(digit.data)
+    
+    if predict == 10:
+        predict = testing.biggerThanNine(digit, number_clf)
+    
+    return predict
+
+def GameStart():
+    global enemySide
+    global mySide
+    global enemyHero
+    
+    #enemy hero detection
+    enemyDetection(enemy)
+    
+    print 'Your opponent plays: ' + str(enemyHero)
+    
+    #save which background is used
+    blobDetection(enemySide, True, 'ENEMY')
+    blobDetection(mySide, True, 'MY')
+    
 #Methods and function which needs to run at the beginning of a game
-def gameStart():
+def gameControl():
     
     #global vars where Screenshots and all other information are saved
     global enemySide
@@ -303,19 +436,18 @@ def gameStart():
 
     #firstScreen
     takingScreenshot()
+    
+    minionsOnEnemySide = blobDetection(enemySide, False, 'ENEMY')
+    minionsOnMySide = blobDetection(mySide, False, 'MY')
+    
+    print 'Minions on enemy Side: ' + str(minionsOnEnemySide)
+    print 'Minions on my side: ' + str(minionsOnMySide)
+    
+    singleMinionsValues(singleMinions(enemySide, minionsOnEnemySide))
+    singleMinionsValues(singleMinions(mySide, minionsOnMySide))
 
-    #save which background is used
-    blobDetection(enemySide, True, 'ENEMY')
-    blobDetection(mySide, True, 'MY')
-
-    #enemy hero detection
-    enemyDetection(enemy)
-
-
-
-
-
-
+def Main():
+    my_digits()
 
 def whoseTurn():
     while True:
@@ -374,5 +506,5 @@ def boardCutting():
 #print testing.digit_data()[0]
 #testing.resort_number()
 #testing.data()
-testing.my_digits()
+#testing.my_digits()
 #testing.digits()
