@@ -13,6 +13,7 @@ import sys
 from boto.dynamodb.condition import NULL
 from networkx.generators.community import caveman_graph
 from sympy.core.sets import imageset
+from sklearn.ensemble.forest import RandomForestClassifier
 
 
 def path(fileName):
@@ -797,21 +798,22 @@ def my_digits():
     
     n_samples = len(digits.images)
     datas = digits.images.reshape((n_samples, -1))
-    classifier = svm.SVC(gamma=0.001)
+    #classifier = svm.SVC(gamma=0.001)
+    classifier = RandomForestClassifier()
     classifier.fit(datas[:n_samples / 2], digits.target[:n_samples / 2])
 
     expected = digits.target[n_samples / 2:]
     predicted = classifier.predict(datas[n_samples / 2:])
     
-    #n = 0
-    #count = 0
-    #while n < len(predicted):
-     #   if not predicted[n] == expected[n]:
-      #      print predicted[n], expected[n]
-       #     count += 1
-        #n += 1
-    #print len(predicted)
-    #print 'wrong: ' + str(count)
+    n = 0
+    count = 0
+    while n < len(predicted):
+        if not predicted[n] == expected[n]:
+            print predicted[n], expected[n]
+            count += 1
+        n += 1
+    print len(predicted)
+    print 'wrong: ' + str(count)
      
 def biggerThanNine(new_digit, clf):
     zeroArr = np.zeros(15)
@@ -869,12 +871,8 @@ def biggerThanNine(new_digit, clf):
     return int(str(pr1)+str(pr2))    
 
 
-    
-            
+
         
-        
-    
-    
     
        
 

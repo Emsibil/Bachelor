@@ -5,9 +5,13 @@ import psutil
 import testing
 import Image
 import time
+import sys
+import pyHook
+import pythoncom
 from itertools import izip
 import os
 from sklearn import svm
+from sklearn.ensemble.forest import RandomForestClassifier
 #tests if Hearthstone is already in my processlist of Windows.
 def isHearthstoneRunning():
     processes = psutil.get_pid_list()
@@ -38,6 +42,12 @@ stack = None
 my_Hand = None
 enemy_Hand = None
 
+def get_enemy():
+    global enemy
+    if enemy is None:
+        print 'Error'
+    return enemy
+
 #takes a Screenshot of the current board, resizes it too 800x600 and cuts it into needed smaller imags
 def takingScreenshot():
     img = grab.grab()
@@ -59,6 +69,7 @@ def takingScreenshot():
     mySide = img.crop((197 , 281, 605, 383))
     turn = img.crop((614, 248, 685, 292))
     enemy = img.crop((361, 48, 442, 167))
+    enemy.save(path('images/tests/enemy.png'))
     me = img.crop((361, 394, 442, 513))
     enemy_mana = img.crop((490, 26, 528, 50))
     my_mana = img.crop((508, 543, 546, 567))
@@ -368,7 +379,7 @@ def formatImageToSVCData(img):
     for y in range(h):
         for x in range(w):
             y_arr.append(np.float(((255 - (pixel[x,y][0] + pixel[x,y][1] + pixel[x,y][2])/3) / 255)))  
-        y_arr = np.array(y_arr)
+    y_arr = np.array(y_arr)
         
     image = y_arr.view()
     image.shape = (-1, 14, 15)
@@ -386,7 +397,7 @@ def my_digits():
     
     n_samples = len(digits.images)
     datas = digits.images.reshape((n_samples, -1))
-    classifier = svm.SVC(gamma=0.001)
+    classifier = RandomForestClassifier()
     classifier.fit(datas, digits.target)
     
     number_clf = classifier
@@ -395,6 +406,9 @@ def numberClassifier(img):
 
     global number_clf
     
+    if number_clf is None:
+        print 'error clf'
+    
     digit = formatImageToSVCData(img)
     
     predict = number_clf.predict(digit.data)
@@ -402,13 +416,17 @@ def numberClassifier(img):
     if predict == 10:
         predict = testing.biggerThanNine(digit, number_clf)
     
-    return predict
+    return predict[0]
 
 def GameStart():
     global enemySide
     global mySide
     global enemyHero
+    global enemy
     
+    #firstScreen
+    takingScreenshot()
+    print enemy
     #enemy hero detection
     enemyDetection(enemy)
     
@@ -437,6 +455,8 @@ def gameControl():
     #firstScreen
     takingScreenshot()
     
+    isMyTurn(turn)
+    
     minionsOnEnemySide = blobDetection(enemySide, False, 'ENEMY')
     minionsOnMySide = blobDetection(mySide, False, 'MY')
     
@@ -445,66 +465,33 @@ def gameControl():
     
     singleMinionsValues(singleMinions(enemySide, minionsOnEnemySide))
     singleMinionsValues(singleMinions(mySide, minionsOnMySide))
+    
+    print countHandcards(my_Hand)
+
+def OnKeyBoardEvent(event):
+    c = chr(event.Ascii)
+    if c == 'p':
+        print 'Screen'
+        gameControl()
+    if c == 's':
+        print 'StartScreen'
+        GameStart()
 
 def Main():
     my_digits()
+    
+    while True:   
+        hm = pyHook.HookManager()
+        hm.KeyDown = OnKeyBoardEvent
+        hm.HookKeyboard()
+        pythoncom.PumpMessages()
+        
 
-def whoseTurn():
-    while True:
-        if isHearthstoneRunning():
-            isMyTurn()
-        else:
-            time.sleep(3)
+Main()
 
-def myEnemy():
-    while True:
-        takingScreenshot()
-        global enemy
-        testing.enemyDetection(enemy)
-        time.sleep(3)
-#whoseTurn()
-#testing.object_detect()
-#testing.screenshots()
-
+#-------------------------Tests--------------------------------#
 #num = 3000
 #while True:
  #   time.sleep(2)
   #  testing.image_slicing(str(num))
    # num += 1
-
-def boardCutting():
-    GameStart = True
-    for pic in os.listdir(path('images\\workField')):
-        print pic
-        img = Image.open(path('images\\workField')+'\\'+pic)        
-        if GameStart:
-            blobDetection(img, GameStart, 'ENEMY')
-            GameStart = False
-        else: 
-            testing.singleMinionsValues(testing.singleMinions(img, blobDetection(img, GameStart, 'ENEMY')))
-#boardCutting()
-#testing.renameAttack()
-#myEnemy()
-
-#print "ab hier 8"
-#testing.edge(path('images\\myHand\\myHand27.png'))#8
-#print "pic"
-#testing.edge(path('images\\myHand\\myHand45.png'))
-#print "pic"
-#testing.edge(path('images\\myHand\\myHand46.png'))
-#print 'ab hier 9'
-#testing.edge(path('images\\myHand\\myHand100.png'))#9
-#print "pic"
-#testing.edge(path('images\\myHand\\myHand79.png'))
-
-#testing.isMouseMoved()
-#testing.boxing()
-#testing.sort()
-#testing.rename()
-#testing.eight()
-#testing.testdecolor()
-#print testing.digit_data()[0]
-#testing.resort_number()
-#testing.data()
-#testing.my_digits()
-#testing.digits()
