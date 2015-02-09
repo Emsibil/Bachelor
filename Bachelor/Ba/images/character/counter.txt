@@ -1,9 +1,9 @@
-Paladin: pos: 459 neg: 2549
-Priest: pos: 393 neg: 2615
-Shaman: pos: 346 neg: 2662
-Warrior: pos: 267 neg: 2741
-Warlock: pos: 361 neg: 2647
-Mage: pos: 266 neg: 2742
-Druid: pos: 301 neg: 2707
-Hunter: pos: 356 neg: 2652
-Rogue: pos: 259 neg: 2749
+Warrior: 259 - 2692
+Warlock: 355 - 2596
+Mage: 263 - 2688
+Druid: 284 - 2667
+Rogue: 252 - 2699
+Shaman: 342 - 2609
+Paladin: 454 - 2497
+Priest: 392 - 2559
+Hunter: 350 - 2601

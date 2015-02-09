@@ -758,27 +758,6 @@ class Bunch(dict):
         dict.__init__(self, kwargs)
         self.__dict__ = self
 
-def _data():
-    f = open(path('images/black_white/target4.info'), 'r')
-    content = f.readlines()
-    numbers = []
-    for l in content:
-        num = str(l).split(' ')[1]
-        num = num[:1]
-        if num == 'x':
-            num = 10
-        numbers.append(np.int(num))
-    target = np.array(numbers)
-    n = 0
-    data = np.array(digit_data())
-    images = data.view()
-    images.shape = (-1, 14, 15)
-
-    return Bunch(data = data,
-                 target = target.astype(np.int),
-                 target_names=np.arange(11),
-                 images=images,
-                 DESCR = 'my digits')
     
 
 
@@ -870,7 +849,131 @@ def biggerThanNine(new_digit, clf):
     
     return int(str(pr1)+str(pr2))    
 
+def enemyDetection():
+    chars = np.array(['Warrior', 'Warlock', 'Mage', 'Druid', 'Rogue', 'Shaman', 'Paladin', 'Priest', 'Hunter'])   
+    data = []
+    target = []
+    for c in chars:
+        p = path('images/character')
+        p = p + '/' + c
+        for f in os.listdir(p):
+            img = Image.open(p+'/'+f).crop((31, 25, 53, 55))
+            img = img.convert('LA')
+            w, h = img.size
+            pixel = img.load()
+            tmp = []
+            for y in range(h):
+                for x in range(w):
+                    tmp.append(np.float(pixel[x,y][0] / 16))
+            target.append(np.str(c))
+            data.append(np.array(tmp))
+        print tmp, c
+    data = np.array(data)
+    #image = data.view()
+    #image.shape = (-1, 22, 30)
+    #clf = svm.SVC(gamma = 0.001)
+    clf = RandomForestClassifier()
+    clf.fit(data, target)
 
+    im = Image.open(path('images/character/Warlock/warlock151.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    expected = np.array([np.str('Warlock')])
+    print("Classification report for classifier %s:\n%s\n"
+      % (clf, metrics.classification_report(expected, predict)))
+    print "Warlock: ", predict[0]
+
+    im = Image.open(path('images/character/Hunter/hunter5.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(np.float(pixel[x,y][0] / 16))
+    predict = clf.predict(np.array(arr))
+    print "Hunter: ",predict[0]
+
+    im = Image.open(path('images/character/Paladin/paladin1101.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    print "Paladin: ",predict[0]
+
+    im = Image.open(path('images/character/Priest/priest750.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    print "Priest: ", predict[0]
+
+    im = Image.open(path('images/character/Mage/mage980.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    print "Mage: ", predict[0]
+
+    im = Image.open(path('images/character/Shaman/shaman56.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    print "Shaman: ", predict[0]
+
+    im = Image.open(path('images/character/Warrior/warrior970.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    print "Warrior: ", predict[0]
+
+    im = Image.open(path('images/character/Druid/druid1.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    print "Druid: ", predict[0]
+
+    im = Image.open(path('images/character/Rogue/rogue10.png')).crop((31, 25, 53, 55))
+    im = im.convert('LA')
+    w, h = img.size
+    arr = []
+    for y in range(h):
+        for x in range(w):
+            arr.append(pixel[x,y][0] / 16)
+    predict = clf.predict(np.array(arr))
+    print "Rogue: ", predict[0]
+
+
+    
+
+
+
+            
 
         
     

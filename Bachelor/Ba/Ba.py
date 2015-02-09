@@ -12,6 +12,7 @@ from itertools import izip
 import os
 from sklearn import svm
 from sklearn.ensemble.forest import RandomForestClassifier
+
 #tests if Hearthstone is already in my processlist of Windows.
 def isHearthstoneRunning():
     processes = psutil.get_pid_list()
@@ -22,14 +23,12 @@ def isHearthstoneRunning():
             return True
     print "Hearthstone wasn't started, yet. Please start Hearthstone and restart this Script!"
     return False
-
 #returns the full path of a special file
 def path(fileName):
     script_dir = os.path.dirname(__file__)
     rel_path = fileName
     abs_file_path = os.path.join(script_dir, rel_path)
     return abs_file_path
-
 #vars for takingScreenshot()
 enemySide = None
 mySide = None
@@ -41,13 +40,11 @@ my_mana = None
 stack = None
 my_Hand = None
 enemy_Hand = None
-
 def get_enemy():
     global enemy
     if enemy is None:
         print 'Error'
     return enemy
-
 #takes a Screenshot of the current board, resizes it too 800x600 and cuts it into needed smaller imags
 def takingScreenshot():
     img = grab.grab()
@@ -76,9 +73,7 @@ def takingScreenshot():
     stack = img.crop((118, 169, 149, 411))
     my_Hand = img.crop((246, 518, 483, 591))
     enemy_Hand = img.crop((246, 0, 483, 44))
-
 #returns bool and detects if it's my turn
-
 def isMyTurn(img):
     end_turn= cv2.CascadeClassifier(path("data\\turn\\turn.xml"))
     _img = np.asarray(img)
@@ -89,7 +84,6 @@ def isMyTurn(img):
     else:
         print "Enemy Turn"
         return False
-    
 #Calculates the avergage colour values of the given image
 def colorAvg(img):
     w, h = img.size
@@ -116,14 +110,11 @@ def colorAvg(img):
     bAvg = b/counter
     
     return (rAvg, gAvg, bAvg)
-
 #global vars for blobDetection()
-
 colorValue = []
 imgValue = []
 eColorValue = []
 eImgValue = []
-
 #detects how many minions are on the board. "GameStart" needs to be True for the first Screenshot in a Game
 def blobDetection(img, GameStart, side):
     
@@ -187,7 +178,6 @@ def blobDetection(img, GameStart, side):
                 count += 1
                 x -= 29  
         return 0 
-
 #together with singleMinionsSupport you get an array with images for ervery single blob
 def singleMinions(img, minionsOnBoard):
     minions = []   
@@ -205,7 +195,6 @@ def singleMinions(img, minionsOnBoard):
         minions = singleMinionsSupport(img, minionsOnBoard/2, w/2, minions, h, 58)
         minions = singleMinionsSupport(img, minionsOnBoard/2, (w/2 - (58 * (minionsOnBoard/2))), minions, h, 58)
     return minions   
-
 def singleMinionsSupport(img, count, xStart, array, height, stepRange):
     array.append(img.crop((xStart, 0, xStart + stepRange, height)))
     count -= 1
@@ -214,9 +203,7 @@ def singleMinionsSupport(img, count, xStart, array, height, stepRange):
     else:
         array = singleMinionsSupport(img, count, xStart + stepRange, array, height, stepRange)     
     return array      
-
 #global var for saving the enemy Hero
-
 def singleMinionsValues(minions):
     if len(minions) == 0:
         return
@@ -225,9 +212,7 @@ def singleMinionsValues(minions):
         life = minion.crop((38, 68, 53, 82))
         
         print str(minion) + "Attack: " + str(numberClassifier(attack)) + "Life: " + str(numberClassifier(life))
-        
 enemyHero = None
-
 #which hero plays the enemy
 def enemyDetection(img):
     
@@ -249,7 +234,6 @@ def enemyDetection(img):
         print 'No Enemy Hero detected'
     else:
         print 'detection not clear'
-
 #return the count of handcards you have at the moment
 def countHandcards(img):
     ranges = np.array([[111,120,1],[84,90,2],[57,63,3],[27,36,4],[23,31,5],[16,23,6],[14,21,7],[7,15,8],[2, 9, 9], [3,7,10]]) 
@@ -286,9 +270,7 @@ def countHandcards(img):
             #return
     #print '10 Handcards'
     return 10    
-
 #Method for more a detailled test if there are 8 or 9 handcards
-
 def testingFromRight(edges):
     handcards = None
     count8 = 0   
@@ -307,9 +289,7 @@ def testingFromRight(edges):
     else:
         print str(count8) + '   ' + str(count9)
     return handcards
-
 number_clf = None
-
 def decoloringNumbers(img):
     w, h = img.size
     pixels = img.load()
@@ -319,8 +299,7 @@ def decoloringNumbers(img):
     if(tmp_pixels == None):
         tmp_pixels = controllingWhite(pixels, w, h)
     
-    pixels = makeBlack(tmp_pixels, w, h)
- 
+    pixels = makeBlack(tmp_pixels, w, h) 
 def controllingGreen(pixels, w, h):    
     count = 0
     for x in range(w):
@@ -333,7 +312,6 @@ def controllingGreen(pixels, w, h):
                 count += 1
 
     return pixels
-
 def controllingRed(pixels, w, h):                
     count = 0
     for x in range(w):
@@ -345,8 +323,7 @@ def controllingRed(pixels, w, h):
                 pixels[x,y] = (0, 0, 0)
                 count += 1
             
-    return pixels 
-          
+    return pixels          
 def controllingWhite(pixels, w, h):             
     for x in range(w):
         for y in range(h):
@@ -359,19 +336,16 @@ def controllingWhite(pixels, w, h):
                     pixels[x,y]= (0, 0, 0)
 
     return pixels
-
 def makeBlack(pixels, w, h):
     for x in range(w):
         for y in range(h):
             if not pixels[x,y] == (0, 0, 0):
                 pixels[x, y] = (255, 255, 255)
     return pixels
-
 class Bunch(dict):
     def __init__(self, **kwargs):
         dict.__init__(self, kwargs)
-        self.__dict__ = self
-        
+        self.__dict__ = self      
 def formatImageToSVCData(img):
     w, h = img.size
     pixel = img.load()
@@ -389,7 +363,6 @@ def formatImageToSVCData(img):
                  target_name = np.arange(0),
                  image = image,
                  DESCR = 'my digits')
-
 def my_digits():
     global number_clf
     
@@ -401,7 +374,6 @@ def my_digits():
     classifier.fit(datas, digits.target)
     
     number_clf = classifier
-
 def numberClassifier(img):
 
     global number_clf
@@ -417,7 +389,6 @@ def numberClassifier(img):
         predict = testing.biggerThanNine(digit, number_clf)
     
     return predict[0]
-
 def GameStart():
     global enemySide
     global mySide
@@ -435,7 +406,6 @@ def GameStart():
     #save which background is used
     blobDetection(enemySide, True, 'ENEMY')
     blobDetection(mySide, True, 'MY')
-    
 #Methods and function which needs to run at the beginning of a game
 def gameControl():
     
@@ -467,7 +437,6 @@ def gameControl():
     singleMinionsValues(singleMinions(mySide, minionsOnMySide))
     
     print countHandcards(my_Hand)
-
 def OnKeyBoardEvent(event):
     c = chr(event.Ascii)
     if c == 'p':
@@ -476,7 +445,6 @@ def OnKeyBoardEvent(event):
     if c == 's':
         print 'StartScreen'
         GameStart()
-
 def Main():
     my_digits()
     
@@ -484,10 +452,9 @@ def Main():
         hm = pyHook.HookManager()
         hm.KeyDown = OnKeyBoardEvent
         hm.HookKeyboard()
-        pythoncom.PumpMessages()
-        
+        pythoncom.PumpMessages()        
 
-Main()
+#Main()
 
 #-------------------------Tests--------------------------------#
 #num = 3000
@@ -495,3 +462,80 @@ Main()
  #   time.sleep(2)
   #  testing.image_slicing(str(num))
    # num += 1
+
+#img = Image.open(path('images/character/Priest/priest750.png'))
+#enemyDetection(img)
+#print enemyHero
+#img2 = Image.open(path('images/character/Paladin/paladin1101.png'))
+#enemyDetection(img2)
+#print enemyHero
+#img3 = Image.open(path('images/character/Shaman/shaman2.png'))
+#enemyDetection(img3)
+#print enemyHero
+#img4 = Image.open(path('images/character/Warrior/warrior1000.png'))
+#enemyDetection(img4)
+#print enemyHero
+#img5 = Image.open(path('images/character/Warlock/warlock150.png'))
+#enemyDetection(img5)
+#print enemyHero
+#img6 = Image.open(path('images/character/Mage/mage997.png'))
+#enemyDetection(img6)
+#print enemyHero
+#img7 = Image.open(path('images/character/Hunter/hunter9.png'))
+#enemyDetection(img7)
+#print enemyHero
+#img8 = Image.open(path('images/character/Druid/druid1.png'))
+#enemyDetection(img8)
+#print enemyHero
+#img9 = Image.open(path('images/character/Rogue/rogue8.png'))
+#enemyDetection(img9)
+#print enemyHero
+
+#testing.enemyDetection()
+
+chars = np.array(['Warrior', 'Warlock', 'Mage', 'Druid', 'Rogue', 'Shaman', 'Paladin', 'Priest', 'Hunter'])
+Warrior = open(path('images/character/pos_warrior.info'), 'w')
+Warlock = open(path('images/character/pos_warlock.info'), 'w')   
+Druid = open(path('images/character/pos_druid.info'), 'w')   
+Mage = open(path('images/character/pos_mage.info'), 'w')   
+Rogue = open(path('images/character/pos_rogue.info'), 'w')   
+Shaman = open(path('images/character/pos_shaman.info'), 'w')   
+Paladin = open(path('images/character/pos_paladin.info'), 'w')   
+Priest = open(path('images/character/pos_priest.info'), 'w')
+Hunter = open(path('images/character/pos_hunter.info'), 'w')
+pos = np.array([Warrior, Warlock, Mage, Druid, Rogue, Shaman, Paladin, Priest, Hunter])     
+Warrior2 = open(path('images/character/bad_warrior.txt'), 'w')
+Warlock2 = open(path('images/character/bad_warlock.txt'), 'w')   
+Druid2 = open(path('images/character/bad_druid.txt'), 'w')   
+Mage2 = open(path('images/character/bad_mage.txt'), 'w')   
+Rogue2 = open(path('images/character/bad_rogue.txt'), 'w')   
+Shaman2 = open(path('images/character/bad_shaman.txt'), 'w')   
+Paladin2 = open(path('images/character/bad_paladin.txt'), 'w')   
+Priest2 = open(path('images/character/bad_priest.txt'), 'w')
+Hunter2 = open(path('images/character/bad_hunter.txt'), 'w')
+bad = np.array([Warrior2, Warlock2, Mage2, Druid2, Rogue2, Shaman2, Paladin2, Priest2, Hunter2])     
+counter = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])
+count = open(path('images/character/counter.txt'), 'w')
+for c in range(len(chars)):
+    p = path('images/character/'+chars[c])
+    p2 = path('images/character/'+chars[c]+'2')
+    for f in os.listdir(p):
+        img = Image.open(p+'/'+f).crop((31,25,53,55))
+        img = img.convert('LA')
+        img.save(p2+'/'+f)
+        pos[c].write(chars[c]+'2/'+f+' 1 0 0 22 30 \n')
+        counter[c] += 1
+        for b in range(len(bad)):
+            if b == c:
+                continue
+            bad[b].write(chars[c]+'2/'+f+'\n')
+sum = np.sum(counter)
+count.write('Warrior: ' + str(counter[0]) + ' - ' + str(sum - counter[0]) + '\n' +
+            'Warlock: ' + str(counter[1]) + ' - ' + str(sum - counter[1]) + '\n' +
+            'Mage: ' + str(counter[2]) + ' - ' + str(sum - counter[2]) + '\n' +
+            'Druid: ' + str(counter[3]) + ' - ' + str(sum - counter[3]) + '\n' +
+            'Rogue: ' + str(counter[4]) + ' - ' + str(sum - counter[4]) + '\n' +
+            'Shaman: ' + str(counter[5]) + ' - ' + str(sum - counter[5]) + '\n' +
+            'Paladin: ' + str(counter[6]) + ' - ' + str(sum - counter[6]) + '\n' +
+            'Priest: ' + str(counter[7]) + ' - ' + str(sum - counter[7]) + '\n' +
+            'Hunter: ' + str(counter[8]) + ' - ' + str(sum - counter[8]))
