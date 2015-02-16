@@ -493,49 +493,25 @@ def Main():
 
 #testing.enemyDetection()
 
-chars = np.array(['Warrior', 'Warlock', 'Mage', 'Druid', 'Rogue', 'Shaman', 'Paladin', 'Priest', 'Hunter'])
-Warrior = open(path('images/character/pos_warrior.info'), 'w')
-Warlock = open(path('images/character/pos_warlock.info'), 'w')   
-Druid = open(path('images/character/pos_druid.info'), 'w')   
-Mage = open(path('images/character/pos_mage.info'), 'w')   
-Rogue = open(path('images/character/pos_rogue.info'), 'w')   
-Shaman = open(path('images/character/pos_shaman.info'), 'w')   
-Paladin = open(path('images/character/pos_paladin.info'), 'w')   
-Priest = open(path('images/character/pos_priest.info'), 'w')
-Hunter = open(path('images/character/pos_hunter.info'), 'w')
-pos = np.array([Warrior, Warlock, Mage, Druid, Rogue, Shaman, Paladin, Priest, Hunter])     
-Warrior2 = open(path('images/character/bad_warrior.txt'), 'w')
-Warlock2 = open(path('images/character/bad_warlock.txt'), 'w')   
-Druid2 = open(path('images/character/bad_druid.txt'), 'w')   
-Mage2 = open(path('images/character/bad_mage.txt'), 'w')   
-Rogue2 = open(path('images/character/bad_rogue.txt'), 'w')   
-Shaman2 = open(path('images/character/bad_shaman.txt'), 'w')   
-Paladin2 = open(path('images/character/bad_paladin.txt'), 'w')   
-Priest2 = open(path('images/character/bad_priest.txt'), 'w')
-Hunter2 = open(path('images/character/bad_hunter.txt'), 'w')
-bad = np.array([Warrior2, Warlock2, Mage2, Druid2, Rogue2, Shaman2, Paladin2, Priest2, Hunter2])     
-counter = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])
-count = open(path('images/character/counter.txt'), 'w')
-for c in range(len(chars)):
-    p = path('images/character/'+chars[c])
-    p2 = path('images/character/'+chars[c]+'2')
-    for f in os.listdir(p):
-        img = Image.open(p+'/'+f).crop((31,25,53,55))
-        img = img.convert('LA')
-        img.save(p2+'/'+f)
-        pos[c].write(chars[c]+'2/'+f+' 1 0 0 22 30 \n')
-        counter[c] += 1
-        for b in range(len(bad)):
-            if b == c:
-                continue
-            bad[b].write(chars[c]+'2/'+f+'\n')
-sum = np.sum(counter)
-count.write('Warrior: ' + str(counter[0]) + ' - ' + str(sum - counter[0]) + '\n' +
-            'Warlock: ' + str(counter[1]) + ' - ' + str(sum - counter[1]) + '\n' +
-            'Mage: ' + str(counter[2]) + ' - ' + str(sum - counter[2]) + '\n' +
-            'Druid: ' + str(counter[3]) + ' - ' + str(sum - counter[3]) + '\n' +
-            'Rogue: ' + str(counter[4]) + ' - ' + str(sum - counter[4]) + '\n' +
-            'Shaman: ' + str(counter[5]) + ' - ' + str(sum - counter[5]) + '\n' +
-            'Paladin: ' + str(counter[6]) + ' - ' + str(sum - counter[6]) + '\n' +
-            'Priest: ' + str(counter[7]) + ' - ' + str(sum - counter[7]) + '\n' +
-            'Hunter: ' + str(counter[8]) + ' - ' + str(sum - counter[8]))
+
+#chars = ['Paladin','Priest','Mage','Druid','Hunter','Rogue','Warrior','Warlock','Shaman']
+#for c in chars:
+ #   p = path('images/character/new/'+c)
+  #  for f in os.listdir(p):
+   #     img = Image.open(p+'/'+f).crop((17, 38, 65, 86))
+    #    #img = img.convert('LA')
+     #   img.save(path('images/character/new/small/' + c + '/' + f))
+    
+testing.objdetect()
+
+casc = cv2.CascadeClassifier(path('images\\character\\new\\small\\data_druid\\cascade.xml'))
+for f in os.listdir(path('images\\character\\new\\small\\druid')):
+    img = Image.open(path('images\\character\\new\\small\\druid')+ '\\'+f)
+    _img = np.asarray(img)
+    char = casc.detectMultiScale(_img, 1.01, 1)
+    if len(char) >= 1:
+        print f,'druid', len(char)
+
+
+
+

@@ -1,4 +1,3 @@
-Paladin/paladin.png
 Paladin/paladin1100.png
 Paladin/paladin1101.png
 Paladin/paladin1102.png
@@ -42,7 +41,6 @@ Paladin/paladin1145.png
 Paladin/paladin1146.png
 Paladin/paladin1147.png
 Paladin/paladin1149.png
-Paladin/paladin1150.png
 Paladin/paladin1151.png
 Paladin/paladin1152.png
 Paladin/paladin1153.png
@@ -55,7 +53,6 @@ Paladin/paladin1159.png
 Paladin/paladin1160.png
 Paladin/paladin1161.png
 Paladin/paladin1162.png
-Paladin/paladin1163.png
 Paladin/paladin1164.png
 Paladin/paladin1165.png
 Paladin/paladin1166.png
@@ -127,7 +124,6 @@ Paladin/paladin1234.png
 Paladin/paladin1235.png
 Paladin/paladin1236.png
 Paladin/paladin1237.png
-Paladin/paladin1238.png
 Paladin/paladin1239.png
 Paladin/paladin1240.png
 Paladin/paladin1241.png
@@ -397,7 +393,6 @@ Paladin/_char353.png
 Paladin/_char364.png
 Paladin/_char37.png
 Paladin/_char38.png
-Paladin/_char389.png
 Paladin/_char39.png
 Paladin/_char395.png
 Paladin/_char398.png
@@ -662,7 +657,6 @@ Priest/char80.png
 Priest/char88.png
 Priest/char9.png
 Priest/char99.png
-Priest/priest.png
 Priest/priest750.png
 Priest/priest751.png
 Priest/priest753.png
@@ -864,7 +858,6 @@ Shaman/char226.png
 Shaman/char227.png
 Shaman/char228.png
 Shaman/char229.png
-Shaman/shaman.png
 Shaman/shaman1.png
 Shaman/shaman10.png
 Shaman/shaman100.png
@@ -925,7 +918,6 @@ Shaman/shaman1146.png
 Shaman/shaman1147.png
 Shaman/shaman1148.png
 Shaman/shaman1149.png
-Shaman/shaman115.png
 Shaman/shaman1150.png
 Shaman/shaman1151.png
 Shaman/shaman1152.png
@@ -936,7 +928,6 @@ Shaman/shaman1156.png
 Shaman/shaman1157.png
 Shaman/shaman1158.png
 Shaman/shaman1159.png
-Shaman/shaman116.png
 Shaman/shaman1160.png
 Shaman/shaman1161.png
 Shaman/shaman1162.png
@@ -1130,7 +1121,6 @@ Shaman/shaman57.png
 Shaman/shaman58.png
 Shaman/shaman59.png
 Shaman/shaman6.png
-Shaman/shaman60.png
 Shaman/shaman61.png
 Shaman/shaman62.png
 Shaman/shaman63.png
@@ -1263,14 +1253,11 @@ Warrior/char332.png
 Warrior/char334.png
 Warrior/char335.png
 Warrior/char336.png
-Warrior/char337.png
 Warrior/char338.png
 Warrior/char339.png
 Warrior/char340.png
 Warrior/char341.png
-Warrior/char343.png
 Warrior/char344.png
-Warrior/char346.png
 Warrior/char348.png
 Warrior/char349.png
 Warrior/char351.png
@@ -1338,7 +1325,6 @@ Warrior/char94.png
 Warrior/char95.png
 Warrior/char96.png
 Warrior/char98.png
-Warrior/warrior.png
 Warrior/warrior1000.png
 Warrior/warrior1001.png
 Warrior/warrior1002.png
@@ -1381,8 +1367,6 @@ Warrior/warrior1039.png
 Warrior/warrior1040.png
 Warrior/warrior1041.png
 Warrior/warrior1042.png
-Warrior/warrior1043.png
-Warrior/warrior1044.png
 Warrior/warrior1045.png
 Warrior/warrior1046.png
 Warrior/warrior1047.png
@@ -1397,7 +1381,6 @@ Warrior/warrior1055.png
 Warrior/warrior1056.png
 Warrior/warrior1057.png
 Warrior/warrior1058.png
-Warrior/warrior1059.png
 Warrior/warrior1060.png
 Warrior/warrior1061.png
 Warrior/warrior1062.png
@@ -1409,7 +1392,6 @@ Warrior/warrior1067.png
 Warrior/warrior1068.png
 Warrior/warrior1069.png
 Warrior/warrior1070.png
-Warrior/warrior1071.png
 Warrior/warrior1072.png
 Warrior/warrior1073.png
 Warrior/warrior1074.png
@@ -1466,7 +1448,6 @@ Warrior/warrior999.png
 Warlock/char230.png
 Warlock/char232.png
 Warlock/char234.png
-Warlock/char235.png
 Warlock/char236.png
 Warlock/char238.png
 Warlock/char239.png
@@ -1479,11 +1460,9 @@ Warlock/char249.png
 Warlock/char250.png
 Warlock/char252.png
 Warlock/char253.png
-Warlock/char255.png
 Warlock/char256.png
 Warlock/char257.png
 Warlock/char258.png
-Warlock/warlock.png
 Warlock/warlock1360.png
 Warlock/warlock1361.png
 Warlock/warlock1362.png
@@ -1535,7 +1514,6 @@ Warlock/warlock1411.png
 Warlock/warlock1412.png
 Warlock/warlock1413.png
 Warlock/warlock1415.png
-Warlock/warlock1417.png
 Warlock/warlock1418.png
 Warlock/warlock1421.png
 Warlock/warlock1426.png
@@ -1765,7 +1743,6 @@ Warlock/warlock899.png
 Warlock/warlock900.png
 Warlock/warlock902.png
 Warlock/warlock903.png
-Warlock/warlock904.png
 Warlock/warlock905.png
 Warlock/warlock906.png
 Warlock/warlock907.png
@@ -1783,7 +1760,6 @@ Warlock/warlock920.png
 Warlock/warlock921.png
 Warlock/warlock922.png
 Warlock/warlock924.png
-Warlock/warlock925.png
 Warlock/warlock926.png
 Warlock/warlock927.png
 Warlock/warlock928.png
@@ -1824,12 +1800,10 @@ Warlock/warlock966.png
 Warlock/warlock967.png
 Warlock/warlock968.png
 Warlock/warlock969.png
-Mage/mage.png
 Mage/mage1000.png
 Mage/mage1001.png
 Mage/mage1002.png
 Mage/mage1003.png
-Mage/mage1004.png
 Mage/mage1006.png
 Mage/mage1007.png
 Mage/mage1009.png
@@ -1953,7 +1927,6 @@ Mage/_char124.png
 Mage/_char125.png
 Mage/_char126.png
 Mage/_char127.png
-Mage/_char136.png
 Mage/_char138.png
 Mage/_char139.png
 Mage/_char140.png
@@ -2090,7 +2063,6 @@ Mage/_char94.png
 Mage/_char95.png
 Mage/_char97.png
 Mage/_char98.png
-Hunter/hunter.png
 Hunter/hunter10.png
 Hunter/hunter100.png
 Hunter/hunter101.png
@@ -2111,7 +2083,6 @@ Hunter/hunter114.png
 Hunter/hunter115.png
 Hunter/hunter116.png
 Hunter/hunter117.png
-Hunter/hunter118.png
 Hunter/hunter119.png
 Hunter/hunter12.png
 Hunter/hunter120.png
@@ -2166,7 +2137,6 @@ Hunter/hunter182.png
 Hunter/hunter183.png
 Hunter/hunter184.png
 Hunter/hunter185.png
-Hunter/hunter186.png
 Hunter/hunter187.png
 Hunter/hunter188.png
 Hunter/hunter189.png
@@ -2340,7 +2310,6 @@ Hunter/hunter555.png
 Hunter/hunter556.png
 Hunter/hunter557.png
 Hunter/hunter558.png
-Hunter/hunter560.png
 Hunter/hunter561.png
 Hunter/hunter562.png
 Hunter/hunter563.png
@@ -2379,7 +2348,6 @@ Hunter/hunter594.png
 Hunter/hunter595.png
 Hunter/hunter596.png
 Hunter/hunter597.png
-Hunter/hunter598.png
 Hunter/hunter599.png
 Hunter/hunter6.png
 Hunter/hunter600.png
@@ -2416,7 +2384,6 @@ Hunter/hunter630.png
 Hunter/hunter631.png
 Hunter/hunter632.png
 Hunter/hunter633.png
-Hunter/hunter634.png
 Hunter/hunter64.png
 Hunter/hunter65.png
 Hunter/hunter66.png
@@ -2446,7 +2413,6 @@ Hunter/hunter95.png
 Hunter/hunter96.png
 Hunter/hunter98.png
 Hunter/hunter99.png
-Rogue/rogue.png
 Rogue/rogue10.png
 Rogue/rogue100.png
 Rogue/rogue101.png
@@ -2462,7 +2428,6 @@ Rogue/rogue110.png
 Rogue/rogue115.png
 Rogue/rogue116.png
 Rogue/rogue117.png
-Rogue/rogue118.png
 Rogue/rogue12.png
 Rogue/rogue120.png
 Rogue/rogue123.png
@@ -2508,7 +2473,6 @@ Rogue/rogue53.png
 Rogue/rogue54.png
 Rogue/rogue55.png
 Rogue/rogue56.png
-Rogue/rogue560.png
 Rogue/rogue561.png
 Rogue/rogue562.png
 Rogue/rogue563.png
@@ -2596,7 +2560,6 @@ Rogue/rogue660.png
 Rogue/rogue661.png
 Rogue/rogue662.png
 Rogue/rogue663.png
-Rogue/rogue664.png
 Rogue/rogue665.png
 Rogue/rogue666.png
 Rogue/rogue667.png
@@ -2646,7 +2609,6 @@ Rogue/rogue711.png
 Rogue/rogue712.png
 Rogue/rogue713.png
 Rogue/rogue714.png
-Rogue/rogue715.png
 Rogue/rogue716.png
 Rogue/rogue717.png
 Rogue/rogue718.png
@@ -2659,7 +2621,6 @@ Rogue/rogue723.png
 Rogue/rogue724.png
 Rogue/rogue725.png
 Rogue/rogue727.png
-Rogue/rogue729.png
 Rogue/rogue73.png
 Rogue/rogue730.png
 Rogue/rogue731.png
@@ -2675,7 +2636,6 @@ Rogue/rogue740.png
 Rogue/rogue741.png
 Rogue/rogue742.png
 Rogue/rogue743.png
-Rogue/rogue744.png
 Rogue/rogue745.png
 Rogue/rogue746.png
 Rogue/rogue747.png

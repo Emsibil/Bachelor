@@ -1,0 +1,9 @@
+paladin: pos: 504 neg: 504
+priest: pos: 504 neg: 504
+shaman: pos: 504 neg: 504
+warrior: pos: 504 neg: 504
+warlock: pos: 504 neg: 504
+mage: pos: 504 neg: 504
+druid: pos: 504 neg: 504
+hunter: pos: 504 neg: 504
+rogue: pos: 504 neg: 504

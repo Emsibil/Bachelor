@@ -1,13 +1,10 @@
-Druid/druid.png 1 0 0 95 140
 Druid/druid1.png 1 0 0 81 119
 Druid/druid10.png 1 0 0 81 119
 Druid/druid100.png 1 0 0 81 119
 Druid/druid101.png 1 0 0 81 119
 Druid/druid102.png 1 0 0 81 119
-Druid/druid103.png 1 0 0 81 119
 Druid/druid104.png 1 0 0 81 119
 Druid/druid105.png 1 0 0 81 119
-Druid/druid106.png 1 0 0 81 119
 Druid/druid107.png 1 0 0 81 119
 Druid/druid108.png 1 0 0 81 119
 Druid/druid109.png 1 0 0 81 119
@@ -31,7 +28,6 @@ Druid/druid128.png 1 0 0 81 119
 Druid/druid129.png 1 0 0 81 119
 Druid/druid13.png 1 0 0 81 119
 Druid/druid130.png 1 0 0 81 119
-Druid/druid131.png 1 0 0 81 119
 Druid/druid132.png 1 0 0 81 119
 Druid/druid14.png 1 0 0 81 119
 Druid/druid16.png 1 0 0 81 119
@@ -100,11 +96,9 @@ Druid/druid651.png 1 0 0 81 119
 Druid/druid652.png 1 0 0 81 119
 Druid/druid653.png 1 0 0 81 119
 Druid/druid654.png 1 0 0 81 119
-Druid/druid655.png 1 0 0 81 119
 Druid/druid656.png 1 0 0 81 119
 Druid/druid658.png 1 0 0 81 119
 Druid/druid66.png 1 0 0 81 119
-Druid/druid660.png 1 0 0 81 119
 Druid/druid661.png 1 0 0 81 119
 Druid/druid662.png 1 0 0 81 119
 Druid/druid663.png 1 0 0 81 119
@@ -142,7 +136,6 @@ Druid/druid70.png 1 0 0 81 119
 Druid/druid702.png 1 0 0 81 119
 Druid/druid703.png 1 0 0 81 119
 Druid/druid704.png 1 0 0 81 119
-Druid/druid705.png 1 0 0 81 119
 Druid/druid706.png 1 0 0 81 119
 Druid/druid707.png 1 0 0 81 119
 Druid/druid708.png 1 0 0 81 119
@@ -170,7 +163,6 @@ Druid/druid732.png 1 0 0 81 119
 Druid/druid733.png 1 0 0 81 119
 Druid/druid734.png 1 0 0 81 119
 Druid/druid735.png 1 0 0 81 119
-Druid/druid736.png 1 0 0 81 119
 Druid/druid737.png 1 0 0 81 119
 Druid/druid738.png 1 0 0 81 119
 Druid/druid739.png 1 0 0 81 119
@@ -223,7 +215,6 @@ Druid/druid789.png 1 0 0 81 119
 Druid/druid79.png 1 0 0 81 119
 Druid/druid790.png 1 0 0 81 119
 Druid/druid791.png 1 0 0 81 119
-Druid/druid792.png 1 0 0 81 119
 Druid/druid793.png 1 0 0 81 119
 Druid/druid794.png 1 0 0 81 119
 Druid/druid795.png 1 0 0 81 119
@@ -256,7 +247,6 @@ Druid/druid819.png 1 0 0 81 119
 Druid/druid82.png 1 0 0 81 119
 Druid/druid820.png 1 0 0 81 119
 Druid/druid821.png 1 0 0 81 119
-Druid/druid822.png 1 0 0 81 119
 Druid/druid824.png 1 0 0 81 119
 Druid/druid825.png 1 0 0 81 119
 Druid/druid826.png 1 0 0 81 119
@@ -266,16 +256,12 @@ Druid/druid83.png 1 0 0 81 119
 Druid/druid830.png 1 0 0 81 119
 Druid/druid831.png 1 0 0 81 119
 Druid/druid832.png 1 0 0 81 119
-Druid/druid833.png 1 0 0 81 119
 Druid/druid834.png 1 0 0 81 119
 Druid/druid835.png 1 0 0 81 119
 Druid/druid836.png 1 0 0 81 119
-Druid/druid838.png 1 0 0 81 119
 Druid/druid839.png 1 0 0 81 119
-Druid/druid84.png 1 0 0 81 119
 Druid/druid840.png 1 0 0 81 119
 Druid/druid841.png 1 0 0 81 119
-Druid/druid842.png 1 0 0 81 119
 Druid/druid843.png 1 0 0 81 119
 Druid/druid844.png 1 0 0 81 119
 Druid/druid845.png 1 0 0 81 119
@@ -284,14 +270,11 @@ Druid/druid847.png 1 0 0 81 119
 Druid/druid848.png 1 0 0 81 119
 Druid/druid85.png 1 0 0 81 119
 Druid/druid850.png 1 0 0 81 119
-Druid/druid86.png 1 0 0 81 119
 Druid/druid87.png 1 0 0 81 119
 Druid/druid88.png 1 0 0 81 119
-Druid/druid89.png 1 0 0 81 119
 Druid/druid9.png 1 0 0 81 119
 Druid/druid90.png 1 0 0 81 119
 Druid/druid91.png 1 0 0 81 119
-Druid/druid92.png 1 0 0 81 119
 Druid/druid93.png 1 0 0 81 119
 Druid/druid94.png 1 0 0 81 119
 Druid/druid95.png 1 0 0 81 119

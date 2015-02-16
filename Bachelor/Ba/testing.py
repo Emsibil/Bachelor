@@ -190,27 +190,28 @@ def screenshots():
         time.sleep(2)
         
     
-def image_slicing(num):
-    number = str(num)
+def image_slicing():
+    #number = str(num)
     #img = Image.open(_path)
     img = ImageGrab.grab()
     img = img.resize((800, 600), Image.BICUBIC)
     #img = img.convert('LA')
-    enemySide = img.crop((197, 177, 605, 279))
-    mySide = img.crop((197 , 281, 605, 383))
+    #enemySide = img.crop((197, 177, 605, 279))
+    #mySide = img.crop((197 , 281, 605, 383))
     #turn = img.crop((614, 248, 685, 292))
-    #enemy = img.crop((361, 48, 442, 167))
-    #me = img.crop((361, 394, 442, 513))
+    enemy = img.crop((361, 48, 442, 167))
+    me = img.crop((361, 394, 442, 513))
     #enemy_mana = img.crop((490, 26, 528, 50))
     #my_mana = img.crop((508, 543, 546, 567))
     #stack = img.crop((118, 169, 149, 411))
     #my_Hand = img.crop((246, 518, 483, 591))
     #enemy_Hand = img.crop((246, 0, 483, 44))
-    enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
-    mySide.save(path('images\\myField')+'\\field'+number+'.png')
+    #enemySide.save(path('images\\enemyField')+'\\efield'+number+'.png')
+    #mySide.save(path('images\\myField')+'\\field'+number+'.png')
     #turn.save(path('images\\turn')+'\\turn'+number+'.png')
-    #enemy.save(path('images\\character\\Hunter')+'\\hunter'+number+'.png')
-    #me.save(path('images\\character\\Warlock')+'\\warlock'+number+'.png')
+    num1 = len(os.listdir(path('images\\character\\new\\tmp')))
+    enemy.save(path('images\\character\\new\\tmp')+'\\rogue'+str(num1)+'.png')
+    me.save(path('images\\character\\new\\tmp')+'\\shaman'+str(num1 + 1)+'.png')
     #enemy_mana.save(path('images\\mana')+'\\e_mana'+number+'.png')
     #my_mana.save(path('images\\mana')+'\\mana'+number+'.png')
     #stack.save(path('images\\stack')+'\\stack'+number+'.png')
@@ -293,31 +294,39 @@ def blobDetection(img, GameStart):
         return 0
         
 def objdetect():
-    s_arr = ['Paladin', 'Priest', 'Shaman', 'Warrior', 'Warlock', 'Mage', 'Druid', 'Hunter', 'Rogue']
-    px = path('images\\character')
+    s_arr = ['paladin', 'priest', 'shaman', 'warrior', 'warlock', 'mage', 'druid', 'hunter', 'rogue']
+    px = path('images\\character\\new\\small')
     file3 = open(px+'\\counter.txt', 'w')
     for s in s_arr:
-        p = path('images\\character')
+        p = path('images\\character\\new\\small')
         file = open(p+'\\pos_'+s+'.info', 'w')
         file2 = open(p+'\\bad'+s+'.txt', 'w')  
         p = p + '\\' + s
         num = 0
         num2 = 0
+        counter1= 0
         for f in os.listdir(p):
+            if counter1 >= 504:
+                break
             num += 1
             img = Image.open(p + '\\' + f)
             w, h = img.size
             file.write(s+'/'+f+ ' 1 0 0 ' + str(w) + ' ' + str(h) + '\n')
+            counter1 += 1
         file3.write(s + ": pos: " + str(num))
         for s2 in s_arr:
             if s == s2:
                 continue
-            p2 = path('images\\character\\' + s2)
+            p2 = path('images\\character\\new\\small\\' + s2)
+            counter2 = 0
             for f2 in os.listdir(p2):
+                if counter2 >= 63:
+                    continue
                 num2 += 1
                 img2 = Image.open(p2 + '\\' + f2)
                 w, h = img2.size
                 file2.write(s2+'/'+f2 + '\n')
+                counter2 += 1
         file3.write(' neg: ' + str(num2) + '\n')            
             
 def blue():
@@ -850,24 +859,25 @@ def biggerThanNine(new_digit, clf):
     return int(str(pr1)+str(pr2))    
 
 def enemyDetection():
-    chars = np.array(['Warrior', 'Warlock', 'Mage', 'Druid', 'Rogue', 'Shaman', 'Paladin', 'Priest', 'Hunter'])   
+    chars = np.array(['warrior', 'warlock', 'mage', 'druid', 'rogue', 'shaman', 'paladin', 'priest', 'hunter'])   
     data = []
     target = []
     for c in chars:
-        p = path('images/character')
+        p = path('images/character/new/small')
         p = p + '/' + c
         for f in os.listdir(p):
-            img = Image.open(p+'/'+f).crop((31, 25, 53, 55))
-            img = img.convert('LA')
+            img = Image.open(p+'/'+f)
             w, h = img.size
             pixel = img.load()
             tmp = []
             for y in range(h):
                 for x in range(w):
+                    #print pixel[x,y]
+                    #time.sleep(30)
                     tmp.append(np.float(pixel[x,y][0] / 16))
             target.append(np.str(c))
             data.append(np.array(tmp))
-        print tmp, c
+        #print tmp, c
     data = np.array(data)
     #image = data.view()
     #image.shape = (-1, 22, 30)
@@ -875,8 +885,7 @@ def enemyDetection():
     clf = RandomForestClassifier()
     clf.fit(data, target)
 
-    im = Image.open(path('images/character/Warlock/warlock151.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Warlock/warlock151.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -888,8 +897,7 @@ def enemyDetection():
       % (clf, metrics.classification_report(expected, predict)))
     print "Warlock: ", predict[0]
 
-    im = Image.open(path('images/character/Hunter/hunter5.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Hunter/hunter5.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -898,8 +906,7 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Hunter: ",predict[0]
 
-    im = Image.open(path('images/character/Paladin/paladin1101.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Paladin/paladin1101.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -908,8 +915,7 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Paladin: ",predict[0]
 
-    im = Image.open(path('images/character/Priest/priest750.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Priest/priest750.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -918,8 +924,7 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Priest: ", predict[0]
 
-    im = Image.open(path('images/character/Mage/mage980.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Mage/mage980.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -928,8 +933,7 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Mage: ", predict[0]
 
-    im = Image.open(path('images/character/Shaman/shaman56.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Shaman/shaman56.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -938,8 +942,7 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Shaman: ", predict[0]
 
-    im = Image.open(path('images/character/Warrior/warrior970.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Warrior/warrior970.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -948,8 +951,7 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Warrior: ", predict[0]
 
-    im = Image.open(path('images/character/Druid/druid1.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Druid/druid1.png'))
     w, h = img.size
     arr = []
     for y in range(h):
@@ -958,8 +960,7 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Druid: ", predict[0]
 
-    im = Image.open(path('images/character/Rogue/rogue10.png')).crop((31, 25, 53, 55))
-    im = im.convert('LA')
+    im = Image.open(path('images/character/Rogue/rogue10.png'))
     w, h = img.size
     arr = []
     for y in range(h):
