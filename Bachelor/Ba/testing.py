@@ -767,6 +767,27 @@ class Bunch(dict):
         dict.__init__(self, kwargs)
         self.__dict__ = self
 
+def _data():
+    f = open(path('images/black_white/target4.info'), 'r')
+    content = f.readlines()
+    numbers = []
+    for l in content:
+        num = str(l).split(' ')[1]
+        num = num[:1]
+        if num == 'x':
+            num = 10
+        numbers.append(np.int(num))
+    target = np.array(numbers)
+    data = np.array(digit_data())
+    images = data.view()
+    images.shape = (-1, 14, 15)
+    
+    return Bunch(data = data,
+                 target = target.astype(np.int),
+                 target_names=np.arange(11),
+                 images=images,
+                 DESCR = 'my digits')
+
     
 
 
@@ -969,24 +990,103 @@ def enemyDetection():
     predict = clf.predict(np.array(arr))
     print "Rogue: ", predict[0]
 
+def new_images():
+    chars = np.array(['warrior', 'warlock', 'mage', 'druid', 'rogue', 'shaman', 'paladin', 'priest', 'hunter'])
+    data = []
+    target = []
+    for c in chars:
+        p = path('images/character/new/black')
+        for f in os.listdir(p+'/'+c):
+            img = Image.open(p+'/'+c+'/'+f)
+            w, h = img.size
+            pixel = img.load()
+            tmp = []
+            for y in range(h):
+                for x in range(w):
+                    tmp.append(np.float(pixel[x,y] / 255))
+            target.append(np.str(c))
+            data.append(np.array(tmp))
+    data = np.array(data)
+    #image = data.view()
+    #image.shape = (-1, 22, 30)
+    #clf = svm.SVC(gamma = 0.001)
+    clf = RandomForestClassifier()
+    clf.fit(data, target)
+
+    #for c in chars:
+     #   p = path('images/character/new/black')
+      #  for f in os.listdir(p+'/'+c):
+       #     img = Image.open(p+'/'+c+'/'+f)
+        #    w, h = img.size
+         #   pixel = img.load()
+          #  arr = []
+           # for y in range(h):
+            #    for x in range(w):
+             #       arr.append(np.float(pixel[x,y] / 255))
+          #  predict = clf.predict(np.array(arr))
+           # if not c == predict[0]:
+            #    print c, predict[0]
+    
+def enemyDetection1(img):
+    
+    global enemyHero
+
+    detected = 0
+    for cascade in os.listdir(path('data\\characters')):
+        casc = cv2.CascadeClassifier(path('data\\characters')+'\\'+cascade)
+        _img = np.asarray(img)
+        char = casc.detectMultiScale(_img, 1.1, 1)
+        if len(char) == 1:
+            detected += 1
+            #print cascade
+    if detected == 1:
+        print 'Enemy Hero detected'
+        name, tag = cascade.split('.')
+        enemyHero = name
+    elif detected == 0:
+        print 'No Enemy Hero detected'
+    else:
+        print 'detection not clear'
 
     
-
-
-
-            
-
-        
+def cardDetectScreenshot():
+    img = ImageGrab()
+    img = img.resize((800,600), Image.CUBIC)
+    img = img.crop((206, 301, 502, 580))
     
-       
+def cutForSingleCard(img):
+    w, h = img.size
+    img.show()
+    im = np.asarray(img)
+    edges = cv2.Canny(im, 200, 100)
 
+    row_1_count = 0
+    row_2_count = 0
+    for x in range(w - 1):
+        y = 50
+        while y < 180:
+            if edges[y][x] == 255:
+                row_1_count += 1
+            y += 1 
+        row_count = row_1_count + row_2_count
+        if row_count >= 100:
+            print x
+            img = img.crop(((x-6), 0, (x+141), h))
+            n = np.asarray(img)
+            plt.imshow(n), plt.show()
+            valuesOfSingleCard(img)
+            break;
+        else:
+            row_2_count = row_1_count
+            row_1_count = 0
+         
 
+def valuesOfSingleCard(img):
+    attack = img.crop((8, 240, 33, 271)) #25x31
+    life = img.crop((120, 240, 145, 271)) #25x31
+    mana = img.crop((2, 13, 32, 46)) # 30x33
+    #erstellen von clf bzw. zusehen wie ich den schon erstellten clf darauf anweden kann?!
 
-
-
-    
-    
-            
             
 
 

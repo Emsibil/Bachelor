@@ -30,16 +30,62 @@ def path(fileName):
     abs_file_path = os.path.join(script_dir, rel_path)
     return abs_file_path
 #vars for takingScreenshot()
-enemySide = None
+
 mySide = None
+def get_mySide():
+    global mySide
+    if mySide is None:
+        print 'Error'
+    return mySide
+enemySide = None
+def get_enemySide():
+    global enemySide
+    if enemySide is None:
+        print 'Error'
+    return enemySide
 turn = None
-enemy = None
+def get_turn():
+    global turn
+    if turn is None:
+        print 'Error'
+    return turn
 me = None
+def get_me():
+    global me
+    if me is None:
+        print 'Error'
+    return me
 enemy_mana = None
+def get_enemyMana():
+    global enemy_mana
+    if enemy_mana is None:
+        print 'Error'
+    return enemy_mana
 my_mana = None
+def get_myMana():
+    global my_mana
+    if my_mana is None:
+        print 'Error'
+    return my_mana
 stack = None
+def get_stack():
+    global stack
+    if stack is None:
+        print 'Error'
+    return stack
 my_Hand = None
+def get_myHand():
+    global my_Hand
+    if my_Hand is None:
+        print 'Error'
+    return my_Hand
 enemy_Hand = None
+def get_enemyHand():
+    global enemy_Hand
+    if enemy_Hand is None:
+        print 'Error'
+    return enemy_Hand
+enemy = None
 def get_enemy():
     global enemy
     if enemy is None:
@@ -213,27 +259,57 @@ def singleMinionsValues(minions):
         
         print str(minion) + "Attack: " + str(numberClassifier(attack)) + "Life: " + str(numberClassifier(life))
 enemyHero = None
-#which hero plays the enemy
-def enemyDetection(img):
-    
+def get_enemyHero():
     global enemyHero
+    if enemyHero is None:
+        enemyHero = enemyDetection(get_enemy())
+    return enemyHero
+enemy_clf = None
+def get_enemyCLF():
+    global enemy_clf
+    if enemy_clf is None:
+        enemy_clf = enemy_detection_clf()
+    return enemy_clf
+#which hero plays the enemy
+def enemy_detection_clf():
 
-    detected = 0
-    for cascade in os.listdir(path('data\\characters')):
-        casc = cv2.CascadeClassifier(path('data\\characters')+'\\'+cascade)
-        _img = np.asarray(img)
-        char = casc.detectMultiScale(_img, 1.1, 1)
-        if len(char) == 1:
-            detected += 1
-            #print cascade
-    if detected == 1:
-        print 'Enemy Hero detected'
-        name, tag = cascade.split('.')
-        enemyHero = name
-    elif detected == 0:
-        print 'No Enemy Hero detected'
-    else:
-        print 'detection not clear'
+    chars = np.array(['warrior', 'warlock', 'mage', 'druid', 'rogue', 'shaman', 'paladin', 'priest', 'hunter'])
+    data = []
+    target = []
+    for c in chars:
+        p = path('images/character/new/black')
+        for f in os.listdir(p+'/'+c):
+            img = Image.open(p+'/'+c+'/'+f)
+            w, h = img.size
+            pixel = img.load()
+            tmp = []
+            for y in range(h):
+                for x in range(w):
+                    tmp.append(np.float(pixel[x,y] / 255))
+            target.append(np.str(c))
+            data.append(np.array(tmp))
+    data = np.array(data)
+    #image = data.view()
+    #image.shape = (-1, 22, 30)
+    #clf = svm.SVC(gamma = 0.001)
+    clf = RandomForestClassifier()
+    clf.fit(data, target)
+    
+    return clf
+def enemyDetection(img):
+    clf = get_enemyCLF()
+    im = img
+    im = im.resize((10,10), Image.CUBIC)
+    im = im.convert('1')
+    data = []
+    w, h = im.size
+    pixel = im.load()
+    for y in range(h):
+        for x in range(w):
+            data.append(np.float(pixel[x,y] / 255)) 
+    predict = clf.predict(np.array(data))        
+    return predict[0]
+
 #return the count of handcards you have at the moment
 def countHandcards(img):
     ranges = np.array([[111,120,1],[84,90,2],[57,63,3],[27,36,4],[23,31,5],[16,23,6],[14,21,7],[7,15,8],[2, 9, 9], [3,7,10]]) 
@@ -289,7 +365,6 @@ def testingFromRight(edges):
     else:
         print str(count8) + '   ' + str(count9)
     return handcards
-number_clf = None
 def decoloringNumbers(img):
     w, h = img.size
     pixels = img.load()
@@ -300,11 +375,12 @@ def decoloringNumbers(img):
         tmp_pixels = controllingWhite(pixels, w, h)
     
     pixels = makeBlack(tmp_pixels, w, h) 
+    return pixels
 def controllingGreen(pixels, w, h):    
     count = 0
     for x in range(w):
         for y in range(h):
-            r, g, b = pixels[x,y]
+            r, g, b, a = pixels[x,y]
             if x >= (w/2) and count == 0:
                 return None;
             if r > 100 and g == 0 and b == 0:
@@ -316,7 +392,7 @@ def controllingRed(pixels, w, h):
     count = 0
     for x in range(w):
         for y in range(h):
-            r, g, b = pixels[x,y]
+            r, g, b, a = pixels[x,y]
             if x >= (w/2) and count == 0:
                 return None
             if r==0 and g > 100 and b == 0:
@@ -327,7 +403,7 @@ def controllingRed(pixels, w, h):
 def controllingWhite(pixels, w, h):             
     for x in range(w):
         for y in range(h):
-            r, g, b = pixels[x,y]
+            r, g, b, a = pixels[x,y]
             if (r > 150) and (b > 150) and (g > 150):
                 diffrb = np.abs(r-b)
                 diffrg = np.abs(r-g)
@@ -348,7 +424,7 @@ class Bunch(dict):
         self.__dict__ = self      
 def formatImageToSVCData(img):
     w, h = img.size
-    pixel = img.load()
+    pixel = decoloringNumbers(img)
     y_arr = []
     for y in range(h):
         for x in range(w):
@@ -363,80 +439,114 @@ def formatImageToSVCData(img):
                  target_name = np.arange(0),
                  image = image,
                  DESCR = 'my digits')
-def my_digits():
-    global number_clf
+def digit_data():
+    p = path('images/black_white')
+    img_arr = []
+    for f in os.listdir(p):
+        name, end = f.split('.')
+        if end == 'png':
+            img = Image.open(p+'/'+f)
+            w, h = img.size
+            pixel = img.load()
+            y_arr = []
+            for y in range(h):
+                #x_arr = []
+                for x in range(w):
+                    r , g, b = pixel[x,y]
+                    sum = ((255 - (r + g + b)/3) / 255)
+                    y_arr.append(np.float(sum))
+                #x_arr = np.array(x_arr)
+                #y_arr.append(x_arr)
+            y_arr = np.array(y_arr)
+            img_arr.append(y_arr)
+    return np.array(img_arr)
+def _data():
+    f = open(path('images/black_white/target4.info'), 'r')
+    content = f.readlines()
+    numbers = []
+    for l in content:
+        num = str(l).split(' ')[1]
+        num = num[:1]
+        if num == 'x':
+            num = 10
+        numbers.append(np.int(num))
+    target = np.array(numbers)
+    data = np.array(digit_data())
+    images = data.view()
+    images.shape = (-1, 14, 15)
     
-    digits = testing._data()
+    return Bunch(data = data,
+                 target = target.astype(np.int),
+                 target_names=np.arange(11),
+                 images=images,
+                 DESCR = 'my digits')
+number_clf = None
+def get_numberCLF():
+    global number_clf
+    if number_clf is None:
+        number_clf = my_digits()
+    return number_clf
+def my_digits():
+    digits = _data()
     
     n_samples = len(digits.images)
     datas = digits.images.reshape((n_samples, -1))
+
     classifier = RandomForestClassifier()
     classifier.fit(datas, digits.target)
     
-    number_clf = classifier
+    return classifier
 def numberClassifier(img):
 
-    global number_clf
-    
-    if number_clf is None:
-        print 'error clf'
+    clf = get_numberCLF()
     
     digit = formatImageToSVCData(img)
     
-    predict = number_clf.predict(digit.data)
+    predict = clf.predict(digit.data)
     
     if predict == 10:
-        predict = testing.biggerThanNine(digit, number_clf)
+        predict = testing.biggerThanNine(digit, clf)
     
     return predict[0]
-def GameStart():
-    global enemySide
-    global mySide
-    global enemyHero
-    global enemy
-    
+def cardDetectScreenshot():
+    img = grab.grab()
+    img = img.resize((800,600), Image.CUBIC)
+    img = img.crop((206, 301, 502, 580))
+
+
+
+def GameStart():   
     #firstScreen
     takingScreenshot()
-    print enemy
-    #enemy hero detection
-    enemyDetection(enemy)
-    
-    print 'Your opponent plays: ' + str(enemyHero)
+    print 'Your opponent plays: ' + str(get_enemyHero())
     
     #save which background is used
-    blobDetection(enemySide, True, 'ENEMY')
-    blobDetection(mySide, True, 'MY')
+    blobDetection(get_enemySide(), True, 'ENEMY')
+    blobDetection(get_mySide(), True, 'MY')
 #Methods and function which needs to run at the beginning of a game
 def gameControl():
-    
     #global vars where Screenshots and all other information are saved
-    global enemySide
-    global mySide
-    global turn
-    global enemy
     global me
     global enemy_mana
     global my_mana
     global stack
-    global my_Hand
     global enemy_Hand
-    global enemyHero
 
     #firstScreen
     takingScreenshot()
     
-    isMyTurn(turn)
+    isMyTurn(get_turn())
     
-    minionsOnEnemySide = blobDetection(enemySide, False, 'ENEMY')
-    minionsOnMySide = blobDetection(mySide, False, 'MY')
+    minionsOnEnemySide = blobDetection(get_enemySide(), False, 'ENEMY')
+    minionsOnMySide = blobDetection(get_mySide(), False, 'MY')
     
     print 'Minions on enemy Side: ' + str(minionsOnEnemySide)
     print 'Minions on my side: ' + str(minionsOnMySide)
     
-    singleMinionsValues(singleMinions(enemySide, minionsOnEnemySide))
-    singleMinionsValues(singleMinions(mySide, minionsOnMySide))
+    #singleMinionsValues(singleMinions(enemySide, minionsOnEnemySide))
+    #singleMinionsValues(singleMinions(mySide, minionsOnMySide))
     
-    print countHandcards(my_Hand)
+    print countHandcards(get_myHand())
 def OnKeyBoardEvent(event):
     c = chr(event.Ascii)
     if c == 'p':
@@ -446,7 +556,8 @@ def OnKeyBoardEvent(event):
         print 'StartScreen'
         GameStart()
 def Main():
-    my_digits()
+    get_numberCLF()
+    #get_enemyCLF()
     
     while True:   
         hm = pyHook.HookManager()
@@ -462,56 +573,12 @@ def Main():
  #   time.sleep(2)
   #  testing.image_slicing(str(num))
    # num += 1
+img = Image.open(path('images/attack.png'))
+img1 = Image.open(path('images/manacosts.png'))
+get_numberCLF()
+print numberClassifier(img)
+#print numberClassifier(img1)
+print 'Done'
 
-#img = Image.open(path('images/character/Priest/priest750.png'))
-#enemyDetection(img)
-#print enemyHero
-#img2 = Image.open(path('images/character/Paladin/paladin1101.png'))
-#enemyDetection(img2)
-#print enemyHero
-#img3 = Image.open(path('images/character/Shaman/shaman2.png'))
-#enemyDetection(img3)
-#print enemyHero
-#img4 = Image.open(path('images/character/Warrior/warrior1000.png'))
-#enemyDetection(img4)
-#print enemyHero
-#img5 = Image.open(path('images/character/Warlock/warlock150.png'))
-#enemyDetection(img5)
-#print enemyHero
-#img6 = Image.open(path('images/character/Mage/mage997.png'))
-#enemyDetection(img6)
-#print enemyHero
-#img7 = Image.open(path('images/character/Hunter/hunter9.png'))
-#enemyDetection(img7)
-#print enemyHero
-#img8 = Image.open(path('images/character/Druid/druid1.png'))
-#enemyDetection(img8)
-#print enemyHero
-#img9 = Image.open(path('images/character/Rogue/rogue8.png'))
-#enemyDetection(img9)
-#print enemyHero
-
-#testing.enemyDetection()
-
-
-#chars = ['Paladin','Priest','Mage','Druid','Hunter','Rogue','Warrior','Warlock','Shaman']
-#for c in chars:
- #   p = path('images/character/new/'+c)
-  #  for f in os.listdir(p):
-   #     img = Image.open(p+'/'+f).crop((17, 38, 65, 86))
-    #    #img = img.convert('LA')
-     #   img.save(path('images/character/new/small/' + c + '/' + f))
-    
-testing.objdetect()
-
-casc = cv2.CascadeClassifier(path('images\\character\\new\\small\\data_druid\\cascade.xml'))
-for f in os.listdir(path('images\\character\\new\\small\\druid')):
-    img = Image.open(path('images\\character\\new\\small\\druid')+ '\\'+f)
-    _img = np.asarray(img)
-    char = casc.detectMultiScale(_img, 1.01, 1)
-    if len(char) >= 1:
-        print f,'druid', len(char)
-
-
-
+        
 
