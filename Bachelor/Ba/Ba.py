@@ -10,6 +10,7 @@ import pyHook
 import pythoncom
 from itertools import izip
 import os
+import LogReader as log
 from sklearn import svm
 from sklearn.ensemble.forest import RandomForestClassifier
 
@@ -582,18 +583,21 @@ def testingMain():
         hm.HookKeyboard()
         pythoncom.PumpMessages()
 
-testingMain()
+#testingMain()
 #num = 3000
 #while True:
  #   time.sleep(2)
   #  testing.image_slicing(str(num))
    # num += 1
-img = Image.open(path('images/attack.png'))
-img1 = Image.open(path('images/manacosts.png'))
-get_numberCLF()
-print numberClassifier(img)
+#img = Image.open(path('images/attack.png'))
+#img1 = Image.open(path('images/manacosts.png'))
+#get_numberCLF()
+#print numberClassifier(img)
 #print numberClassifier(img1)
-print 'Done'
+#print 'Done'
+
+log.realTimeReader()
+
 
         
 

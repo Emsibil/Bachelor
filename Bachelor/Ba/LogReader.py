@@ -1,21 +1,38 @@
 import sys
 import os
-from astropy import log
+
+path = 'D:/Programme/'
+
+def getPath():
+    global path
+    return path
 
 def openLogFile():
-    path = '' +'Hearthstone/Hearthstone_Data/output_log.txt' 
-    return  open(path, 'r')
+    return open(getPath()+'Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
 
 def readLog():
     return openLogFile().readlines()
     
-def GameStartingLine():
+def realTimeReader():
     content = readLog()
-    i = (len(content) - 1)
-    while i > 0:
-        if 'MULLIGAN_STATE' in str(content[i])
-            return i
-        i -= 1
+    numberOfLines = len(content)
+    for line in content:
+        print str(line)
+    while True:
+        new_content = readLog()
+        if not content == new_content:
+            toPrint = len(new_Content) - numberOfLines
+            i = 0
+            while toPrint >= i:
+                print new_content[numberOfLines + i]
+                i += 1
+            conntent = new_content
+            numberOfLines = len(new_Content)
+
+
+
+
+
 
     
 

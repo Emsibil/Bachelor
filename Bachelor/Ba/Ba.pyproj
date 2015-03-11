@@ -27,6 +27,7 @@
     <Compile Include="lib\pytesser.py" />
     <Compile Include="lib\util.py" />
     <Compile Include="lib\_init_.py" />
+    <Compile Include="LogReader.py" />
     <Compile Include="testing.py" />
   </ItemGroup>
   <ItemGroup>
