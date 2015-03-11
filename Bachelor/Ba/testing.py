@@ -607,8 +607,8 @@ def decoloringNumbers(img):
         tmp_pixels = controllingWhite(pixels, w, h)
     
     pixels = makeBlack(tmp_pixels, w, h)
-    num = len(os.listdir(path('images\\black_white')))
-    img.save(path('images\\black_white')+'\\num'+str(num)+'.png')
+    num = len(os.listdir(path('images/handcardnumbers/numbers')))
+    img.save(path('images/handcardnumbers/numbers')+'/num'+str(num)+'.png')
     
 
 def controllingGreen(pixels, w, h):    
@@ -1056,7 +1056,6 @@ def cardDetectScreenshot():
     
 def cutForSingleCard(img):
     w, h = img.size
-    img.show()
     im = np.asarray(img)
     edges = cv2.Canny(im, 200, 100)
 
@@ -1087,8 +1086,42 @@ def valuesOfSingleCard(img):
     mana = img.crop((2, 13, 32, 46)) # 30x33
     #erstellen von clf bzw. zusehen wie ich den schon erstellten clf darauf anweden kann?!
 
+def ScreenForCardNum():
+    img = ImageGrab.grab()
+    img = img.resize((800,600), Image.CUBIC)
+    img = img.crop((206, 301, 560, 580))
+    num = len(os.listdir(path('images/handcardnumbers/wholehand/')))
+    img.save(path('images/handcardnumbers/wholehand/wholehand'+str(num)+'.png'))
+    w, h = img.size
+    im = np.asarray(img)
+    edges = cv2.Canny(im, 200, 100)
+    row_1_count = 0
+    row_2_count = 0
+    for x in range(w - 1):
+        y = 50
+        while y < 180:
+            if edges[y][x] == 255:
+                row_1_count += 1
+            y += 1 
+        row_count = row_1_count + row_2_count
+        if row_count >= 100:
+            img = img.crop(((x-6), 0, (x+141), h))
+            img.save(path('images/handcardnumbers/wholecard/wholecard'+str(num)+'.png'))
+            attack = img.crop((8, 240, 33, 271))
+            life = img.crop((120, 240, 145, 271))
+            mana = img.crop((2, 13, 32, 46))
+            attack = attack.resize((15,14), Image.CUBIC)
+            life = life.resize((15,14), Image.CUBIC)
+            mana = mana.resize((15,14), Image.CUBIC)
+            decoloringNumbers(mana)
+            decoloringNumbers(attack)
+            decoloringNumbers(life)
+            break;
+        else:
+            row_2_count = row_1_count
+            row_1_count = 0
             
-
+    
 
 
 

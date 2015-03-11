@@ -567,7 +567,22 @@ def Main():
 
 #Main()
 
-#-------------------------Tests--------------------------------#
+#------------------------------#
+
+def testOnKeyBoardEvent(event):
+    c = chr(event.Ascii)
+    if c == 's':
+        print 'Screenshot'
+        testing.ScreenForCardNum()
+        
+def testingMain():
+    while True:   
+        hm = pyHook.HookManager()
+        hm.KeyDown = testOnKeyBoardEvent
+        hm.HookKeyboard()
+        pythoncom.PumpMessages()
+
+testingMain()
 #num = 3000
 #while True:
  #   time.sleep(2)
