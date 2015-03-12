@@ -596,11 +596,10 @@ def testingMain():
 #print numberClassifier(img1)
 #print 'Done'
 
-#log.realTimeReader()
+log.realTimeReader()
 #log.translate_cardxml()
 #log.read_cardxml()
 #log.read()
 #print 'Done'
 
-log.singleCards()
-print 'Done'
+

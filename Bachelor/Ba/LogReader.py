@@ -3,9 +3,9 @@ import os
 import re
 import time
 import numpy as np
-from blaze.server.client import content
 
-#path = 'C:/Program Files (x86)'
+#path = 'C:/Program Files (x86)'  #Uni
+path = 'D:/Programme' #Home
 
 #returns the full path of a special file
 def path(fileName):
@@ -19,7 +19,7 @@ def getPath():
     return path
 
 def openLogFile():
-    return open(getPath()+'/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
+    return open('D:/Programme/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
 
 def readLog():
     return openLogFile().readlines()
@@ -34,13 +34,18 @@ def realTimeReader():
         if not content == new_content:
             toPrint = len(new_content) - numberOfLines
             i = 0
-            while toPrint >= i:
-                print new_content[numberOfLines + i]
+            while toPrint > i:
+                lineNumber = numberOfLines + i
+                print new_content[lineNumber]
+                new_line = new_content[lineNumber]
+                if '[Zone]' in str(new_line):
+                    logInterpreter(new_line)                    
                 i += 1
-            conntent = new_content
+            content = new_content
             numberOfLines = len(new_content)
 
-
+def logInterpreter(line):
+    
 def translate_cardxml():
     cardxml = open(path('doc/cardxml0.txt'), 'r').readlines()
     UsContent = []
@@ -204,7 +209,8 @@ def read_cardxml():
         if ('<CardDefs>' in line) and ('enUS' in line):
             isCopying=True      
     return np.array(UsContent)
-      
+  
+#After every Update to use    
 def singleCards():
     UsContent = read_cardxml()
     newCard = False
@@ -306,8 +312,7 @@ def readSingleCardInfo(content):
         _ABIL = a + '\n\t'
     
     return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _ABIL + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _CARDSET +'\n'  
-       
-            
+                   
 def writeCardsInFile(CardArray):
     cardFile = open(path('doc')+'/cards.info', 'w')
     for card in CardArray:

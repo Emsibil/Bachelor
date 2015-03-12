@@ -142,6 +142,10 @@
     <Content Include="data\grayscale\stage7.xml" />
     <Content Include="data\grayscale\stage8.xml" />
     <Content Include="data\grayscale\stage9.xml" />
+    <Content Include="doc\cards.info" />
+    <Content Include="doc\cards.xml" />
+    <Content Include="doc\cardxml0.txt" />
+    <Content Include="doc\cardxml0.unity3d" />
     <Content Include="doc\font_properties" />
     <Content Include="doc\hea.Belwe.exp0.box" />
     <Content Include="doc\hea.Belwe.exp0.pdf" />
@@ -158,6 +162,7 @@
     <Content Include="doc\Hearthstone-train-set.docx" />
     <Content Include="doc\Hearthstone-train-set.pdf" />
     <Content Include="doc\output.txt" />
+    <Content Include="doc\output_log_draft.txt" />
     <Content Include="doc\SINGLE.TXT" />
     <Content Include="doc\unicharset" />
     <Content Include="images\bad.txt" />
