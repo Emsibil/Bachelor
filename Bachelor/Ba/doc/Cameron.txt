@@ -1,1 +1,0 @@
-[Cameron] log.config location: C:/Users/MoonFlight/AppData/Local/Blizzard/Hearthstone/log.config

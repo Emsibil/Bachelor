@@ -1,1 +1,0 @@
-[HealthyGaming] CAIS Active: False,  Accout Country: DEU,  Time: 5.237673,  Played Time: 0,  Rested Time: 0, Session Start Time: 4267769472
