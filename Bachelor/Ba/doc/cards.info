@@ -17,7 +17,7 @@ CardID: CS1_042
 	Cost: 1
 	Attack: 1
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -173,7 +173,7 @@ CardID: CS2_009
 	Cost: 2
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -368,7 +368,7 @@ CardID: CS2_027
 	Cost: 1
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Mage
@@ -446,7 +446,7 @@ CardID: CS2_039
 	Cost: 2
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -459,7 +459,7 @@ CardID: CS2_041
 	Cost: 0
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -472,7 +472,7 @@ CardID: CS2_041e
 	Cost: None
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: Shaman
@@ -576,7 +576,7 @@ CardID: CS2_051
 	Cost: 1
 	Attack: 0
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: Totem
 	Fraction: Neutral
 	Class: Shaman
@@ -693,7 +693,7 @@ CardID: CS2_065
 	Cost: 1
 	Attack: 1
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: Demon
 	Fraction: Neutral
 	Class: Warlock
@@ -1031,7 +1031,7 @@ CardID: CS2_103
 	Cost: 3
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Neutral
 	Class: Warrior
@@ -1174,7 +1174,7 @@ CardID: CS2_121
 	Cost: 2
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -1213,7 +1213,7 @@ CardID: CS2_124
 	Cost: 3
 	Attack: 3
 	Health: 1
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Horde
 	Class: None
@@ -1226,7 +1226,7 @@ CardID: CS2_125
 	Cost: 3
 	Attack: 3
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: Beast
 	Fraction: Neutral
 	Class: None
@@ -1239,7 +1239,7 @@ CardID: CS2_127
 	Cost: 3
 	Attack: 1
 	Health: 4
-	Ability: None 
+	Ability1: Taunt
 	Race: Beast
 	Fraction: Horde
 	Class: None
@@ -1252,7 +1252,7 @@ CardID: CS2_131
 	Cost: 4
 	Attack: 2
 	Health: 5
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -1330,7 +1330,7 @@ CardID: CS2_162
 	Cost: 6
 	Attack: 6
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -1356,7 +1356,7 @@ CardID: CS2_171
 	Cost: 1
 	Attack: 1
 	Health: 1
-	Ability: None 
+	Ability1: Charge
 	Race: Beast
 	Fraction: Neutral
 	Class: None
@@ -1382,7 +1382,7 @@ CardID: CS2_173
 	Cost: 2
 	Attack: 2
 	Health: 1
-	Ability: None 
+	Ability1: Charge
 	Race: Murloc
 	Fraction: Neutral
 	Class: None
@@ -1395,7 +1395,7 @@ CardID: CS2_179
 	Cost: 4
 	Attack: 3
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Horde
 	Class: None
@@ -1434,7 +1434,7 @@ CardID: CS2_187
 	Cost: 5
 	Attack: 5
 	Health: 4
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Horde
 	Class: None
@@ -1512,7 +1512,7 @@ CardID: CS2_213
 	Cost: 6
 	Attack: 5
 	Health: 2
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Horde
 	Class: None
@@ -1577,7 +1577,7 @@ CardID: CS2_232
 	Cost: 8
 	Attack: 8
 	Health: 8
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -1668,7 +1668,7 @@ CardID: CS2_mirror
 	Cost: 0
 	Attack: 0
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Mage
@@ -1720,7 +1720,7 @@ CardID: DS1_070
 	Cost: 4
 	Attack: 4
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Hunter
@@ -1772,7 +1772,7 @@ CardID: DS1_178
 	Cost: 5
 	Attack: 2
 	Health: 5
-	Ability: None 
+	Ability1: Charge
 	Race: Beast
 	Fraction: Neutral
 	Class: Hunter
@@ -1941,7 +1941,7 @@ CardID: EX1_084
 	Cost: 3
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Neutral
 	Class: Warrior
@@ -2032,7 +2032,7 @@ CardID: EX1_246
 	Cost: 3
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -2149,7 +2149,7 @@ CardID: EX1_371
 	Cost: 1
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Divine Shield
 	Race: None
 	Fraction: Neutral
 	Class: Paladin
@@ -2318,7 +2318,7 @@ CardID: EX1_587
 	Cost: 4
 	Attack: 3
 	Health: 3
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -2591,7 +2591,7 @@ CardID: hexfrog
 	Cost: None
 	Attack: 0
 	Health: 1
-	Ability: None 
+	Ability1: Taunt
 	Race: Beast
 	Fraction: Neutral
 	Class: None
@@ -2643,7 +2643,7 @@ CardID: NEW1_011
 	Cost: 4
 	Attack: 4
 	Health: 3
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: None
 	Class: Warrior
@@ -2669,7 +2669,7 @@ CardID: NEW1_032
 	Cost: 3
 	Attack: 4
 	Health: 4
-	Ability: None 
+	Ability1: Taunt
 	Race: Beast
 	Fraction: None
 	Class: Hunter
@@ -2708,7 +2708,7 @@ CardID: NEW1_034
 	Cost: 3
 	Attack: 4
 	Health: 2
-	Ability: None 
+	Ability1: Charge
 	Race: Beast
 	Fraction: None
 	Class: Hunter
@@ -2734,7 +2734,7 @@ CardID: CS1_069
 	Cost: 5
 	Attack: 3
 	Health: 6
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -2851,7 +2851,7 @@ CardID: CS2_059
 	Cost: 1
 	Attack: 0
 	Health: 1
-	Ability: None 
+	Ability1: Stealth
 	Race: Demon
 	Fraction: Neutral
 	Class: Warlock
@@ -2955,7 +2955,7 @@ CardID: CS2_146
 	Cost: 1
 	Attack: 2
 	Health: 1
-	Ability: None 
+	Ability1: Charge
 	Race: Pirate
 	Fraction: Alliance
 	Class: None
@@ -3007,7 +3007,7 @@ CardID: CS2_161
 	Cost: 7
 	Attack: 7
 	Health: 5
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3020,7 +3020,7 @@ CardID: CS2_169
 	Cost: 1
 	Attack: 1
 	Health: 1
-	Ability: None 
+	Ability1: Windfury
 	Race: Beast
 	Fraction: Horde
 	Class: None
@@ -3293,7 +3293,7 @@ CardID: EX1_002
 	Cost: 6
 	Attack: 4
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -3371,7 +3371,7 @@ CardID: EX1_008
 	Cost: 1
 	Attack: 1
 	Health: 1
-	Ability: None 
+	Ability1: Divine Shield
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3397,7 +3397,7 @@ CardID: EX1_010
 	Cost: 1
 	Attack: 2
 	Health: 1
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3475,7 +3475,7 @@ CardID: EX1_017
 	Cost: 3
 	Attack: 4
 	Health: 2
-	Ability: None 
+	Ability1: Stealth
 	Race: Beast
 	Fraction: Horde
 	Class: None
@@ -3488,7 +3488,7 @@ CardID: EX1_020
 	Cost: 3
 	Attack: 3
 	Health: 1
-	Ability: None 
+	Ability1: Divine Shield
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3501,7 +3501,7 @@ CardID: EX1_021
 	Cost: 3
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: Horde
 	Class: None
@@ -3514,7 +3514,7 @@ CardID: EX1_023
 	Cost: 4
 	Attack: 3
 	Health: 3
-	Ability: None 
+	Ability1: Divine Shield
 	Race: None
 	Fraction: Horde
 	Class: None
@@ -3527,7 +3527,7 @@ CardID: EX1_028
 	Cost: 5
 	Attack: 5
 	Health: 5
-	Ability: None 
+	Ability1: Stealth
 	Race: Beast
 	Fraction: Alliance
 	Class: None
@@ -3553,7 +3553,8 @@ CardID: EX1_032
 	Cost: 6
 	Attack: 4
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
+	Ability2: Divine Shield
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3566,7 +3567,7 @@ CardID: EX1_033
 	Cost: 6
 	Attack: 4
 	Health: 5
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3748,7 +3749,7 @@ CardID: EX1_058
 	Cost: 2
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3787,7 +3788,8 @@ CardID: EX1_067
 	Cost: 6
 	Attack: 4
 	Health: 2
-	Ability: None 
+	Ability1: Charge
+	Ability2: Divine Shield
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -3878,7 +3880,7 @@ CardID: EX1_089
 	Cost: 3
 	Attack: 4
 	Health: 2
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -3904,7 +3906,7 @@ CardID: EX1_093
 	Cost: 4
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -3956,7 +3958,7 @@ CardID: EX1_097
 	Cost: 5
 	Attack: 4
 	Health: 4
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -4060,7 +4062,7 @@ CardID: EX1_116
 	Cost: 5
 	Attack: 6
 	Health: 2
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Alliance
 	Class: None
@@ -4112,7 +4114,7 @@ CardID: EX1_128
 	Cost: 1
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: Neutral
 	Class: Rogue
@@ -4333,7 +4335,7 @@ CardID: EX1_155
 	Cost: 3
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -4593,7 +4595,8 @@ CardID: EX1_165
 	Cost: 5
 	Attack: 4
 	Health: 4
-	Ability: None 
+	Ability1: Taunt
+	Ability2: Charge
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -4632,7 +4635,7 @@ CardID: EX1_165t1
 	Cost: 5
 	Attack: 4
 	Health: 4
-	Ability: None 
+	Ability1: Charge
 	Race: Beast
 	Fraction: None
 	Class: Druid
@@ -4645,7 +4648,7 @@ CardID: EX1_165t2
 	Cost: 5
 	Attack: 4
 	Health: 6
-	Ability: None 
+	Ability1: Taunt
 	Race: Beast
 	Fraction: None
 	Class: Druid
@@ -4710,7 +4713,7 @@ CardID: EX1_178
 	Cost: 7
 	Attack: 5
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -4801,7 +4804,7 @@ CardID: EX1_243
 	Cost: 1
 	Attack: 3
 	Health: 1
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -4840,7 +4843,7 @@ CardID: EX1_248
 	Cost: 3
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -4866,7 +4869,7 @@ CardID: EX1_250
 	Cost: 5
 	Attack: 7
 	Health: 8
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -5087,7 +5090,7 @@ CardID: EX1_301
 	Cost: 3
 	Attack: 3
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: Demon
 	Fraction: Neutral
 	Class: Warlock
@@ -5152,7 +5155,7 @@ CardID: EX1_310
 	Cost: 5
 	Attack: 5
 	Health: 7
-	Ability: None 
+	Ability1: Charge
 	Race: Demon
 	Fraction: Neutral
 	Class: Warlock
@@ -5490,7 +5493,7 @@ CardID: EX1_362
 	Cost: 2
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Divine Shield
 	Race: None
 	Fraction: Neutral
 	Class: Paladin
@@ -5633,7 +5636,8 @@ CardID: EX1_383
 	Cost: 8
 	Attack: 6
 	Health: 6
-	Ability: None 
+	Ability1: Divine Shield
+	Ability2: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Paladin
@@ -5672,7 +5676,7 @@ CardID: EX1_390
 	Cost: 3
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -5724,7 +5728,7 @@ CardID: EX1_396
 	Cost: 4
 	Attack: 1
 	Health: 7
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -5776,7 +5780,7 @@ CardID: EX1_405
 	Cost: 1
 	Attack: 0
 	Health: 4
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -5906,7 +5910,7 @@ CardID: EX1_412
 	Cost: 3
 	Attack: 3
 	Health: 3
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -5919,7 +5923,7 @@ CardID: EX1_414
 	Cost: 8
 	Attack: 4
 	Health: 9
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Neutral
 	Class: Warrior
@@ -5984,7 +5988,7 @@ CardID: EX1_522
 	Cost: 2
 	Attack: 1
 	Health: 1
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: Neutral
 	Class: Rogue
@@ -6101,7 +6105,7 @@ CardID: EX1_538
 	Cost: 3
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: None
 	Class: Hunter
@@ -6114,7 +6118,7 @@ CardID: EX1_538t
 	Cost: 1
 	Attack: 1
 	Health: 1
-	Ability: None 
+	Ability1: Charge
 	Race: Beast
 	Fraction: None
 	Class: Hunter
@@ -6127,7 +6131,7 @@ CardID: EX1_543
 	Cost: 9
 	Attack: 8
 	Health: 8
-	Ability: None 
+	Ability1: Charge
 	Race: Beast
 	Fraction: Neutral
 	Class: Hunter
@@ -6140,7 +6144,7 @@ CardID: EX1_544
 	Cost: 2
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: Neutral
 	Class: Hunter
@@ -6335,7 +6339,7 @@ CardID: EX1_567
 	Cost: 5
 	Attack: 2
 	Health: None
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -6374,7 +6378,7 @@ CardID: EX1_571
 	Cost: 6
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -6400,7 +6404,7 @@ CardID: EX1_573
 	Cost: 9
 	Attack: 5
 	Health: 8
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -6452,7 +6456,7 @@ CardID: EX1_573t
 	Cost: 1
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: Druid
@@ -6556,7 +6560,7 @@ CardID: EX1_590
 	Cost: 3
 	Attack: 3
 	Health: 3
-	Ability: None 
+	Ability1: Divine Shield
 	Race: None
 	Fraction: Neutral
 	Class: None
@@ -7076,7 +7080,7 @@ CardID: EX1_tk11
 	Cost: 2
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: Neutral
 	Class: Shaman
@@ -7154,7 +7158,7 @@ CardID: EX1_tk9
 	Cost: 1
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: Neutral
 	Class: Druid
@@ -7258,7 +7262,10 @@ CardID: NEW1_010
 	Cost: 8
 	Attack: 3
 	Health: 5
-	Ability: None 
+	Ability1: Charge
+	Ability2: Divine Shield
+	Ability3: Windfury
+	Ability4: Taunt
 	Race: None
 	Fraction: None
 	Class: Shaman
@@ -7297,7 +7304,7 @@ CardID: NEW1_014
 	Cost: 4
 	Attack: 4
 	Health: 4
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: None
 	Class: Rogue
@@ -7401,7 +7408,7 @@ CardID: NEW1_022
 	Cost: 4
 	Attack: 3
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: Pirate
 	Fraction: None
 	Class: None
@@ -7661,7 +7668,7 @@ CardID: NEW1_040
 	Cost: 6
 	Attack: 4
 	Health: 4
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -7674,7 +7681,7 @@ CardID: NEW1_040t
 	Cost: 2
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -7986,7 +7993,7 @@ CardID: EX1_062
 	Cost: 4
 	Attack: 2
 	Health: 4
-	Ability: None 
+	Ability1: Charge
 	Race: Murloc
 	Fraction: Neutral
 	Class: None
@@ -9481,7 +9488,7 @@ CardID: FP1_005
 	Cost: 3
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: None
 	Class: None
@@ -9507,7 +9514,7 @@ CardID: FP1_006
 	Cost: 1
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Charge
 	Race: None
 	Fraction: None
 	Class: None
@@ -9559,7 +9566,7 @@ CardID: FP1_009
 	Cost: 3
 	Attack: 2
 	Health: 8
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -9598,7 +9605,7 @@ CardID: FP1_012
 	Cost: 5
 	Attack: 3
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -9611,7 +9618,7 @@ CardID: FP1_012t
 	Cost: 1
 	Attack: 1
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -9819,7 +9826,7 @@ CardID: FP1_024
 	Cost: 2
 	Attack: 1
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -9988,7 +9995,7 @@ CardID: NAX10_02H
 	Cost: 3
 	Attack: 4
 	Health: None
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: None
 	Class: None
@@ -10495,7 +10502,7 @@ CardID: NAX15_03n
 	Cost: 4
 	Attack: 3
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -10508,7 +10515,7 @@ CardID: NAX15_03t
 	Cost: 4
 	Attack: 5
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -11093,7 +11100,7 @@ CardID: NAX7_02
 	Cost: 2
 	Attack: 0
 	Health: 7
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -11912,7 +11919,7 @@ CardID: GVG_025
 	Cost: 2
 	Attack: 4
 	Health: 1
-	Ability: None 
+	Ability1: Stealth
 	Race: Pirate
 	Fraction: None
 	Class: Rogue
@@ -12003,7 +12010,7 @@ CardID: GVG_030
 	Cost: 2
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: Mech
 	Fraction: None
 	Class: Druid
@@ -12185,7 +12192,7 @@ CardID: GVG_037
 	Cost: 2
 	Attack: 3
 	Health: 2
-	Ability: None 
+	Ability1: Windfury
 	Race: Mech
 	Fraction: None
 	Class: Shaman
@@ -12237,7 +12244,7 @@ CardID: GVG_041
 	Cost: 6
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: Druid
@@ -12367,7 +12374,7 @@ CardID: GVG_046
 	Cost: 5
 	Attack: 2
 	Health: 6
-	Ability: None 
+	Ability1: Taunt
 	Race: Beast
 	Fraction: None
 	Class: Hunter
@@ -12601,7 +12608,7 @@ CardID: GVG_058
 	Cost: 2
 	Attack: 2
 	Health: 2
-	Ability: None 
+	Ability1: Divine Shield
 	Race: Mech
 	Fraction: None
 	Class: Paladin
@@ -12614,7 +12621,8 @@ CardID: GVG_059
 	Cost: 3
 	Attack: 2
 	Health: None
-	Ability: None 
+	Ability1: Divine Shield
+	Ability2: Taunt
 	Race: None
 	Fraction: None
 	Class: Paladin
@@ -12666,7 +12674,7 @@ CardID: GVG_062
 	Cost: 5
 	Attack: 6
 	Health: 3
-	Ability: None 
+	Ability1: Divine Shield
 	Race: Mech
 	Fraction: None
 	Class: Paladin
@@ -12731,7 +12739,7 @@ CardID: GVG_066
 	Cost: 4
 	Attack: 5
 	Health: 4
-	Ability: None 
+	Ability1: Windfury
 	Race: None
 	Fraction: None
 	Class: Shaman
@@ -12952,7 +12960,7 @@ CardID: GVG_079
 	Cost: 8
 	Attack: 7
 	Health: 7
-	Ability: None 
+	Ability1: Divine Shield
 	Race: Mech
 	Fraction: None
 	Class: None
@@ -12991,7 +12999,7 @@ CardID: GVG_081
 	Cost: 2
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: None
 	Class: None
@@ -13030,7 +13038,7 @@ CardID: GVG_084
 	Cost: 3
 	Attack: 1
 	Health: 4
-	Ability: None 
+	Ability1: Windfury
 	Race: Mech
 	Fraction: None
 	Class: None
@@ -13043,7 +13051,8 @@ CardID: GVG_085
 	Cost: 2
 	Attack: 1
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
+	Ability2: Divine Shield
 	Race: Mech
 	Fraction: None
 	Class: None
@@ -13095,7 +13104,7 @@ CardID: GVG_088
 	Cost: 5
 	Attack: 6
 	Health: 6
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: None
 	Class: Rogue
@@ -13134,7 +13143,7 @@ CardID: GVG_091
 	Cost: 4
 	Attack: 2
 	Health: 5
-	Ability: None 
+	Ability1: Taunt
 	Race: Mech
 	Fraction: None
 	Class: None
@@ -13173,7 +13182,7 @@ CardID: GVG_093
 	Cost: 0
 	Attack: 0
 	Health: 2
-	Ability: None 
+	Ability1: Taunt
 	Race: Mech
 	Fraction: None
 	Class: None
@@ -13225,7 +13234,7 @@ CardID: GVG_097
 	Cost: 3
 	Attack: 2
 	Health: 3
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -13238,7 +13247,8 @@ CardID: GVG_098
 	Cost: 3
 	Attack: 1
 	Health: 4
-	Ability: None 
+	Ability1: Charge
+	Ability2: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -13420,7 +13430,9 @@ CardID: GVG_107
 	Cost: 4
 	Attack: 3
 	Health: 2
-	Ability: None 
+	Ability1: Windfury
+	Ability2: Taunt
+	Ability3: Divine Shield
 	Race: Mech
 	Fraction: None
 	Class: None
@@ -13446,7 +13458,7 @@ CardID: GVG_109
 	Cost: 4
 	Attack: 4
 	Health: 1
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: None
 	Class: None
@@ -13498,7 +13510,7 @@ CardID: GVG_111t
 	Cost: 8
 	Attack: 4
 	Health: 8
-	Ability: None 
+	Ability1: Charge
 	Race: Mech
 	Fraction: None
 	Class: None
@@ -13719,7 +13731,7 @@ CardID: PART_003
 	Cost: 1
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Taunt
 	Race: None
 	Fraction: None
 	Class: None
@@ -13732,7 +13744,7 @@ CardID: PART_004
 	Cost: 1
 	Attack: None
 	Health: None
-	Ability: None 
+	Ability1: Stealth
 	Race: None
 	Fraction: None
 	Class: None

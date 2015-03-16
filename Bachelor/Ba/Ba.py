@@ -11,6 +11,8 @@ import pythoncom
 from itertools import izip
 import os
 import LogReader as log
+import cardLibReader as cReader
+import CardLibUpdater as cUpdater
 from sklearn import svm
 from sklearn.ensemble.forest import RandomForestClassifier
 
@@ -596,10 +598,8 @@ def testingMain():
 #print numberClassifier(img1)
 #print 'Done'
 
-log.realTimeReader()
-#log.translate_cardxml()
-#log.read_cardxml()
-#log.read()
-#print 'Done'
-
-
+#log.testReader()
+#log.testLines()
+log.splitInfo()
+#cReader.CardById('CS1_042')
+#cUpdater.singleCards()

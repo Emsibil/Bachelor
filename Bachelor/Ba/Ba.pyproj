@@ -23,11 +23,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Ba.py" />
+    <Compile Include="cardLibReader.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lib\errors.py" />
     <Compile Include="lib\pytesser.py" />
     <Compile Include="lib\util.py" />
     <Compile Include="lib\_init_.py" />
     <Compile Include="LogReader.py" />
+    <Compile Include="CardLibUpdater.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="testing.py" />
   </ItemGroup>
   <ItemGroup>
