@@ -26,6 +26,9 @@
     <Compile Include="cardLibReader.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Observer.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lib\errors.py" />
     <Compile Include="lib\pytesser.py" />
     <Compile Include="lib\util.py" />

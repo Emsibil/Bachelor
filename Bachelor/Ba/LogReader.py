@@ -80,6 +80,7 @@ ENEMY_HERO_POWER = 'NONE'
 def setMyHero(heroId):
     global MY_HERO
     MY_HERO = heroId
+    setMyMinios(cReader.CardById(heroId),0)
 def setMyHeroPower(powerId):
     global MY_HERO_POWER
     MY_HERO_POWER = powerId
@@ -106,8 +107,17 @@ MY_HANDCARDS = np.array(['None','None','None','None','None','None','None','None'
 def getHandcards():
     global MY_HANDCARDS
     return MY_HANDCARDS
-def addHandcardAtPosition(card, pos):
+def getHandcard(ZonePosition, WithRemoving):
     global MY_HANDCARDS
+    if WithRemoving:
+        card = MY_HANDCARDS[ZonePosition - 1]
+        removeHandCardFromPosition(ZonePosition)
+        MY_HANDCARDS = reOrderHandcards(MY_HANDCARDS, ZonePosition - 1)
+        return card
+    return MY_HANDCARDS[ZonePosition - 1]
+def addHandcardAtPosition(cardId, pos):
+    global MY_HANDCARDS
+    card = cReader.CardById(cardId)
     if MY_HANDCARDS[pos - 1] == 'None':
         MY_HANDCARDS[pos - 1] = card 
 def removeHandcardFromPosition(pos):
@@ -125,6 +135,20 @@ def getHandcardCount():
         else:
             count += 1
     return count
+
+def reOrderHandcards(handcards, pos):
+    length = len(handcards - 1)
+    if pos == length:
+        return handcards
+    while pos < length:
+        if handcards[pos + 1] == 'None':
+            return handcards
+        else:
+            handcards[pos] = handcards[pos + 1]
+            handcards[pos + 1] = 'None'
+            pos += 1
+    return handcards
+
 MY_MANA = 0
 def setMyMana(value):
     global MY_MANA
@@ -132,23 +156,22 @@ def setMyMana(value):
 def getMyMana():
     global MY_MANA
     return MY_MANA 
-def reOrderHandcards(handcards, pos):
-    while pos < (len(handcards) - 1):
-        if handcards[pos + 1] == 'None':
-            handcards[pos] = 'None'
-            break;
-        handcards[pos] = handcards[pos + 1]
-        if (pos + 1) == 9:
-            handcards[9] = 'None'
-    return handcards
 
-MinionsOnMySide = np.array([[1, 'None'], [2, 'None'], [3, 'None'], [4, 'None'], [5, 'None'], [6, 'None'], [7, 'None']])
-def getMyMinions():
+MinionsOnMySide = np.array([[0, 'None'][1, 'None'], [2, 'None'], [3, 'None'], [4, 'None'], [5, 'None'], [6, 'None'], [7, 'None']])
+def getMyMinion(pos):
     global MinionsOnMySide
-    return MinionsOnMySide
-def setMyMinions(MinionArray):
+    return MinionsOnMySide[pos]
+def setMyMinion(card, pos):
     global MinionsOnMySide
-    MinionsOnMySide = MinionArray
+    MinionsOnMySide[pos] = card
+
+MinionsOnEnemySide = np.array([[0, 'None'][1, 'None'], [2, 'None'], [3, 'None'], [4, 'None'], [5, 'None'], [6, 'None'], [7, 'None']])
+def getEnemyMinion(pos):
+    global MinionsOnEnemySide
+    return MinionsOnEnemySide[pos]
+def setEnemyMinion(card, pos):
+    global MinionsOnEnemySide
+    MinionsOnEnemySide[pos] = card
 def reorderMyMinions(Array, pos):
     i = (len(Array) - 1)
     while i >= pos:
@@ -306,19 +329,88 @@ def readingMulligan(input):
             pos = int(split(line, 'zonePos=', ' '))
             removeHandcardFromPosition(pos)
             #put removed Card back to DECK
-            addHandcardAtPosition(getTmp, pos)
+            addAtPosition(getTmp, pos)
             
 def readingMyTurn(input):
     for line in input:
+        if 'MAIN_END' in lsine:
+            setCurState('ENEMY_TURN')
+            return
         if 'TAG_CHANGE' in line and 'RESOURCES' in line:
             setMyMana(int(split(line, 'value= ', '\n')))
         if 'SHOW_ENTITY' in line:
             addHandcardAtPosition(split(line, 'CardID=', '\n'), (getHandcardCount() + 1))
+        if 'SubType=PLAY' in line:
+            card = getHandcard(int(split(line, 'ZonePos=', ' ')), 1)
+            setMyMana(getMyMana() - cReader.manaCost(card))
+            if cReader.cardType(card) == 'Minion':
+                setWaiting(True)
+                setTmp(card)
+        if isWaiting() and 'cardId='+cReader.Id(getTmp()) in line and 'ZONE_POSITION' in line:
+            setWaiting(False)
+            setMyMinion(getTmp(), split(line, 'value=', '\n'))
+        #if 'option 0' in Line and 'END_TURN' in Line:
+        #    print 'no more option. Click End Turn'
+        if 'SubType=ATTACK' in line:
+            attack(line, 'ME')
+
             
-    
+def attack(line, attacker):
+    attackerInfo, targetInfo= line.split('ATTACK')
+    attackZone = int(split(attackerInfo, 'zonePos=', ' cardId='))
+    #attack = split(attackerInfo, 'cardId', ' player')
+    #target = split(targetInfo, 'cardId', ' player')
+    targetZone = split(targetInfo, 'zonePos=', ' cardId')
+    a_strength = 0
+    a_health = 0
+    t_strength = 0
+    a_health = 0
+    a_minion = 'None'
+    t_minion = 'None'
+    if attacker == 'ME':
+        a_minion = getMyMinion(attackZone) 
+        t_minion = getEnemyMinion(targetZone)
+    else:
+        a_minion = getEnemyMinion(attackZone) 
+        t_minion = getMyMinion(targetZone)
+    a_strength = cReader.attackValue(a_minion)
+    a_health = cReader.healthValue(a_minion)
+    t_strength = cReader.attackValue(t_minion)
+    t_health = cReader.healthValue(t_minion)
+    new_t_health = t_health - a_strength
+    new_a_health = a_health - t_strength
+    if attacker == 'ME':
+        if new_a_health <= 0:
+            setMyMinion('None', attackZone)
+        else:
+            a_minion = cReader.setHealth(a_minion, new_a_health)
+            setMyMinion(a_minion, attackZone)
+        if new_t_health <= 0:
+            setEnemyMinion('None', targetZone)
+            if targetZone == 0:
+                print 'You Won'
+        else:
+            t_minion = cReader.setHealth(t_minion, new_t_health)
+            setEnemyMinion(t_minion, attackZone)
+    else:
+         if new_a_health <= 0:
+            setEnemyMinion('None', attackZone)
+         else:
+            a_minion = cReader.setHealth(a_minion, new_a_health)
+            setEnemyMinion(a_minion, attackZone)
+         if new_t_health <= 0:
+            setMyMinion('None', targetZone)
+         else:
+            t_minion = cReader.setHealth(t_minion, new_t_health)
+            setMyMinion(t_minion, attackZone)
+            if targetZone == 0:
+                print 'You Lost'         
+   
 def readingEnemyTurn(input):
     for line in input:
-        print 'blabla'
+        if 'MAIN_END' in line:
+            setCurState('ENEMY_TURN')
+            return
         
 
    #-----TESTREADER-----#
@@ -331,3 +423,18 @@ def splitter():
             power.write(l)
         elif '[Zone]' in l:
             zone.write(l)
+
+#--------EVENTS-------#
+
+def MinionChanges():
+    print 'Minion Changes'
+
+def DocumentChanges():
+    print 'There are new line of code'
+
+def HandcardsChanges():
+    print 'Something within your handcards changes'
+
+def GameStatusChanges():
+    print 'Gamestatus changes'
+

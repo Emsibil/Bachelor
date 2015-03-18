@@ -1,5 +1,0 @@
-negExamples/Hearthstone_Screenshot_11.13.2014.11.04.06.png
-negExamples/Hearthstone_Screenshot_11.13.2014.11.04.41.png
-negExamples/Hearthstone_Screenshot_11.13.2014.11.05.45.png
-negExamples/Hearthstone_Screenshot_11.13.2014.11.05.48.png
-negExamples/Hearthstone_Screenshot_11.13.2014.11.09.39.png
