@@ -600,6 +600,6 @@ def testingMain():
 
 #log.testReader()
 #log.testLines()
-log.splitter()
+log.Statedecision()
 #cReader.CardById('CS1_042')
 #cUpdater.singleCards()
