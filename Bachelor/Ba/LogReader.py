@@ -2,6 +2,7 @@ import os
 import time
 import numpy as np
 import cardLibReader as cReader
+from Card import *
 
 path = 'C:/Program Files (x86)'  #Uni
 #path = 'D:/Programme' #Home
@@ -13,6 +14,14 @@ def path(fileName):
     abs_file_path = os.path.join(script_dir, rel_path)
     return abs_file_path
 
+_BUGLOGGER = open(path('doc')+'/bug_log.txt', 'w')
+def buglogger(line, *args):
+    global _BUGLOGGER
+    text = str(line)
+    for a in args:
+        text += '\n' + str(a)
+    _BUGLOGGER.write(text+'\n')
+    
 def getPath():
     global path
     return path
@@ -80,7 +89,7 @@ ENEMY_HERO_POWER = None
 def setMyHero(heroId):
     global MY_HERO
     MY_HERO = heroId
-    setMyMinion(cReader.CardById(heroId),0)
+    setMyMinion(createCard(cReader.CardById(heroId)), 0)
 def setMyHeroPower(powerId):
     global MY_HERO_POWER
     MY_HERO_POWER = powerId
@@ -117,11 +126,16 @@ def getHandcard(ZonePosition, WithRemoving):
     return MY_HANDCARDS[ZonePosition - 1]
 def addHandcardAtPosition(cardId, pos):
     global MY_HANDCARDS
-    card = cReader.CardById(cardId)
-    card.zone = 'HAND'
-    card.zonePos = pos
+    card = createCard(cReader.CardById(cardId))
+    #card.zone = 'HAND'
+    #card.zonePos = pos
     if MY_HANDCARDS[pos - 1] is None:
         MY_HANDCARDS[pos - 1] = card 
+    print 'got new Card:'
+    for card in MY_HANDCARDS:
+        if card is not None:
+            print card
+           # print card.name
 def removeHandcardFromPosition(pos):
     global MY_HANDCARDS
     MY_HANDCARDS[pos - 1] = None
@@ -240,7 +254,6 @@ def Statedecision():
         nol = new_nol        
 def completeReading(input, state):
     if state == getCurState():
-        print state
         if getCurState() == getGameState(0):
             readGameStartPowerLines(input)
         elif getCurState() == getGameState(1):
@@ -270,7 +283,7 @@ def isWaiting():
 playerID = 0
 def setPlayerID(Id):
     global playerID
-    playerID = id
+    playerID = Id
 def getPlayerID():
     global playerID
     return playerID
@@ -286,14 +299,13 @@ def setTmp(temp):
 def readGameStartPowerLines(input):
     for idx, line in enumerate(input):
         if '[Zone]' in line:
-            print 'ZONE'
             setCurState('MULLIGAN')
             completeReading(input[idx:], getCurState())
             return
         elif 'CardID=HERO_' in line:
             setFound(True)
             setWaiting(True)
-            setTmp(cReader.CardById(split(line, 'CardID=','\n')))
+            setTmp(split(line, 'CardID=','\n'))
         elif isFound() and 'tag=CONTROLLER' in line:
             setFound(False)
             setPlayerID(int(split(line, 'value=', '\n')))
@@ -312,14 +324,13 @@ def readGameStartPowerLines(input):
             if '\n' == cardId:
                 continue
             else:
-                setFound(True)
-                setTmp(cReader.CardById(cardId.split('\n')[0]))
-        elif isFound() and 'ZONE_POSITION' in line:
-            setFound(False)
-            print getTmp().name
+                setWaiting(True)
+                setTmp(cardId.split('\n')[0])
+        elif isWaiting() and 'ZONE_POSITION' in line:
+            setWaiting(False)
+            buglogger(line, getTmp())
             addHandcardAtPosition(getTmp(), int(split(line,'value=','\n')))
         elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
-            print line
             if int(split(line,'value=','\n')) == 1 and getPlayerName(1) is None:
                 setPlayerName(1, split(line, 'Entity=',' tag'))
                 print getPlayerName(1)
@@ -337,10 +348,8 @@ def readingMulligan(input):
             time.sleep(0.5)
             if split(line, 'Entity=', ' tag') == getPlayerName(1):
                 setMyMulliganStateDone(True)
-                print 'My Mul Done'
             elif split(line, 'Entity=', ' tag') == getPlayerName(2):
                 setEnemyMulliganStateDone(True)
-                print 'His Mul Done'
             if isMyMulliganStateDone() and isEnemyMulliganStateDone():
                 if getHandcardCount() == 3:
                     setCurState('MY_TURN')
@@ -354,22 +363,20 @@ def readingMulligan(input):
                     time.sleep(1000)
                     #completeReading(input[idx:], getCurState())
                     return         
-        elif getPlayerName(1) in line and 'MULLIGAN_STATE' in line and 'DEALING' in line:
+        elif getPlayerName(1) is not None and 'MULLIGAN_STATE' in line and 'DEALING' in line:
             setWaiting(True)
             continue
         elif isWaiting() and 'SHOW_ENTITY' in line:
-            print 'x', line
-            setTmp(cReader.CardById(split(line, 'CardID=', '\n')))
+            setTmp(split(line, 'CardID=', '\n'))
             continue
         elif isWaiting() and 'HIDE_ENTITY' in line:
             setWaiting(False)
             pos = int(split(line, 'zonePos=', ' '))
             removeHandcardFromPosition(pos)
             #put removed Card back to DECK
-            addHandcardAtPosition(getTmp, pos)
+            addHandcardAtPosition(getTmp(), pos)
             continue
         elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
-            print line
             if int(split(line,'value=','\n')) == 1 and getPlayerName(1) is None:
                 setPlayerName(1, split(line, 'Entity=',' tag'))
                 print getPlayerName(1)
@@ -379,7 +386,7 @@ def readingMulligan(input):
                 print getPlayerName(2)
                 time.sleep(0.5)
             continue
-        ####2164 und 2116
+        
 def readingMyTurn(input):
     for idx, line in enumerate(input):
         if 'MAIN_END' in line:
@@ -440,7 +447,17 @@ def readingEnemyTurn(input):
             setCurState('ENEMY_TURN')
             completeReading(input[idx:], getCurState())
             return
-        
+
+def createCard(card):
+    cardtype = cReader.cardType(card)
+    _card = Card(cReader.id(card), cReader.name(card), cardtype, cReader.manaCost(card))
+    if cardtype == 'Minion':
+        _card.attack = cReader.attackValue(card)
+        _card.health = cReader.healthValue(card)
+    if cardtype == 'Hero':
+        _card.health = cReader.healthValue(card)
+    return _card     
+  
    #-----TESTREADER-----#
 def splitter():
     file = readLog()
