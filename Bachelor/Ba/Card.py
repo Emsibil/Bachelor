@@ -9,14 +9,26 @@ class Card(object):
         self._ability = []
         self._zone = None
         self._zonePos = None
-
-    def __setName(self, str_name):
-        self._name = str_name
-    def __getName(self):
+    
+    #1
+    @property
+    def name(self):
         return self._name
     
-    name = property(__getName, __setName)
+    @name.setter
+    def name(self, value):
+        self._name = value
     
+    #2
+    def getName(self):
+        return self._name
+    
+    def setName(self, value):
+        self._name = value
+    
+    name = property(getName, setName)
+    
+    #ka
     def __setattr__(self, name, value):
         if name == 'zone':
             try:

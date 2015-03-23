@@ -603,3 +603,5 @@ def testingMain():
 log.Statedecision()
 #cReader.CardById('CS1_042')
 #cUpdater.singleCards()
+
+print 'done'
