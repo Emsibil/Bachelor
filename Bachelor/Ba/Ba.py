@@ -2,7 +2,6 @@ import numpy as np
 import cv2
 import ImageGrab as grab
 import psutil
-import testing
 import Image
 import time
 import sys
@@ -10,11 +9,13 @@ import pyHook
 import pythoncom
 from itertools import izip
 import os
-import LogReader as log
-import cardLibReader as cReader
-import CardLibUpdater as cUpdater
+#import Bachelor.Ba.testing
+
+import Bachelor.Ba.cardLibReader as cReader
+import Bachelor.Ba.CardLibUpdater as cUpdater
 from sklearn import svm
 from sklearn.ensemble.forest import RandomForestClassifier
+
 
 #tests if Hearthstone is already in my processlist of Windows.
 def isHearthstoneRunning():
@@ -507,8 +508,8 @@ def numberClassifier(img):
     
     predict = clf.predict(digit.data)
     
-    if predict == 10:
-        predict = testing.biggerThanNine(digit, clf)
+#    if predict == 10:
+#        predict = testing.biggerThanNine(digit, clf)
     
     return predict[0]
 def cardDetectScreenshot():
@@ -576,7 +577,7 @@ def testOnKeyBoardEvent(event):
     c = chr(event.Ascii)
     if c == 's':
         print 'Screenshot'
-        testing.ScreenForCardNum()
+#        testing.ScreenForCardNum()  
         
 def testingMain():
     while True:   
@@ -600,8 +601,8 @@ def testingMain():
 
 #log.testReader()
 #log.testLines()
-log.Statedecision()
+
 #cReader.CardById('CS1_042')
 #cUpdater.singleCards()
 
-print 'done'
+#print 'done'
