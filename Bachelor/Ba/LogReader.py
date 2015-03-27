@@ -28,16 +28,19 @@ def getPath():
     return path
 
 def openLogFile():
-    return open('C:/Program Files (x86)/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
+    return open('D:/Programme/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
 
 def readLog():
     return openLogFile().readlines()
 
 def split(*args):
-    if len(args) == 2:
-        return args[0].split(args[1])[1]
-    elif len(args) == 3:
-        return args[0].split(args[1])[1].split(args[2])[0]
+    try:
+        if len(args) == 2:
+            return args[0].split(args[1])[1]
+        elif len(args) == 3:
+            return args[0].split(args[1])[1].split(args[2])[0]
+    except Exception, e:
+        print args[0], e
 
 #def interpretZone(line):
 PLAYER_NAMES = np.array([None,None])
@@ -68,7 +71,7 @@ def setEnemyMulliganStateDone(State):
     global MULLIGAN_STATE_OF_ENEMY
     MULLIGAN_STATE_OF_ENEMY = State
   
-GAME_STATES = np.array(['GAME_START', 'MULLIGAN', 'MY_TURN', 'ENEMY_TURN'])
+GAME_STATES = np.array(['GAME_START', 'MULLIGAN', 'MY_TURN', 'ENEMY_TURN', 'GAME_END'])
 def getGameState(i):
     global GAME_STATES
     return GAME_STATES[i]
@@ -299,6 +302,9 @@ def completeReading(input, state):
             readingMyTurn(input)
         elif getCurState() == getGameState(3):
             readingEnemyTurn(input)
+        elif getCurState() == getGameState(4):
+            setCurState(None)
+            return
     else:
         print 'no Correct State'
 
@@ -335,7 +341,7 @@ def setTmp(temp):
 
 def readGameStartPowerLines(input):
     for idx, line in enumerate(input):
-        if '[Zone]' in line:
+        if 'GameEntity tag=NEXT_STEP value=BEGIN_MULLIGAN' in line:
             setCurState('MULLIGAN')
             completeReading(input[idx:], getCurState())
             return
@@ -382,6 +388,7 @@ def readingMulligan(input):
     for idx, line in enumerate(input):
         if 'MULLIGAN_STATE' in line and 'DONE' in line:
             print line
+            setWaiting(False)
             time.sleep(0.5)
             if split(line, 'Entity=', ' tag') == getPlayerName(1):
                 setMyMulliganStateDone(True)
@@ -405,7 +412,6 @@ def readingMulligan(input):
             setTmp(split(line, 'CardID=', '\n'))
             continue
         elif isWaiting() and 'HIDE_ENTITY' in line:
-            setWaiting(False)
             pos = int(split(line, 'zonePos=', ' '))
             removeHandcardFromPosition(pos)
             # put removed Card back to DECK
@@ -434,43 +440,49 @@ def attack(line, attacker):
     else:
         a_minion = getEnemyMinion(attackZone) 
         t_minion = getMyMinion(targetZone)
-    t_minion.health = t_minion.health - a_minion.attack
-    a_minion.health = a_minion.health - t_minion.attack
+    t_minion._health = t_minion._health - a_minion._attack
+    a_minion._health = a_minion._health - t_minion._attack
     if attacker == 'ME':
-        if a_minion.health <= 0:
+        if a_minion._health <= 0:
             removeMyMinonFromField(attackZone)
-        if t_minion.health <= 0:
+        if t_minion._health <= 0:
             removeEnemyMinonFromField(targetZone)
     else:
-        if a_minion.health <= 0:
+        if a_minion._health <= 0:
             removeEnemyMinonFromField(attackZone)
-        if t_minion.health <= 0:
+        if t_minion._health <= 0:
             removeMyMinonFromField(targetZone)
 
 def readingMyTurn(input):
-    print 'MY TURN'
     for idx, line in enumerate(input):
+        if 'FINAL_GAMEOVER' in line:
+            print 'Game End'
+            setCurState('GAME_OVER')
+            return
         if 'Entity=GameEntity tag=STEP value=MAIN_END' in line:
             setCurState('ENEMY_TURN')
-            completeReading(input[idx:], getCurState())
+            print 'Turn Change'
+            completeReading(input[(idx+1):], getCurState())
             return
         elif 'TAG_CHANGE' in line and 'RESOURCES' in line:
-            setMyMana(int(split(line, 'value= ', '\n')))
+            setMyMana(int(split(line, 'value=', '\n')))
         elif 'SHOW_ENTITY' in line:
             addHandcardAtPosition(split(line, 'CardID=', '\n'), (getHandcardCount() + 1))
         elif 'SubType=PLAY' in line:
-            card = getHandcard(int(split(line, 'ZonePos=', ' ')), 1)
+            card = getHandcard(int(split(line, 'zonePos=', ' ')), 1)
             setMyMana(getMyMana() - card.manacosts)
-            if card.cardtype == 'Minion':
+            if card._cardtype == 'Minion':
                 print card._name
                 setWaiting(True)
                 setTmp(card)
-            elif card.cardtype == 'Spell':
+            elif card._cardtype == 'Spell':
                 print card._name
-            elif card.cardtype == 'Weapon':
+            elif card._cardtype == 'Weapon':
                 print card._name
-            elif card.cardtype == 'Secret':
+            elif card._cardtype == 'Secret':
                 print card._name
+            elif card._cardtype == 'Hero Power':
+                print 'Hero Power'
         elif isWaiting() and 'CardID='+getTmp().id in line and 'ZONE_POSITION' in line:
             setWaiting(False)
             addMyMinonToField(getTmp(), split(line, 'value=', '\n'))
@@ -480,14 +492,18 @@ def readingMyTurn(input):
             attack(line, 'ME')
            
 def readingEnemyTurn(input):
-    print 'ENEMY TURN'
     for idx, line in enumerate(input):
-        if '' in line:
+        if 'FINAL_GAMEOVER' in line:
+            print 'Game End'
+            setCurState('GAME_OVER')
+            return
+        if 'Entity=GameEntity tag=STEP value=MAIN_END' in line:
             setCurState('MY_TURN')
-            completeReading(input[idx:], getCurState())
+            print 'Turn Change'
+            completeReading(input[(idx+1):], getCurState())
             return
         elif 'TAG_CHANGE' in line and 'RESOURCES' in line:
-            setEnemyMana(int(split(line, 'value= ', '\n')))
+            setEnemyMana(int(split(line, 'value=', '\n')))
         elif 'SubType=PLAY' in line:
             setWaiting(True)
         elif isWaiting() and 'ZONE_POSITION' in line:
@@ -496,14 +512,16 @@ def readingEnemyTurn(input):
             card = createCard(cReader.CardById(split(line, 'CardID=', '\n')))
             addEnemyMinonToField(card, getTmp())
             setWaiting(False)
-            if card.cardtype == 'Minion':
+            if card._cardtype == 'Minion':
                 print card._name
-            elif card.cardtype == 'Spell':
+            elif card._cardtype == 'Spell':
                 print card._name
-            elif card.cardtype == 'Weapon':
+            elif card._cardtype == 'Weapon':
                 print card._name
-            elif card.cardtype == 'Secret':
+            elif card._cardtype == 'Secret':
                 print card._name
+            elif card._cardtype == 'Hero Power':
+                print 'Hero Power'
 
 def createCard(card):
     cardtype = cReader.cardType(card)

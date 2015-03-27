@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7fa27a85-1428-436f-97a2-d07b5cd3e61c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Ba.py</StartupFile>
+    <StartupFile>LogReader.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Ba.py" />
+    <Compile Include="Card.py" />
     <Compile Include="cardLibReader.py">
       <SubType>Code</SubType>
     </Compile>
