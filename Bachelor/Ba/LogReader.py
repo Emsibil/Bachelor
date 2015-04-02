@@ -4,7 +4,6 @@ import numpy as np
 import cardLibReader as cReader
 import Card
 
-
 path = 'C:/Program Files (x86)'  #Uni
 #path = 'D:/Programme' #Home
 
@@ -14,18 +13,6 @@ def path(fileName):
     rel_path = fileName
     abs_file_path = os.path.join(script_dir, rel_path)
     return abs_file_path
-
-#_BUGLOGGER = open(path('doc')+'/bug_log.txt', 'w')
-def buglogger(line, *args):
-    global _BUGLOGGER
-    text = str(line)
-    for a in args:
-        text += '\n' + str(a)
-    _BUGLOGGER.write(text+'\n')
-    
-def getPath():
-    global path
-    return path
 
 def openLogFile():
     return open('C:/Program Files (x86)/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
@@ -42,22 +29,18 @@ def split(*args):
     except Exception, e:
         print args[0], e
 
-#def interpretZone(line):
 PLAYER_NAMES = np.array([None,None])
 def getPlayerName(PlayerID):
     global PLAYER_NAMES
     return PLAYER_NAMES[PlayerID - 1]
-
 def setPlayerName(PlayerID, Name):
     global PLAYER_NAMES
     PLAYER_NAMES[PlayerID - 1] = Name
-
 
 MY_MULLIGAN_DONE = False
 def isMyMulliganStateDone():
     global MY_MULLIGAN_DONE
     return MY_MULLIGAN_DONE
-
 def setMyMulliganStateDone(State):
     global MY_MULLIGAN_DONE
     MY_MULLIGAN_DONE = State
@@ -66,7 +49,6 @@ ENEMY_MULLIGAN_DONE = False
 def isEnemyMulliganStateDone():
     global MULLIGAN_STATE_OF_ENEMY
     return MULLIGAN_STATE_OF_ENEMY
-
 def setEnemyMulliganStateDone(State):
     global MULLIGAN_STATE_OF_ENEMY
     MULLIGAN_STATE_OF_ENEMY = State
@@ -80,10 +62,19 @@ CUR_STATE = None
 def getCurState():
     global CUR_STATE
     return CUR_STATE
-
 def setCurState(new_state):
     global CUR_STATE
     CUR_STATE = new_state
+
+def createCard(card):
+    cardtype = cReader.cardType(card)
+    _card = Card.Card(cReader.id(card), cReader.name(card), cardtype, cReader.manaCost(card))
+    if cardtype == 'Minion':
+        _card._attack = cReader.attackValue(card)
+        _card._health = cReader.healthValue(card)
+    if cardtype == 'Hero':
+        _card._health = cReader.healthValue(card)
+    return _card 
    
 MY_HERO = None
 MY_HERO_POWER = None
@@ -117,6 +108,20 @@ def getEnemyHeroPower():
     global ENEMY_HERO_POWER
     return ENEMY_HERO_POWER
 
+def reOrderHandcards(handcards, pos):
+    length = len(handcards) - 1
+    if pos == length:
+        return handcards
+    while pos < length:
+        if handcards[pos + 1] is None:
+            return handcards
+        else:
+            handcards[pos] = handcards[pos + 1]
+            handcards[pos]._zonePos -= 1
+            handcards[pos + 1] = None
+            pos += 1
+    return handcards
+
 MY_HANDCARDS = np.array([None,None,None,None,None,None,None,None,None,None,None])
 def getHandcards():
     global MY_HANDCARDS
@@ -146,7 +151,6 @@ def addHandcardAtPosition(cardId, pos):
                 continue
             output += card._name + ' '
     print output
-           # print card._name
 def removeHandcardFromPosition(pos):
     global MY_HANDCARDS
     MY_HANDCARDS[pos] = None
@@ -163,20 +167,6 @@ def getHandcardCount():
             count += 1
     return count
 
-def reOrderHandcards(handcards, pos):
-    length = len(handcards) - 1
-    if pos == length:
-        return handcards
-    while pos < length:
-        if handcards[pos + 1] is None:
-            return handcards
-        else:
-            handcards[pos] = handcards[pos + 1]
-            handcards[pos]._zonePos -= 1
-            handcards[pos + 1] = None
-            pos += 1
-    return handcards
-
 MY_MANA = 0
 def setMyMana(value):
     global MY_MANA
@@ -192,6 +182,33 @@ def setEnemyMana(value):
 def getEnemyMana():
     global ENEMY_MANA
     return ENEMY_MANA  
+
+COMBO = False
+def setCombo(binary):
+    global COMBO
+    COMBO = binary
+def isComboActive():
+    global COMBO
+    return COMBO
+
+def reorderMinionsAfterPlaying(array, pos):
+    i = (len(array) - 1)
+    while i >= pos:
+        array[i, 1] = array[i - 1, 1] 
+        i -= 1    
+    array[pos, 1] = None    
+
+def reorderMinionsAfterRemoving(array, pos):
+    if pos == len(array) - 1:
+        return array
+    while pos < len(array) - 1:
+        if array[pos + 1] == None:
+            return array
+        else:
+            array[pos] = array[pos + 1]
+            array[pos + 1] = None
+        pos += 1
+    return array
 
 MinionsOnMySide = np.array([[0, None],[1, None], [2, None], [3, None], [4, None], [5, None], [6, None], [7, None]])
 def getMyMinions():
@@ -226,26 +243,7 @@ def removeEnemyMinonFromField(pos):
     global MinionsOnEnemySide
     MinionsOnEnemySide[pos] = None
     reorderMinionsAfterRemoving(MinionsOnEnemySide, pos)
-
-def reorderMinionsAfterPlaying(array, pos):
-    i = (len(array) - 1)
-    while i >= pos:
-        array[i, 1] = array[i - 1, 1] 
-        i -= 1    
-    array[pos, 1] = None    
-
-def reorderMinionsAfterRemoving(array, pos):
-    if pos == len(array) - 1:
-        return array
-    while pos < len(array) - 1:
-        if array[pos + 1] == None:
-            return array
-        else:
-            array[pos] = array[pos + 1]
-            array[pos + 1] = None
-        pos += 1
-    return array
-            
+       
 Mulligan = False
 def isMulligan():
     global Mulligan
@@ -269,53 +267,7 @@ def setMyTurn(binary):
 def isMyTurn():
     global myTurn
     return myTurn 
-   
-def cardName(line):
-    return split(line, 'name=',' id')
-def cardId(line):
-    return split(line, 'CardID=',' ')
-def getPosition(line):
-    return int(split(line, 'pos from 0 -> '))
 
-def Statedecision():
-    log = readLog()
-    nol = len(log)
-    while True:
-        time.sleep(0.03)
-        new_log = readLog()
-        new_nol = len(new_log)
-        new_lines = new_log[nol : new_nol]
-        i = 0
-        while i < len(new_lines):
-            if 'CREATE_GAME' in new_lines[i]:
-                print 'GameStart'
-                setCurState('GAME_START')
-                completeReading(new_lines[i:], 'GAME_START')
-                break
-            elif not getCurState() is None: 
-                completeReading(new_lines[i:], getCurState())
-                break
-            i += 1   
-        log = new_log
-        nol = new_nol
-                
-def completeReading(input, state):
-    if state == getCurState():
-        if getCurState() == getGameState(0):
-            readGameStartPowerLines(input)
-        elif getCurState() == getGameState(1):
-            readingMulligan(input)
-        elif getCurState() == getGameState(2):
-            readingMyTurn(input)
-        elif getCurState() == getGameState(3):
-            readingEnemyTurn(input)
-        elif getCurState() == getGameState(4):
-            setCurState(None)
-            return
-    else:
-        print 'no Correct State'
-
-#variables for readGameStartPowerLines()
 Found= False
 def isFound():
     global Found
@@ -323,6 +275,7 @@ def isFound():
 def setFound(binary):
     global Found
     Found = binary
+    
 waiting = False
 def setWaiting(binary):
     global waiting
@@ -330,6 +283,7 @@ def setWaiting(binary):
 def isWaiting():
     global waiting
     return waiting
+
 playerID = 0
 def setPlayerID(Id):
     global playerID
@@ -337,6 +291,7 @@ def setPlayerID(Id):
 def getPlayerID():
     global playerID
     return playerID
+
 tmp = None
 def getTmp():
     global tmp
@@ -345,13 +300,319 @@ def setTmp(temp):
     global tmp
     tmp = temp
 
+def setVariablesDefault():
+    setTmp(None)
+    setWaiting(False)
+    setMyMana(0)
+    setEnemyMana(0)
+    setFound(False)
+    setCombo(False)  
+                  
+def attack(line, attacker):
+    attackerInfo, targetInfo= line.split('ATTACK')
+    attackZone = int(split(attackerInfo, 'zonePos=', ' cardId='))
+    targetZone = split(targetInfo, 'zonePos=', ' cardId')
+    a_minion = None
+    t_minion = None
+    if attacker == 'ME':
+        a_minion = getMyMinion(attackZone) 
+        t_minion = getEnemyMinion(targetZone)
+    else:
+        a_minion = getEnemyMinion(attackZone) 
+        t_minion = getMyMinion(targetZone)
+    t_minion._health = t_minion._health - a_minion._attack
+    a_minion._health = a_minion._health - t_minion._attack
+    if attacker == 'ME':
+        if a_minion._health <= 0:
+            removeMyMinonFromField(attackZone)
+        if t_minion._health <= 0:
+            removeEnemyMinonFromField(targetZone)
+    else:
+        if a_minion._health <= 0:
+            removeEnemyMinonFromField(attackZone)
+        if t_minion._health <= 0:
+            removeMyMinonFromField(targetZone)
+            
+def cardPlayed(playingLines):
+    card = None
+    for line in playingLines:
+        if 'SubType=PLAY' in line:
+            zone = int(split(line, 'zonePos=', ' cardId'))
+            if zone == 0:
+                card = getHandcard(zone, 0)
+            else:
+                card = getHandcard(zone, 1)
+            print card._manacosts
+            setMyMana(getMyMana() - card._manacosts)
+        elif card is not None:
+            if card._cardtype == 'Minion':
+                if 'tag=ZONE value=PLAY' in line:
+                    setWaiting(True)
+                elif isWaiting() and 'ZONE_POSITION' in line:
+                    addMyMinonToField(card, int(split(line, 'value=', '\n')))
+                    setWaiting(False)
+                    print 'Played', card._name
+                    break
+            elif card._cardtype == 'Spell':
+                print 'Played', card._name
+                break
+            elif card._cardtype == 'Weapon':
+                print 'Played', card._name
+                break                       
+            elif card._cardtype == 'Secret':
+                print 'Played', card._name
+                break
+            elif card._cardtype == 'Hero Power':
+                print 'Played', 'Hero Power' 
+                break           
 
+def showOptions(optionLines):
+    i = 0
+    try:
+        while i < len(optionLines):
+            if 'option' in optionLines[i]:
+                output = str(split(optionLines[i], '() -   ', ' type')) + ': '
+                if 'END_TURN' in optionLines[i]:
+                    output += 'End Turn'
+                elif 'POWER' in optionLines[i] and 'zone=HAND' in optionLines[i]:
+                    output += 'Play ' +str(split(optionLines[i], 'name=', ' id'))
+    #            elif 'POWER' in optionLines[i] and 'zone=DECK' in optionLines[i]:
+     #               output += 'Play' + str(getHandcard(,0))
+                elif 'POWER' in optionLines[i] and 'zone=PLAY' in optionLines[i] and 'zonePos=0' in optionLines[i]:
+                    output += 'Play Hero Power'
+                elif 'POWER' in optionLines[i] and 'zone=PLAY' in optionLines[i] and 'zonePos=0' not in optionLines[i]:
+                    output += 'Attack with ' +str(split(optionLines[i], 'name=', ' id'))
+                if i+4 < len(optionLines):
+                    if 'target' in optionLines[i+4]:
+                        output += '\n \t Possible Targets: '
+                print output
+            if 'target' in optionLines[i]:
+                print '\t \t' + str(split(optionLines[i], 'name=', 'id'))
+            i += 1
+    except Exception, e:
+        print optionLines[i], e
+                                  
+def EnemyCardPlayed(playingLines):
+    card = None
+    for line in playingLines:
+        if 'SubType=PLAY' in line and 'name' in line:
+            print 'Played Hero Power'
+            break
+        elif 'SHOW_ENTITY' in line:
+            card = createCard(cReader.CardById(split(line, 'CardID=', '\n')))
+        if card is not None and 'ZONE_POSITION' in line:
+            if card._cardtype == 'Minion':
+                print 'Played', card._name
+                addEnemyMinonToField(card, int(split(line, 'value=', '\n')))
+                break
+            elif card._cardtype == 'Spell':
+                print 'Played', card._name
+                break
+            elif card._cardtype == 'Weapon':
+                print 'Played', card._name
+                break                       
+            elif card._cardtype == 'Secret':
+                print 'Played', card._name
+                break    
+                
+def readingMyTurn(input):
+    nxt = 0
+    for idx, line in enumerate(input):
+        if nxt != 0:
+            nxt -= 1
+            continue
+        if '[Power]' in line:
+            try:
+                if 'm_currentTaskList' in line:
+                    continue
+                elif 'FINAL_GAMEOVER' in line:
+                    print 'Game End'
+                    setCurState('GAME_OVER')
+                    return
+                elif 'Entity=GameEntity tag=STEP value=MAIN_END' in line:
+                    setCurState('ENEMY_TURN')
+                    setVariablesDefault()
+                    print 'Turn Change'
+                    completeReading(input[(idx+1):], getCurState())
+                    return
+                elif 'TAG_CHANGE' in line and 'RESOURCES' in line:
+                    setMyMana(int(split(line, 'value=', '\n')))
+                elif 'SHOW_ENTITY' in line:
+                    addHandcardAtPosition(split(line, 'CardID=', '\n'), (getHandcardCount() + 1))
+                elif 'option' in line:
+                    i = idx
+                    jump = 0
+                    print 'len input:',len(input)
+                    while i <len(input):
+                        if 'm_currentTaskList' in input[i]:
+                            showOptions(input[idx:(i-1)])
+                            jump = i - idx
+                            break
+                        i += 1
+                        if i == len(input):
+                            showOptions(input[idx:])
+                            jump = (i - 1) - idx
+                            break
+                    nxt = jump
+                elif '- ACTION_START' in line and 'SubType=PLAY' in line:
+                    i = idx
+                    jump = 0
+                    while i < (len(input) - 1):
+                        i += 1
+                        if '- ACTION_END' in input[i]:
+                            setFound(True)
+                            cardPlayed(input[idx:(i+1)])
+                            jump = i - idx
+                            break
+                    if isFound():
+                        setFound(False)
+                        nxt=jump
+                    else:
+                        setTmp(input[idx:])
+                        setWaiting(True)
+                        nxt = i - idx
+                        print 'Action end Not found'
+                    if not isComboActive():
+                        setCombo(True)
+                elif isWaiting():
+                    i = 0
+                    while i < len(input):
+                        if '- ACTION_END' in input[i]:
+                            setFound(True)
+                            setWaiting(False)
+                            cardPlayed(getTmp()+input[:(i+1)])
+                            nxt = i
+                            break
+                        i += 1
+                    if isFound():
+                        setFound(False) 
+                    else:
+                        nxt = len(input) - 1
+                        setTmp(getTmp() + input)     
+                elif '- ACTION_START' in line and 'SubType=ATTACK' in line:
+                    attack(line, 'ME')
+                    i = idx
+                    jump = 0
+                    while i < len(input):
+                        i += 1
+                        if '- ACTION_END' in input[i]:
+                            jump = i - idx
+                            break
+                    nxt = jump  
+            except Exception, e:
+                print 'MY TURN:', line, e
+            
+def readingEnemyTurn(input):
+    nxt = 0
+    for idx, line in enumerate(input):
+        if nxt != 0:
+            nxt -= 1
+            continue
+        if '[Power]' in line:
+            try:
+                if 'm_currentTaskList' in line:
+                    continue
+                elif 'FINAL_GAMEOVER' in line:
+                    print 'Game End'
+                    setCurState('GAME_OVER')
+                    return
+                elif 'Entity=GameEntity tag=STEP value=MAIN_END' in line:
+                    setCurState('MY_TURN')
+                    setVariablesDefault()
+                    print 'Turn Change'
+                    completeReading(input[(idx+1):], getCurState())
+                    return
+                elif '- ACTION_START' in line and 'SubType=PLAY' in line:
+                    i = idx
+                    jump = 0
+                    while i < (len(input) - 1):
+                        i += 1
+                        if '- ACTION_END' in input[i]:
+                            setFound(True)
+                            EnemyCardPlayed(input[idx:(i+1)])
+                            jump = i - idx
+                            break
+                    if isFound():
+                        setFound(False)
+                    else:
+                        setTmp(input[idx:])
+                        setWaiting(True)
+                        nxt = i - idx
+                        print 'Action end Not found'
+                    if not isComboActive():
+                        setCombo(True)
+                elif isWaiting():
+                    i = 0
+                    while i < len(input):
+                        if '- ACTION_END' in input[i]:
+                            setFound(True)
+                            setWaiting(False)
+                            EnemyCardPlayed(getTmp()+input[:(i + 1)])
+                            nxt = i
+                            break
+                        i += 1
+                    if isFound():
+                        setFound(False)
+                    else:
+                        nxt = len(input) - 1
+                        setTmp(getTmp() + input)
+                elif 'Entity='+getPlayerName(2) in line and 'RESOURCES' in line:
+                    setEnemyMana(int(split(line, 'value=', '\n')))
+            except Exception, e:
+                print 'ENEMY TURN:', line, e
+                
+def readingMulligan(input):
+    for idx, line in enumerate(input):
+        if '[Power]' in line:
+            try:
+                if 'MULLIGAN_STATE' in line and 'DONE' in line:
+                    setWaiting(False)
+                    time.sleep(0.5)
+                    if split(line, 'Entity=', ' tag') == getPlayerName(1):
+                        setMyMulliganStateDone(True)
+                    elif split(line, 'Entity=', ' tag') == getPlayerName(2):
+                        setEnemyMulliganStateDone(True)
+                    if isMyMulliganStateDone() and isEnemyMulliganStateDone():
+                        if getHandcardCount() == 4:
+                            setCurState('MY_TURN')
+                            print 'now reading My Turn'
+                            completeReading(input[idx:], getCurState())
+                            return
+                        else:
+                            setCurState('ENEMY_TURN')
+                            print 'now reading Enemy Turn'
+                            completeReading(input[idx:], getCurState())
+                            return         
+                elif getPlayerName(1) is not None and 'MULLIGAN_STATE' in line and 'DEALING' in line:
+                    setWaiting(True)
+                    continue
+                if isWaiting() and 'SHOW_ENTITY' in line:
+                    setTmp(split(line, 'CardID=', '\n'))
+                    setFound(True)    
+                elif isFound() and isWaiting() and 'HIDE_ENTITY' in line:
+                    setFound(False)
+                    pos = int(split(line, 'zonePos=', ' '))
+                    removeHandcardFromPosition(pos)
+                    # put removed Card back to DECK
+                    addHandcardAtPosition(getTmp(), pos)
+                elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
+                    if int(split(line, 'value=', '\n')) == 1 and getPlayerName(1) is None:
+                        setPlayerName(1, split(line, 'Entity=', ' tag'))
+                        print getPlayerName(1)
+                    elif int(split(line, 'value=', '\n')) == 2 and getPlayerName(2) is None:
+                        setPlayerName(2, split(line, 'Entity=', ' tag'))
+                        print getPlayerName(2)
+                    continue
+            except Exception, e:
+                print 'MULLIGAN:', line, e 
+                 
 def readGameStartPowerLines(input):
     for idx, line in enumerate(input):
         if '[Power]' in line:
             try:
                 if 'GameEntity tag=NEXT_STEP value=BEGIN_MULLIGAN' in line:
                     setCurState('MULLIGAN')
+                    setVariablesDefault()
                     completeReading(input[idx:], getCurState())
                     return
                 elif 'CardID=HERO_' in line:
@@ -391,205 +652,31 @@ def readGameStartPowerLines(input):
                         print getPlayerName(2)
                     continue
             except Exception, e:
-                print 'GAME START', line, e
+                print 'GAME START', line, e   
                 
-def readingMulligan(input):
-    for idx, line in enumerate(input):
-        if '[Power]' in line:
-            try:
-                if 'MULLIGAN_STATE' in line and 'DONE' in line:
-                    print line
-                    setWaiting(False)
-                    time.sleep(0.5)
-                    if split(line, 'Entity=', ' tag') == getPlayerName(1):
-                        setMyMulliganStateDone(True)
-                    elif split(line, 'Entity=', ' tag') == getPlayerName(2):
-                        setEnemyMulliganStateDone(True)
-                    if isMyMulliganStateDone() and isEnemyMulliganStateDone():
-                        if getHandcardCount() == 4:
-                            setCurState('MY_TURN')
-                            print 'now reading My Turn'
-                            completeReading(input[idx:], getCurState())
-                            return
-                        else:
-                            setCurState('ENEMY_TURN')
-                            print 'now reading Enemy Turn'
-                            completeReading(input[idx:], getCurState())
-                            return         
-                elif getPlayerName(1) is not None and 'MULLIGAN_STATE' in line and 'DEALING' in line:
-                    setWaiting(True)
-                    continue
-                elif isWaiting() and 'SHOW_ENTITY' in line:
-                    setTmp(split(line, 'CardID=', '\n'))
-                    continue
-                elif isWaiting() and 'HIDE_ENTITY' in line:
-                    pos = int(split(line, 'zonePos=', ' '))
-                    removeHandcardFromPosition(pos)
-                    # put removed Card back to DECK
-                    addHandcardAtPosition(getTmp(), pos)
-                    continue
-                elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
-                    if int(split(line, 'value=', '\n')) == 1 and getPlayerName(1) is None:
-                        setPlayerName(1, split(line, 'Entity=', ' tag'))
-                        print getPlayerName(1)
-                    elif int(split(line, 'value=', '\n')) == 2 and getPlayerName(2) is None:
-                        setPlayerName(2, split(line, 'Entity=', ' tag'))
-                        print getPlayerName(2)
-                    continue
-            except Exception, e:
-                print 'MULLIGAN:', line, e    
-                        
-def attack(line, attacker):
-    attackerInfo, targetInfo= line.split('ATTACK')
-    attackZone = int(split(attackerInfo, 'zonePos=', ' cardId='))
-    targetZone = split(targetInfo, 'zonePos=', ' cardId')
-    a_minion = None
-    t_minion = None
-    if attacker == 'ME':
-        a_minion = getMyMinion(attackZone) 
-        t_minion = getEnemyMinion(targetZone)
+def completeReading(input, state):
+    if state == getCurState():
+        if getCurState() == getGameState(0):
+            readGameStartPowerLines(input)
+        elif getCurState() == getGameState(1):
+            readingMulligan(input)
+        elif getCurState() == getGameState(2):
+            readingMyTurn(input)
+        elif getCurState() == getGameState(3):
+            readingEnemyTurn(input)
+        elif getCurState() == getGameState(4):
+            setCurState(None)
+            return
     else:
-        a_minion = getEnemyMinion(attackZone) 
-        t_minion = getMyMinion(targetZone)
-    t_minion._health = t_minion._health - a_minion._attack
-    a_minion._health = a_minion._health - t_minion._attack
-    if attacker == 'ME':
-        if a_minion._health <= 0:
-            removeMyMinonFromField(attackZone)
-        if t_minion._health <= 0:
-            removeEnemyMinonFromField(targetZone)
-    else:
-        if a_minion._health <= 0:
-            removeEnemyMinonFromField(attackZone)
-        if t_minion._health <= 0:
-            removeMyMinonFromField(targetZone)
+        print 'no Correct State'
 
-def readingMyTurn(input):
-    for idx, line in enumerate(input):
-        if '[Power]' in line:
-            try:
-                if 'FINAL_GAMEOVER' in line:
-                    print 'Game End'
-                    setCurState('GAME_OVER')
-                    return
-                if 'Entity=GameEntity tag=STEP value=MAIN_END' in line:
-                    setCurState('ENEMY_TURN')
-                    print 'Turn Change'
-                    completeReading(input[(idx+1):], getCurState())
-                    return
-                elif 'TAG_CHANGE' in line and 'RESOURCES' in line:
-                    setMyMana(int(split(line, 'value=', '\n')))
-                elif 'SHOW_ENTITY' in line:
-                    addHandcardAtPosition(split(line, 'CardID=', '\n'), (getHandcardCount() + 1))
-                elif 'option ' in line:
-                    setWaiting(False)
-                    if 'type=END_TURN' in line:
-                        print 'option ', split(line, 'option ', ' type'), ': ' ,split(line, 'type=', 'main')
-                    elif 'type=POWER' in line and 'zone=HAND' in line:
-                        print 'option ', split(line, 'option ', ' type'), ': PLAY ' , split(line, 'name=', ' id') 
-                    elif 'type=POWER' in line and 'zone=PLAY' in line and 'zonePos=0' not in line:
-                        setWaiting(True)
-                        print 'option ', split(line, 'option ', ' type'), ': ATTACK WITH ' , split(line, 'name=', ' id')
-                elif isWaiting() and 'target' in line:
-                    print 'target ', split(line, 'target ', ' entity'), ': ', split(line, 'name=', ' id')   
-                elif isWaiting() and 'm_currentTaskList' in line:
-                    setWaiting(False)   
-                elif 'SubType=PLAY' in line:
-                    pos = int(split(line, 'zonePos=', ' '))
-                    if pos == 0:
-                        card = getHandcard(pos, 0)
-                    else:
-                        card = getHandcard(pos, 1)
-                    setMyMana(getMyMana() - card._manacosts)
-                    if card._cardtype == 'Minion':
-                        print 'Played', card._name
-                        setWaiting(True)
-                        setTmp(card)
-                    elif card._cardtype == 'Spell':
-                        print 'Played', card._name
-                    elif card._cardtype == 'Weapon':
-                        print 'Played', card._name
-                    elif card._cardtype == 'Secret':
-                        print 'Played', card._name
-                    elif card._cardtype == 'Hero Power':
-                        print 'Played', 'Hero Power'
-                elif isWaiting() and 'CardID='+getTmp()._id in line and 'ZONE_POSITION' in line:
-                    setWaiting(False)
-                    addMyMinonToField(getTmp(), split(line, 'value=', '\n'))
-                #if 'option 0' in Line and 'END_TURN' in Line:
-                #    print 'no more option. Click End Turn'
-                elif 'SubType=ATTACK' in line:
-                    attack(line, 'ME')
-            except Exception, e:
-                print 'MY TURN:', line, e
-def readingEnemyTurn(input):
-    for idx, line in enumerate(input):
-        if '[Power]' in line:
-            try:
-                if 'FINAL_GAMEOVER' in line:
-                    print 'Game End'
-                    setCurState('GAME_OVER')
-                    return
-                if 'Entity=GameEntity tag=STEP value=MAIN_END' in line:
-                    setCurState('MY_TURN')
-                    print 'Turn Change'
-                    completeReading(input[(idx+1):], getCurState())
-                    return
-                elif 'TAG_CHANGE' in line and 'RESOURCES' in line:
-                    setEnemyMana(int(split(line, 'value=', '\n')))
-                elif 'SubType=PLAY' in line:
-                    setWaiting(True)
-                elif isWaiting() and 'SHOW_ENTITY' in line:
-                    card = createCard(cReader.CardById(split(line, 'CardID=', '\n')))   
-                    if card._cardtype == 'Minion':
-                        setTmp(card)
-                        print 'Played', card._name
-                    elif card._cardtype == 'Spell':
-                        print 'Played', card._name
-                        setWaiting(False)
-                    elif card._cardtype == 'Weapon':
-                        print 'Played', card._name
-                        setWaiting(False)                       
-                    elif card._cardtype == 'Secret':
-                        print 'Played', card._name
-                        setWaiting(False)
-                    elif card._cardtype == 'Hero Power':
-                        print 'Played', 'Hero Power'
-                        setWaiting(False)
-                elif isWaiting() and 'ZONE_POSITION' in line:
-                    addEnemyMinonToField(getTmp(), int(split(line, 'value=', '\n')))
-                    setWaiting(False)
-            except Exception, e:
-                print 'ENEMY TURN:', line, e
-def createCard(card):
-    cardtype = cReader.cardType(card)
-    _card = Card.Card(cReader.id(card), cReader.name(card), cardtype, cReader.manaCost(card))
-    if cardtype == 'Minion':
-        _card._attack = cReader.attackValue(card)
-        _card._health = cReader.healthValue(card)
-    if cardtype == 'Hero':
-        _card._health = cReader.healthValue(card)
-    return _card     
-  
-def Main():
-    Statedecision()
-    
-Main()
-   #-----TESTREADER-----#
-def splitter():
-    file = open(path('doc/output_log2.txt'), 'r')
-    power = open(path('doc')+'/power2.txt', 'w')
-    for l in file:
-        if '[Power]' in l:
-            power.write(l)
 
-#splitter()
-def Statedecision_test():
-    log = None
-    nol = 0
+def Statedecision():
+    log = readLog()
+    nol = len(log)
     while True:
-        time.sleep(0.03)
-        new_log = open(path('doc/output_log_fullInfo.txt'), 'r').readlines()
+        time.sleep(0.04)
+        new_log = readLog()
         new_nol = len(new_log)
         new_lines = new_log[nol : new_nol]
         i = 0
@@ -605,18 +692,21 @@ def Statedecision_test():
             i += 1   
         log = new_log
         nol = new_nol
-#--------EVENTS-------#
-#?????????????????????#
-def MinionChanges():
-    print 'Minion Changes'
+    
+def Main():
+    Statedecision()
+    
+Main()
 
-def DocumentChanges():
-    print 'There are new line of code'
+   #-----TESTREADER-----#
+def splitter():
+    file = open(path('doc/output_log2.txt'), 'r')
+    power = open(path('doc')+'/power2.txt', 'w')
+    for l in file:
+        if '[Power]' in l:
+            power.write(l)
 
-def HandcardsChanges():
-    print 'Something within your handcards changes'
+#splitter()
 
-def GameStatusChanges():
-    print 'Gamestatus changes'
 
 

@@ -835,6 +835,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=4
+----------------------------------MY TURN ENDS ----------------------------------------------------------------------------------
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=TURN_START value=1427357584
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=TURN_TIMER_SLUSH value=4
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
@@ -925,6 +926,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=5
+-----------------------------------------------------HIS TUNR ENDS---------------------------------------------------------------------------
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=TURN_START value=1427357598
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -1051,6 +1053,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=6
+---------------------------------------------------------MY TURN ENDS---------------------------------------------------------------------------------------------------
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=TURN_START value=1427357603
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -1125,6 +1128,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=7
+--------------------------------------------HIS TURN ENDS------------------------------------------------------------------------------
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=TURN_START value=1427357617
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -1313,6 +1317,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=8
+---------------------------------------------------------------MY TURN ENDS ----------------------------------------------------------------------------------------
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=TURN_START value=1427357625
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=TURN_TIMER_SLUSH value=8
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
