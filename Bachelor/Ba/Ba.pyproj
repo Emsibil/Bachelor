@@ -27,6 +27,7 @@
     <Compile Include="cardLibReader.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MouseControl.py" />
     <Compile Include="Observer.py">
       <SubType>Code</SubType>
     </Compile>

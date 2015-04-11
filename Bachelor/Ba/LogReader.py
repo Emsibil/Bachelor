@@ -3,6 +3,7 @@ import time
 import numpy as np
 import cardLibReader as cReader
 import Card
+import MouseControl as mc
 
 path = 'C:/Program Files (x86)'  #Uni
 #path = 'D:/Programme' #Home
@@ -15,7 +16,7 @@ def path(fileName):
     return abs_file_path
 
 def openLogFile():
-    return open('C:/Program Files (x86)/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
+    return open('D:/Programme/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
 
 def readLog():
     return openLogFile().readlines()
@@ -165,7 +166,7 @@ def getHandcardCount():
             return count
         else:
             count += 1
-    return count
+    return (count - 1)
 
 MY_MANA = 0
 def setMyMana(value):
@@ -413,8 +414,25 @@ def EnemyCardPlayed(playingLines):
                 break                       
             elif card._cardtype == 'Secret':
                 print 'Played', card._name
-                break    
-                
+                break 
+               
+def MulliganChoosing():
+    handcards = getHandcards()
+    count = getHandcardCount()
+    change = []
+    for idx, card in enumerate(handcards):
+        if idx == 0:
+            continue
+        elif idx > (count - 1):
+            break
+        else:
+            if card._manacosts >= 4:
+                change.append(idx)
+    for pos in change:  
+        mc.mouseMove(mc.getMouseMoveCoords(getMulliganCardArea(pos, (count - 1))))
+        time.sleep(2)
+        #mc.mouseClick()
+
 def readingMyTurn(input):
     nxt = 0
     for idx, line in enumerate(input):
@@ -585,8 +603,12 @@ def readingMulligan(input):
                             return         
                 elif getPlayerName(1) is not None and 'MULLIGAN_STATE' in line and 'DEALING' in line:
                     setWaiting(True)
+                    setFound(True)
                     continue
-                if isWaiting() and 'SHOW_ENTITY' in line:
+                elif isFound():
+                    MulliganChoosing()
+                    setFound(False)
+                elif isWaiting() and 'SHOW_ENTITY' in line:
                     setTmp(split(line, 'CardID=', '\n'))
                     setFound(True)    
                 elif isFound() and isWaiting() and 'HIDE_ENTITY' in line:

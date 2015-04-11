@@ -1,5 +1,6 @@
 import win32api, win32con
 import numpy as np
+import time
 
 RESOLUTION = None
 def getResolution():
@@ -8,6 +9,13 @@ def getResolution():
 def setResolution(value):
     global RESOLUTION
     RESOLUTION = value
+def area(rel_area):
+    resolution = getResolution()
+    x = int(resolution[0]*rel_area[0])
+    y = int(resolution[1]*rel_area[1])
+    width =int(resolution[0]*rel_area[2])
+    hight = int(resolution[1]*rel_area[3])
+    return (x, y, width, hight)
 
 h1 = {1: np.array([(0.45, 0.8712, 0.0609, 0.1296)])}
 h2 = {1: np.array([(0.4151, 0.8712, 0.0609, 0.1296)]), 
@@ -64,6 +72,7 @@ h10 = {1: np.array([(0.3177, 0.9722, 0.025, 0.0277),(0.327, 0.949, 0.0098, 0.023
        8: np.array([(0.5265, 0.8824, 0.0119, 0.1175),(0.5385, 0.887, 0.0119, 0.0388)]), 
        9: np.array([(0.5572, 0.8962, 0.0104, 0.1046),(0.5677, 0.8972, 0.0161, 0.0296)]), 
        10: np.array([(0.5859, 0.9361, 0.0515, 0.0638)])}
+
 minion_even = {1: (0.2973, 0.5092, 0.0453, 0.0888), 2: (0.3697, 0.5092, 0.0453, 0.0888), 3: (0.4427, 0.5092, 0.0453, 0.0888), 4: (0.514, 0.5092, 0.0453, 0.0888), 5: (0.5864, 0.5092, 0.0453, 0.0888), 6: (0.6588, 0.5092, 0.0453, 0.0888)}
 minion_uneven = {1: (0.2609, 0.5092, 0.0453, 0.0888), 2: (0.3333, 0.5092, 0.0453, 0.0888), 3: (0.4062, 0.5092, 0.0453, 0.0888), 4: (0.4791, 0.5092, 0.0453, 0.0888), 5: (0.5494, 0.5092, 0.0453, 0.0888), 6: (0.6223, 0.5092, 0.0453, 0.0888), 7: (0.6953, 0.5092, 0.0453, 0.0888)}
 enemy_minion_even = {1: (0.2609, 0.3333, 0.0453, 0.0888), 2: (0.3333, 0.3333, 0.0453, 0.0888), 3: (0.4062, 0.3333, 0.0453, 0.0888), 4: (0.4791, 0.3333, 0.0453, 0.0888), 5: (0.5494, 0.3333, 0.0453, 0.0888), 6: (0.6223, 0.3333, 0.0453, 0.0888), 7: (0.6953, 0.3333, 0.0453, 0.0888)}
@@ -73,6 +82,9 @@ enemy = (0.4666, 0.1574, 0.0697, 0.9629)
 turn = (0.7843, 0.4361, 0.0567, 0.0296)
 heroPower = (0.5666, 0.7259, 0.0468, 0.0722)
 enemyHeroPower = (0.5666, 0.1824, 0.0468, 0.0722)
+Mulligan = {3: np.array([(0.2734, 0.3472, 0.0989, 0.2638), (0.4505, 0.3472, 0.0989, 0.2638), (0.6302, 0.3472, 0.0989, 0.2638)]),
+            4: np.array([(0.2526, 0.3472, 0.0989, 0.2638), (0.3541, 0.3472, 0.0989, 0.2638), (0.5182, 0.3472, 0.0989, 0.2638), (0.651, 0.3472, 0.0989, 0.2638)])}
+MulliganConfirm = (0.4687, 0.7731, 0.0703, 0.037)
 def getH10():
     global h10
     return h10
@@ -103,6 +115,9 @@ def getH2():
 def getH1():
     global h1
     return h1  
+
+Handcard = np.array([getH1(), getH2(), getH3(), getH4(), getH5(), getH6(), getH7(), getH8(), getH9(), getH10()])
+
 def getMinionEven():
     global minion_even
     return minion_even
@@ -115,8 +130,34 @@ def getEnemyMinionEven():
 def getEnemyMinionUneven():
     global enemy_minion_uneven
     return enemy_minion_uneven
+def getMe():
+    global me
+    return me
+def getEnemy():
+    global enemy
+    return enemy
+def getHeroPower():
+    global heroPower
+    return heroPower
+def getEnemyHeroPoer():
+    global enemyHeroPower
+    return enemyHeroPower
+def getMulligan(numberOfCards):
+    global Mulligan
+    try:
+        if numberOfCards == 3 or numberOfCards == 4:
+            return Mulligan[numberOfCards]
+    except:
+        print 'There is no Mulligan with ' + str(numberOfHandcards) + 'Handcards'
 
-Handcard = np.array([getH1(), getH2(), getH3(), getH4(), getH5(), getH6(), getH7(), getH8(), getH9(), getH10()])
+def getMulliganCardArea(CardPos, numberOfMulliganCards):   
+    try:
+        if numberOfMulliganCards >= CardPos:
+            mul = getMulligan(numberOfMulliganCards)
+            return mul[CardPos - 1]
+    except:         
+        print 'There is no Mulligancard at Pos: ' + str(CardPos)
+
 def getHand(handcount):
     global Handcard
     return Handcard[handcount - 1]
@@ -124,12 +165,7 @@ def getHand(handcount):
 def getHandcardArea(handcount, zonePos):
     hand = getHand(handcount)
     rel_area = hand[zonePos]
-    resolution = getResolution()
-    x = int(resolution[0]*rel_area[0])
-    y = int(resolution[1]*rel_area[1])
-    width =int(resolution[0]*rel_area[2])
-    hight = int(resolution[1]*rel_area[3])
-    area = (x, y, width, hight)
+    area = area(rel_area)
     return area
 
 def getMouseMoveCoords(area):
@@ -145,6 +181,11 @@ def mouseDown():
 
 def mouseUp():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,500,500,0,0)
+
+def mouseClick():
+    mouseDown()
+    time.sleep(0.01)
+    mouseUp()
 
     
     
