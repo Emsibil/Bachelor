@@ -2,7 +2,7 @@ import win32api, win32con
 import numpy as np
 import time
 
-RESOLUTION = None
+RESOLUTION = (1920, 1080)
 def getResolution():
     global RESOLUTION
     return RESOLUTION
@@ -142,13 +142,16 @@ def getHeroPower():
 def getEnemyHeroPoer():
     global enemyHeroPower
     return enemyHeroPower
+def getMulliganConfirm():
+    global MulliganConfirm
+    return MulliganConfirm
 def getMulligan(numberOfCards):
     global Mulligan
     try:
         if numberOfCards == 3 or numberOfCards == 4:
             return Mulligan[numberOfCards]
     except:
-        print 'There is no Mulligan with ' + str(numberOfHandcards) + 'Handcards'
+        print 'There is no Mulligan with ' + str(numberOfCards) + 'Handcards'
 
 def getMulliganCardArea(CardPos, numberOfMulliganCards):   
     try:
@@ -165,8 +168,8 @@ def getHand(handcount):
 def getHandcardArea(handcount, zonePos):
     hand = getHand(handcount)
     rel_area = hand[zonePos]
-    area = area(rel_area)
-    return area
+    _area = area(rel_area[0])
+    return _area
 
 def getMouseMoveCoords(area):
     x = np.random.random_integers(area[0], area[0]+area[2])
@@ -174,7 +177,8 @@ def getMouseMoveCoords(area):
     return (x, y)
     
 def mouseMove(coords):
-    win32api.SetCursorPos(coords[0], coords[1])
+    win32api.SetCursorPos(coords)
+    print 'Moved'
     
 def mouseDown():
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,500,500,0,0)

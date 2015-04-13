@@ -16,7 +16,7 @@ def path(fileName):
     return abs_file_path
 
 def openLogFile():
-    return open('D:/Programme/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
+    return open('C:/Program Files (x86)/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
 
 def readLog():
     return openLogFile().readlines()
@@ -163,7 +163,7 @@ def getHandcardCount():
     count = 0
     for card in Handcards:
         if card is None:
-            return count
+            return (count - 1)
         else:
             count += 1
     return (count - 1)
@@ -429,10 +429,43 @@ def MulliganChoosing():
             if card._manacosts >= 4:
                 change.append(idx)
     for pos in change:  
-        mc.mouseMove(mc.getMouseMoveCoords(getMulliganCardArea(pos, (count - 1))))
+        if count == 3: 
+            mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getMulliganCardArea(pos, (count)))))
+        else:
+            mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getMulliganCardArea(pos, (count - 1)))))
         time.sleep(2)
-        #mc.mouseClick()
+        mc.mouseClick()
+        time.sleep(3)
 
+def MulliganConfirm():
+    mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getMulliganConfirm())))
+    time.sleep(2)
+    mc.mouseClick()
+    
+def playHandcard(pos):
+    count = getHandcardCount()
+    mc.mouseMove(mc.getMouseMoveCoords(mc.getHandcardArea(count, pos)))
+    time.sleep(1)
+    mc.mouseDown()   
+    time.sleep(0.5)
+    mc.mouseMove((100,100))
+    time.sleep(30)
+    
+def choosePlayingCard():
+    handcards = getHandcards()
+    mana = getMyMana()
+    opportunities = []
+    for idx, card in enumerate(handcards):
+        if idx == 0:
+            continue
+        elif card is None:
+            break
+        else:
+            if card._manacosts <= mana:
+                opportunities.append(card)
+    playHandcard(opportunities[np.random.random_integers(0, len(opportunities) - 1)]._zonePos)
+            
+        
 def readingMyTurn(input):
     nxt = 0
     for idx, line in enumerate(input):
@@ -471,6 +504,10 @@ def readingMyTurn(input):
                             showOptions(input[idx:])
                             jump = (i - 1) - idx
                             break
+                    print '30'
+                    time.sleep(30)
+                    choosePlayingCard()
+                    time.sleep(5)
                     nxt = jump
                 elif '- ACTION_START' in line and 'SubType=PLAY' in line:
                     i = idx
@@ -591,7 +628,7 @@ def readingMulligan(input):
                     elif split(line, 'Entity=', ' tag') == getPlayerName(2):
                         setEnemyMulliganStateDone(True)
                     if isMyMulliganStateDone() and isEnemyMulliganStateDone():
-                        if getHandcardCount() == 4:
+                        if getHandcardCount() == 3:
                             setCurState('MY_TURN')
                             print 'now reading My Turn'
                             completeReading(input[idx:], getCurState())
@@ -601,13 +638,20 @@ def readingMulligan(input):
                             print 'now reading Enemy Turn'
                             completeReading(input[idx:], getCurState())
                             return         
-                elif getPlayerName(1) is not None and 'MULLIGAN_STATE' in line and 'DEALING' in line:
+                elif getPlayerName(1) is not None and 'MULLIGAN_STATE' in line and 'INPUT' in line and split(line, 'Entity=', ' tag') == getPlayerName(1):
+                    #print line, idx
+                    print 'setMul'
+                    setMulligan(True)
+                    continue     
+                elif getPlayerName(1) is not None and 'MULLIGAN_STATE' in line and 'DEALING' in line and split(line, 'Entity=', ' tag') == getPlayerName(1):
                     setWaiting(True)
-                    setFound(True)
                     continue
-                elif isFound():
+                elif isMulligan():
+                    time.sleep(17)
                     MulliganChoosing()
-                    setFound(False)
+                    setMulligan(False)
+                    time.sleep(2)
+                    MulliganConfirm()
                 elif isWaiting() and 'SHOW_ENTITY' in line:
                     setTmp(split(line, 'CardID=', '\n'))
                     setFound(True)    
