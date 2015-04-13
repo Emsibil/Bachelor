@@ -135,9 +135,10 @@ def getHandcard(ZonePosition, WithRemoving):
         MY_HANDCARDS = reOrderHandcards(MY_HANDCARDS, ZonePosition)
         return card
     return MY_HANDCARDS[ZonePosition]
-def addHandcardAtPosition(cardId, pos):
+def addHandcardAtPosition(cardId, pos, ingameID):
     global MY_HANDCARDS
     card = createCard(cReader.CardById(cardId))
+    card._ingameID = ingameID
     card._zone = 'HAND'
     card._zonePos = pos
     #card.zone = 'HAND'
@@ -192,6 +193,34 @@ def isComboActive():
     global COMBO
     return COMBO
 
+OPTIONS = []
+def addOption(option):
+    global OPTIONS
+    OPTIONS.append(option)
+def getOption(nr):
+    global OPTIONS
+    return OPTIONS[nr]
+def getOptions():
+    global OPTIONS
+    return OPTIONS
+
+def createOption(*args):
+    if len(args) == 0: #if no argument: EndTurn
+        return 0
+    elif len(args) == 2: #if 1 Argument: PLAY (with no Effects) -> (1, zonePos)
+        return (1, args[0]) 
+    else: #if more Arguments: PLAY with Effects -> (2, zonePos, targets[]) or ATTACK -> (3, zonePos, targets[])
+        option = []
+        if args[1] == 'PLAY':
+            option.append(2)
+        elif args[1] == 'ATTACK':
+            option.append(3)
+        for idx, arg in enumerate(args):
+            if idx == 1:
+                continue
+            option.append(arg)
+        return np.ndarray(option)    
+    
 def reorderMinionsAfterPlaying(array, pos):
     i = (len(array) - 1)
     while i >= pos:
@@ -369,26 +398,38 @@ def cardPlayed(playingLines):
 
 def showOptions(optionLines):
     i = 0
+    paramter1 = None
+    paramter2 = None
+    targets = []
     try:
         while i < len(optionLines):
             if 'option' in optionLines[i]:
                 output = str(split(optionLines[i], '() -   ', ' type')) + ': '
+                createOption(paramter1, paramter2, targets)
+                paramter1 = None
+                paramter2 = None
                 if 'END_TURN' in optionLines[i]:
                     output += 'End Turn'
+                    createOption()
                 elif 'POWER' in optionLines[i] and 'zone=HAND' in optionLines[i]:
                     output += 'Play ' +str(split(optionLines[i], 'name=', ' id'))
+                    paramters1 = int(split(optionLines[i], 'id=', ' zone'))
+                    paramters2 = 'PLAY'
     #            elif 'POWER' in optionLines[i] and 'zone=DECK' in optionLines[i]:
      #               output += 'Play' + str(getHandcard(,0))
                 elif 'POWER' in optionLines[i] and 'zone=PLAY' in optionLines[i] and 'zonePos=0' in optionLines[i]:
                     output += 'Play Hero Power'
                 elif 'POWER' in optionLines[i] and 'zone=PLAY' in optionLines[i] and 'zonePos=0' not in optionLines[i]:
                     output += 'Attack with ' +str(split(optionLines[i], 'name=', ' id'))
+                    paramter1 = int(split(optionLines[i], 'id=', ' zone'))
+                    paramter2 = 'ATTACK'
                 if i+4 < len(optionLines):
                     if 'target' in optionLines[i+4]:
                         output += '\n \t Possible Targets: '
                 print output
             if 'target' in optionLines[i]:
                 print '\t \t' + str(split(optionLines[i], 'name=', 'id'))
+                targets.append(int(split(optionLines[i], 'id=', ' zone')))
             i += 1
     except Exception, e:
         print optionLines[i], e
@@ -489,7 +530,7 @@ def readingMyTurn(input):
                 elif 'TAG_CHANGE' in line and 'RESOURCES' in line:
                     setMyMana(int(split(line, 'value=', '\n')))
                 elif 'SHOW_ENTITY' in line:
-                    addHandcardAtPosition(split(line, 'CardID=', '\n'), (getHandcardCount() + 1))
+                    addHandcardAtPosition(split(line, 'CardID=', '\n'), (getHandcardCount() + 1), int(split(line, 'id=', ' cardId')))
                 elif 'option' in line:
                     i = idx
                     jump = 0
@@ -653,14 +694,15 @@ def readingMulligan(input):
                     time.sleep(2)
                     MulliganConfirm()
                 elif isWaiting() and 'SHOW_ENTITY' in line:
-                    setTmp(split(line, 'CardID=', '\n'))
+                    setTmp((split(line, 'CardID=', '\n'), int(split(line, 'id=', ' cardId'))))
                     setFound(True)    
                 elif isFound() and isWaiting() and 'HIDE_ENTITY' in line:
                     setFound(False)
                     pos = int(split(line, 'zonePos=', ' '))
+                    cardInfo = getTmp()
                     removeHandcardFromPosition(pos)
                     # put removed Card back to DECK
-                    addHandcardAtPosition(getTmp(), pos)
+                    addHandcardAtPosition(cardInfo[0], pos, cardInfo[1])
                 elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
                     if int(split(line, 'value=', '\n')) == 1 and getPlayerName(1) is None:
                         setPlayerName(1, split(line, 'Entity=', ' tag'))
@@ -700,15 +742,17 @@ def readGameStartPowerLines(input):
                         setEnemyHeroPower(split(line, 'CardID=', '\n'))
                 elif not isWaiting() and 'CardID=' in line and not 'HERO' in line:
                     cardId = split(line, 'CardID=')
+                    id = int(split(line, 'ID=', ' CardID='))
                     if '\n' == cardId:
                         continue
                     else:
                         setWaiting(True)
-                        setTmp(cardId.split('\n')[0])
+                        setTmp((cardId.split('\n')[0], id))
                 elif isWaiting() and 'ZONE_POSITION' in line:
                     setWaiting(False)
+                    cardInfo = getTmp()
                     # buglogger(line, getTmp())
-                    addHandcardAtPosition(getTmp(), int(split(line, 'value=', '\n')))
+                    addHandcardAtPosition(cardInfo[0], int(split(line, 'value=', '\n'), cardInfo[1]))
                 elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
                     if int(split(line, 'value=', '\n')) == 1 and getPlayerName(1) is None:
                         setPlayerName(1, split(line, 'Entity=', ' tag'))

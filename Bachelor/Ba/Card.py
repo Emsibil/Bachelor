@@ -9,7 +9,7 @@ class Card(object):
         self._ability = []
         self._zone = None
         self._zonePos = None
-    
+        self._ingameID = None
 
     #def __setattr__(self, name, value):
      #   if name == 'zone':
