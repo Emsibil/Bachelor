@@ -73,18 +73,206 @@ h10 = {1: np.array([(0.3177, 0.9722, 0.025, 0.0277),(0.327, 0.949, 0.0098, 0.023
        9: np.array([(0.5572, 0.8962, 0.0104, 0.1046),(0.5677, 0.8972, 0.0161, 0.0296)]), 
        10: np.array([(0.5859, 0.9361, 0.0515, 0.0638)])}
 
-minion_even = {1: (0.2973, 0.5092, 0.0453, 0.0888), 2: (0.3697, 0.5092, 0.0453, 0.0888), 3: (0.4427, 0.5092, 0.0453, 0.0888), 4: (0.514, 0.5092, 0.0453, 0.0888), 5: (0.5864, 0.5092, 0.0453, 0.0888), 6: (0.6588, 0.5092, 0.0453, 0.0888)}
-minion_uneven = {1: (0.2609, 0.5092, 0.0453, 0.0888), 2: (0.3333, 0.5092, 0.0453, 0.0888), 3: (0.4062, 0.5092, 0.0453, 0.0888), 4: (0.4791, 0.5092, 0.0453, 0.0888), 5: (0.5494, 0.5092, 0.0453, 0.0888), 6: (0.6223, 0.5092, 0.0453, 0.0888), 7: (0.6953, 0.5092, 0.0453, 0.0888)}
-enemy_minion_even = {1: (0.2609, 0.3333, 0.0453, 0.0888), 2: (0.3333, 0.3333, 0.0453, 0.0888), 3: (0.4062, 0.3333, 0.0453, 0.0888), 4: (0.4791, 0.3333, 0.0453, 0.0888), 5: (0.5494, 0.3333, 0.0453, 0.0888), 6: (0.6223, 0.3333, 0.0453, 0.0888), 7: (0.6953, 0.3333, 0.0453, 0.0888)}
-enemy_minion_uneven = {1: (0.2973, 0.3333, 0.0453, 0.0888), 2: (0.3697, 0.3333, 0.0453, 0.0888), 3: (0.4427, 0.3333, 0.0453, 0.0888), 4: (0.514, 0.3333, 0.0453, 0.0888), 5: (0.5864, 0.3333, 0.0453, 0.0888), 6: (0.6588, 0.3333, 0.0453, 0.0888)}
 me = (0.4666, 0.7435, 0.0697, 0.9629)
 enemy = (0.4666, 0.1574, 0.0697, 0.9629)
+
+def getMe():
+    global me
+    return me
+def getEnemy():
+    global enemy
+    return enemy
+
+even1 = (0.2973, 0.5092, 0.0453, 0.0888)
+even2 = (0.3697, 0.5092, 0.0453, 0.0888)
+even3 = (0.4427, 0.5092, 0.0453, 0.0888)
+even4 = (0.514, 0.5092, 0.0453, 0.0888)
+even5 = (0.5864, 0.5092, 0.0453, 0.0888)
+even6 = (0.6588, 0.5092, 0.0453, 0.0888)
+uneven1 = (0.2609, 0.5092, 0.0453, 0.0888)
+uneven2 = (0.3333, 0.5092, 0.0453, 0.0888)
+uneven3 = (0.4062, 0.5092, 0.0453, 0.0888)
+nueven4 = (0.4791, 0.5092, 0.0453, 0.0888)
+uneven5 = (0.5494, 0.5092, 0.0453, 0.0888)
+uneven6 = (0.6223, 0.5092, 0.0453, 0.0888)
+uneven7 = (0.6953, 0.5092, 0.0453, 0.0888)
+
+e_uneven1 = (0.2609, 0.3333, 0.0453, 0.0888)
+e_uneven2 = (0.3333, 0.3333, 0.0453, 0.0888)
+e_uneven3 = (0.4062, 0.3333, 0.0453, 0.0888)
+e_uneven4 = (0.4791, 0.3333, 0.0453, 0.0888)
+e_uneven5 = (0.5494, 0.3333, 0.0453, 0.0888)
+e_uneven6 = (0.6223, 0.3333, 0.0453, 0.0888)
+e_uneven7 = (0.6953, 0.3333, 0.0453, 0.0888)
+e_even1 = (0.2973, 0.3333, 0.0453, 0.0888)
+e_even2 = (0.3697, 0.3333, 0.0453, 0.0888)
+e_even3 = (0.4427, 0.3333, 0.0453, 0.0888)
+e_even4 = (0.514, 0.3333, 0.0453, 0.0888)
+e_even5 = (0.5864, 0.3333, 0.0453, 0.0888)
+e_even6 =  (0.6588, 0.3333, 0.0453, 0.0888)
+
+def getEven1():
+    global even1
+    return even1
+def getEven2():
+    global even2
+    return even2
+def getEven3():
+    global even3
+    return even3
+def getEven4():
+    global even4
+    return even4
+def getEven5():
+    global even5
+    return even5
+def getEven6():
+    global even6
+    return even6
+def getUneven1():
+    global uneven1
+    return uneven1
+def getUneven2():
+    global uneven2
+    return uneven2
+def getUneven3():
+    global uneven3
+    return uneven3
+def getUneven4():
+    global uneven4
+    return uneven4
+def getUneven5():
+    global uneven5
+    return uneven5
+def getUneven6():
+    global uneven6
+    return uneven6
+def getUneven7():
+    global uneven7
+    return uneven7
+def getE_Uneven1():
+    global e_uneven1
+    return e_uneven1
+def getE_Uneven2():
+    global e_uneven2
+    return e_uneven2
+def getE_Uneven3():
+    global e_uneven3
+    return e_uneven3
+def getE_Uneven4():
+    global e_uneven4
+    return e_uneven4
+def getE_Uneven5():
+    global e_uneven5
+    return e_uneven5
+def getE_Uneven6():
+    global e_uneven6
+    return e_uneven6
+def getE_Uneven7():
+    global e_uneven7
+    return e_uneven7
+def getE_Even1():
+    global e_even1
+    return e_even1
+def getE_Even2():
+    global e_even2
+    return e_even2
+def getE_Even3():
+    global e_even3
+    return e_even3
+def getE_Even4():
+    global e_even4
+    return e_even4
+def getE_Even5():
+    global e_even5
+    return e_even5
+def getE_Even6():
+    global e_even6
+    return e_even6
+
+Minions0 = {0: getMe()}
+Minions1 = {0: getMe(), 1: getUneven4()}
+Minions2 = {0: getMe(), 1: getEven3(), 2: getEven4()}
+Minions3 = {0: getMe(), 1: getUneven3(), 2: getUneven4(), 3: getUneven5()}
+Minions4 = {0: getMe(), 1: getEven2(), 2: getEven3(), 3: getEven3(), 4: getEven4()}
+Minions5 = {0: getMe(), 1: getUneven2(), 2: getUneven3(), 3: getUneven4(), 4: getUneven5(), 5: getUneven6()}
+Minions6 = {0: getMe(), 1: getEven1(), 2: getEven2(), 3: getEven3(), 4: getEven4(), 5: getEven5(), 6: getEven6()}
+Minions7 = {0: getMe(), 1: getUneven1(), 2: getUneven2(), 3: getUneven3(), 4: getUneven4(), 5: getUneven5(), 6: getUneven6(), 7: getUneven7()}
+eMinions0 = {0: getEnemy()}
+eMinions1 = {0: getEnemy(), 1: getE_Uneven4()}
+eMinions2 = {0: getEnemy(), 1: getE_Even3(), 2: getE_Even4()}
+eMinions3 = {0: getEnemy(), 1: getE_Uneven3(), 2: getE_Uneven4(), 3: getE_Uneven5()}
+eMinions4 = {0: getEnemy(), 1: getE_Even2(), 2: getE_Even3(), 3: getE_Even3(), 4: getE_Even4()}
+eMinions5 = {0: getEnemy(), 1: getE_Uneven2(), 2: getE_Uneven3(), 3: getE_Uneven4(), 4: getE_Uneven5(), 5: getE_Uneven6()}
+eMinions6 = {0: getEnemy(), 1: getE_Even1(), 2: getE_Even2(), 3: getE_Even3(), 4: getE_Even4(), 5: getE_Even5(), 6: getE_Even6()}
+eMinions7 = {0: getEnemy(), 1: getE_Uneven1(), 2: getE_Uneven2(), 3: getE_Uneven3(), 4: getE_Uneven4(), 5: getE_Uneven5(), 6: getE_Uneven6(), 7: getE_Uneven7()}
+
+def getMinions0():
+    global Minions0
+    return Minions0
+def getMinions1():
+    global Minions1
+    return Minions1
+def getMinions2():
+    global Minions2
+    return Minions2
+def getMinions3():
+    global Minions3
+    return Minions3
+def getMinions4():
+    global Minions4
+    return Minions4
+def getMinions5():
+    global Minions5
+    return Minions5
+def getMinions6():
+    global Minions6
+    return Minions6
+def getMinions7():
+    global Minions7
+    return Minions7
+def getEMinions0():
+    global eMinions0
+    return eMinions0
+def getEMinions1():
+    global eMinions1
+    return eMinions1
+def getEMinions2():
+    global eMinions2
+    return eMinions2
+def getEMinions3():
+    global eMinions3
+    return eMinions3
+def getEMinions4():
+    global eMinions4
+    return eMinions4
+def getEMinions5():
+    global eMinions5
+    return eMinions5
+def getEMinions6():
+    global eMinions6
+    return eMinions6
+def getEMinions7():
+    global eMinions7
+    return eMinions7
+
+MinionBoard = {0: getMinions0(), 1: getMinions1(), 2: getMinions2(), 3: getMinions3(), 4: getMinions4(), 5: getMinions5(), 6: getMinions6(), 7: getMinions7()}
+eMinionBoard = {0: getEMinions0(),1: getEMinions1(), 2: getEMinions2(), 3: getEMinions3(), 4: getEMinions4(), 5: getEMinions5(), 6: getEMinions6(), 7: getEMinions7()}
+
+def getMinionBoard(minionsOnBoard):
+    global MinionBoard
+    return MinionBoard[minionsOnBoard]
+def getEnemyMinionBoard(minionsOnBoard):
+    global eMinionBoard
+    return eMinionBoard[minionsOnBoard]
+
 turn = (0.7843, 0.4361, 0.0567, 0.0296)
 heroPower = (0.5666, 0.7259, 0.0468, 0.0722)
 enemyHeroPower = (0.5666, 0.1824, 0.0468, 0.0722)
 Mulligan = {3: np.array([(0.2734, 0.3472, 0.0989, 0.2638), (0.4505, 0.3472, 0.0989, 0.2638), (0.6302, 0.3472, 0.0989, 0.2638)]),
             4: np.array([(0.2526, 0.3472, 0.0989, 0.2638), (0.3541, 0.3472, 0.0989, 0.2638), (0.5182, 0.3472, 0.0989, 0.2638), (0.651, 0.3472, 0.0989, 0.2638)])}
 MulliganConfirm = (0.4687, 0.7731, 0.0703, 0.037)
+
 def getH10():
     global h10
     return h10
@@ -118,24 +306,6 @@ def getH1():
 
 Handcard = np.array([getH1(), getH2(), getH3(), getH4(), getH5(), getH6(), getH7(), getH8(), getH9(), getH10()])
 
-def getMinionEven():
-    global minion_even
-    return minion_even
-def getMinionUneven():
-    global minion_uneven
-    return minion_uneven
-def getEnemyMinionEven():
-    global enemy_minion_even
-    return enemy_minion_even
-def getEnemyMinionUneven():
-    global enemy_minion_uneven
-    return enemy_minion_uneven
-def getMe():
-    global me
-    return me
-def getEnemy():
-    global enemy
-    return enemy
 def getHeroPower():
     global heroPower
     return heroPower
