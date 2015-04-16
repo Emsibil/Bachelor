@@ -503,13 +503,6 @@
 [Power] GameState.DebugPrintChoice() -   Entities[0]=UNKNOWN ENTITY [id=56 type=MINION zone=HAND zonePos=1]
 [Power] GameState.DebugPrintChoice() -   Entities[1]=UNKNOWN ENTITY [id=46 type=MINION zone=HAND zonePos=2]
 [Power] GameState.DebugPrintChoice() -   Entities[2]=UNKNOWN ENTITY [id=65 type=MINION zone=HAND zonePos=3]
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=1
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=2
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=2
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=3
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=3
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=4
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=4
 [Power] GameState.SendChoices() - id=2 ChoiceType=MULLIGAN
 [Power] GameState.SendChoices() -   m_chosenEntities[0]=[name=Acidic Swamp Ooze id=56 zone=HAND zonePos=1 cardId=EX1_066 player=2]
 [Power] GameState.DebugPrintPowerList() - Count=19
@@ -547,14 +540,6 @@
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=Emsibil SubType=TRIGGER Index=-1 Target=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=MULLIGAN_STATE value=DONE
 [Power] GameState.DebugPrintPower() - ACTION_END
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=5
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=5
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=6
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=6
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=7
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=7
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=8
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=8
 [Power] GameState.DebugPrintPowerList() - Count=9
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=OrionBerserk tag=MULLIGAN_STATE value=DEALING
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=OrionBerserk SubType=TRIGGER Index=-1 Target=0
@@ -603,25 +588,6 @@
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=Emsibil tag=NUM_OPTIONS value=1
 [Power] GameState.DebugPrintOptions() - id=1
 [Power] GameState.DebugPrintOptions() -   option 0 type=END_TURN mainEntity=
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=11
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=12
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=12
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=13
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=13
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=14
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=14
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=15
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=15
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=16
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=16
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=17
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=17
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=18
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=18
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=19
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=19
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=20
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=20
 [Power] GameState.SendOption() - selectedOption=0 selectedSubOption=-1 selectedTarget=0 selectedPosition=0
 [Power] GameState.DebugPrintPowerList() - Count=41
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=GameEntity tag=STEP value=MAIN_END
@@ -666,36 +632,6 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=OrionBerserk tag=NUM_OPTIONS value=2
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=21
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=21
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=22
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=22
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=23
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=23
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=24
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=24
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=25
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=25
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=26
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=26
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=27
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=27
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=28
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=28
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=29
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=29
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=30
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=30
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=31
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=31
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=32
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=32
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=33
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=33
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=34
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=34
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=35
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=35
 [Power] GameState.DebugPrintPowerList() - Count=45
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=OrionBerserk SubType=TRIGGER Index=-1 Target=0
 [Power] GameState.DebugPrintPower() -     FULL_ENTITY - Creating ID=69 CardID=
@@ -760,42 +696,10 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=Emsibil tag=NUM_OPTIONS value=3
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=36
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=36
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=37
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=37
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=38
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=38
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=39
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=39
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=40
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=40
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=41
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=41
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=42
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=42
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=43
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=43
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=44
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=44
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=45
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=45
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=46
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=46
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=47
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=47
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=48
 [Power] GameState.DebugPrintOptions() - id=3
 [Power] GameState.DebugPrintOptions() -   option 0 type=END_TURN mainEntity=
 [Power] GameState.DebugPrintOptions() -   option 1 type=POWER mainEntity=[name=Acidic Swamp Ooze id=56 zone=HAND zonePos=1 cardId=EX1_066 player=2]
 [Power] GameState.DebugPrintOptions() -   option 2 type=POWER mainEntity=[name=Armor Up! id=37 zone=PLAY zonePos=0 cardId=CS2_102 player=2]
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=48
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=49
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=49
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=50
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=50
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=51
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=51
 [Power] GameState.SendOption() - selectedOption=2 selectedSubOption=-1 selectedTarget=0 selectedPosition=0
 [Power] GameState.DebugPrintPowerList() - Count=13
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=[name=Armor Up! id=37 zone=PLAY zonePos=0 cardId=CS2_102 player=2] SubType=PLAY Index=0 Target=0
@@ -875,39 +779,6 @@
 [Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=57
 [Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=58
 [Power] PowerProcessor.DoTaskListForCard() - actionStart has unhandled SubType PLAY for sourceEntity [name=Armor Up! id=37 zone=PLAY zonePos=0 cardId=CS2_102 player=2]
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=58
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=59
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=59
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=60
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=60
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=61
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=61
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=62
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=62
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=63
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=63
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=64
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=64
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=65
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=65
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=66
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=66
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=67
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=67
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=68
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=68
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=69
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=69
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=70
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=70
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=71
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=71
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=72
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=72
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=73
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=73
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=74
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=74
 [Power] GameState.DebugPrintPowerList() - Count=45
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=OrionBerserk SubType=TRIGGER Index=-1 Target=0
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -963,42 +834,10 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=Emsibil tag=NUM_OPTIONS value=3
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=75
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=75
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=76
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=76
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=77
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=77
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=78
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=78
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=79
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=79
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=80
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=80
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=81
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=81
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=82
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=82
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=83
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=83
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=84
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=84
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=85
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=85
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=86
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=86
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=87
 [Power] GameState.DebugPrintOptions() - id=6
 [Power] GameState.DebugPrintOptions() -   option 0 type=END_TURN mainEntity=
 [Power] GameState.DebugPrintOptions() -   option 1 type=POWER mainEntity=[name=Acidic Swamp Ooze id=56 zone=HAND zonePos=1 cardId=EX1_066 player=2]
 [Power] GameState.DebugPrintOptions() -   option 2 type=POWER mainEntity=[name=Armor Up! id=37 zone=PLAY zonePos=0 cardId=CS2_102 player=2]
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=87
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=88
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=88
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=89
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=89
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=90
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=90
 [Power] GameState.SendOption() - selectedOption=2 selectedSubOption=-1 selectedTarget=0 selectedPosition=0
 [Power] GameState.DebugPrintPowerList() - Count=13
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=[name=Armor Up! id=37 zone=PLAY zonePos=0 cardId=CS2_102 player=2] SubType=PLAY Index=0 Target=0
@@ -1080,36 +919,6 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=OrionBerserk tag=NUM_OPTIONS value=7
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=99
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=99
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=100
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=100
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=101
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=101
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=102
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=102
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=103
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=103
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=104
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=104
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=105
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=105
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=106
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=106
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=107
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=107
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=108
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=108
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=109
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=109
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=110
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=110
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=111
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=111
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=112
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=112
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=113
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=113
 [Power] GameState.DebugPrintPowerList() - Count=45
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=OrionBerserk SubType=TRIGGER Index=-1 Target=0
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -1128,7 +937,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=7
---------------------------------------------HIS TURN ENDS------------------------------------------------------------------------------
+--------------------------------------------HIS TURN ENDS------------------------------------------------------------------------------Nichts gemacht außer karte gezogen
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=TURN_START value=1427357617
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -1165,31 +974,6 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=Emsibil tag=NUM_OPTIONS value=7
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=114
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=114
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=115
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=115
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=116
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=116
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=117
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=117
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=118
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=118
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=119
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=119
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=120
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=120
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=121
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=121
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=122
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=122
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=123
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=123
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=124
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=124
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=125
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=125
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=126
 [Power] GameState.DebugPrintOptions() - id=9
 [Power] GameState.DebugPrintOptions() -   option 0 type=END_TURN mainEntity=
 [Power] GameState.DebugPrintOptions() -   option 1 type=POWER mainEntity=[name=Acidic Swamp Ooze id=56 zone=HAND zonePos=1 cardId=EX1_066 player=2]
@@ -1346,47 +1130,6 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=OrionBerserk tag=NUM_OPTIONS value=9
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=138
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=139
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=139
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=140
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=140
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=141
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=141
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=142
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=142
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=143
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=143
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=144
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=144
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=145
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=145
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=146
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=146
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=147
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=147
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=148
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=148
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=149
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=149
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=150
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=150
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=151
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=151
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=152
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=152
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=153
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=153
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=154
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=154
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=155
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=155
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=156
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=156
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=157
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=157
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=158
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=158
 [Power] GameState.DebugPrintPowerList() - Count=54
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=OrionBerserk SubType=TRIGGER Index=-1 Target=0
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -1405,6 +1148,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=9
+------------------------------------------------------------HIS TURN ENDS------------------------------------------------------------------------------------------- nichts gemacht außer Karte gezogen
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=TURN_START value=1427357643
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
 [Power] GameState.DebugPrintPower() - ACTION_END
@@ -1450,31 +1194,6 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=Emsibil tag=NUM_OPTIONS value=11
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=159
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=159
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=160
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=160
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=161
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=161
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=162
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=162
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=163
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=163
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=164
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=164
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=165
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=165
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=166
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=166
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=167
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=167
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=168
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=168
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=169
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=169
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=170
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=170
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=171
 [Power] GameState.DebugPrintOptions() - id=13
 [Power] GameState.DebugPrintOptions() -   option 0 type=END_TURN mainEntity=
 [Power] GameState.DebugPrintOptions() -   option 1 type=POWER mainEntity=[name=Acidic Swamp Ooze id=56 zone=HAND zonePos=1 cardId=EX1_066 player=2]
@@ -1493,13 +1212,6 @@
 [Power] GameState.DebugPrintOptions() -   option 9 type=POWER mainEntity=[name=Armor Up! id=37 zone=PLAY zonePos=0 cardId=CS2_102 player=2]
 [Power] GameState.DebugPrintOptions() -   option 10 type=POWER mainEntity=[name=Arathi Weaponsmith id=40 zone=PLAY zonePos=1 cardId=EX1_398 player=2]
 [Power] GameState.DebugPrintOptions() -     target 0 entity=[name=Uther Lightbringer id=4 zone=PLAY zonePos=0 cardId=HERO_04 player=1]
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=171
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=172
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=172
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=173
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=173
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=174
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=174
 [Power] GameState.SendOption() - selectedOption=2 selectedSubOption=-1 selectedTarget=0 selectedPosition=1
 [Power] GameState.DebugPrintPowerList() - Count=24
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=[name=Chillwind Yeti id=50 zone=HAND zonePos=2 cardId=CS2_182 player=2] SubType=PLAY Index=0 Target=0
@@ -1584,13 +1296,6 @@
 [Power] GameState.DebugPrintOptions() -   option 0 type=END_TURN mainEntity=
 [Power] GameState.DebugPrintOptions() -   option 1 type=POWER mainEntity=[name=Garrosh Hellscream id=36 zone=PLAY zonePos=0 cardId=HERO_01 player=2]
 [Power] GameState.DebugPrintOptions() -     target 0 entity=[name=Uther Lightbringer id=4 zone=PLAY zonePos=0 cardId=HERO_04 player=1]
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=183
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=184
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=184
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=185
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=185
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=186
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=186
 [Power] GameState.SendOption() - selectedOption=1 selectedSubOption=-1 selectedTarget=4 selectedPosition=0
 [Power] GameState.DebugPrintPowerList() - Count=41
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=[name=Garrosh Hellscream id=36 zone=PLAY zonePos=0 cardId=HERO_01 player=2] SubType=ATTACK Index=-1 Target=[name=Uther Lightbringer id=4 zone=PLAY zonePos=0 cardId=HERO_04 player=1]
@@ -1655,6 +1360,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=10
+---------------------------------------------------------------------MY TURN ENDS---------------------------------------------------------------------------------------------------
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=TURN_START value=1427357651
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=TURN_TIMER_SLUSH value=10
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY
@@ -1683,49 +1389,6 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_END
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=OrionBerserk tag=NUM_OPTIONS value=11
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=187
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=188
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=188
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=189
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=189
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=190
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=190
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=191
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=191
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=192
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=192
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=193
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=193
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=194
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=194
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=195
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=195
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=196
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=196
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=197
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=197
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=198
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=198
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=199
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=199
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=200
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=200
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=201
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=201
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=202
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=202
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=203
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=203
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=204
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=204
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=205
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=205
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=206
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=206
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=207
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=207
-[Power] PowerProcessor.BeginCurrentTaskList() - m_currentTaskList=208
-[Power] PowerProcessor.EndCurrentTaskList() - m_currentTaskList=208
 [Power] GameState.DebugPrintPowerList() - Count=28
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=[id=7 cardId= type=INVALID zone=HAND zonePos=6 player=1] SubType=PLAY Index=0 Target=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=RESOURCES_USED value=5
@@ -1804,6 +1467,7 @@
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=OrionBerserk tag=CURRENT_PLAYER value=0
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=CURRENT_PLAYER value=1
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=TURN value=11
+----------------------------------------------------------------HIS TURN ENDS------------------------------------------------------------------------------------
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=TURN_START value=1427357665
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=Emsibil tag=TURN_TIMER_SLUSH value=6
 [Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=MAIN_READY

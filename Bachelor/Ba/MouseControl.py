@@ -92,7 +92,7 @@ even6 = (0.6588, 0.5092, 0.0453, 0.0888)
 uneven1 = (0.2609, 0.5092, 0.0453, 0.0888)
 uneven2 = (0.3333, 0.5092, 0.0453, 0.0888)
 uneven3 = (0.4062, 0.5092, 0.0453, 0.0888)
-nueven4 = (0.4791, 0.5092, 0.0453, 0.0888)
+uneven4 = (0.4791, 0.5092, 0.0453, 0.0888)
 uneven5 = (0.5494, 0.5092, 0.0453, 0.0888)
 uneven6 = (0.6223, 0.5092, 0.0453, 0.0888)
 uneven7 = (0.6953, 0.5092, 0.0453, 0.0888)
@@ -312,6 +312,9 @@ def getHeroPower():
 def getEnemyHeroPoer():
     global enemyHeroPower
     return enemyHeroPower
+def getTurn():
+    global turn
+    return turn
 def getMulliganConfirm():
     global MulliganConfirm
     return MulliganConfirm
