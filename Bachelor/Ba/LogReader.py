@@ -49,11 +49,11 @@ def setMyMulliganStateDone(State):
     
 ENEMY_MULLIGAN_DONE = False
 def isEnemyMulliganStateDone():
-    global MULLIGAN_STATE_OF_ENEMY
-    return MULLIGAN_STATE_OF_ENEMY
+    global ENEMY_MULLIGAN_DONE
+    return ENEMY_MULLIGAN_DONE
 def setEnemyMulliganStateDone(State):
-    global MULLIGAN_STATE_OF_ENEMY
-    MULLIGAN_STATE_OF_ENEMY = State
+    global ENEMY_MULLIGAN_DONE
+    ENEMY_MULLIGAN_DONE = State
   
 GAME_STATES = np.array(['GAME_START', 'MULLIGAN', 'MY_TURN', 'ENEMY_TURN', 'GAME_END'])
 def getGameState(i):
@@ -106,8 +106,8 @@ def getMyMinion(pos):
     return MinionsOnMySide[pos]
 def addMyMinonToField(card, pos):
     global MinionsOnMySide
-    card.zone = 'PLAY'
-    card.zonePos = pos
+    card._zone = 'PLAY'
+    card._zonePos = pos
     MinionsOnMySide[pos] = card
 def removeMyMinonFromField(pos):
     global MinionsOnMySide
@@ -438,8 +438,8 @@ def showOptions(optionLines):
                     output += 'Play ' +str(split(optionLines[i], 'name=', ' id'))
                     parameter1 = int(split(optionLines[i], 'id=', ' zone'))
                     parameter2 = 'PLAY'
-    #            elif 'POWER' in optionLines[i] and 'zone=DECK' in optionLines[i]:
-     #               output += 'Play' + str(getHandcard(,0))
+                elif 'POWER' in optionLines[i] and 'zone=DECK' in optionLines[i]:
+                    output += 'Play ' + getHandcardByIngameId(int(split(optionLines[i], 'id=', ' ')))._name
                 elif 'POWER' in optionLines[i] and 'zone=PLAY' in optionLines[i] and 'zonePos=0' in optionLines[i]:
                     output += 'Play Hero Power'
                     parameter1 = 0
@@ -495,20 +495,15 @@ def EnemyCardPlayed(playingLines):
 def MulliganChoosing():
     handcards = getHandcards()
     count = getHandcardCount()
-    print 'You have', count, 'handcards'
     change = []
     for idx, card in enumerate(handcards):
-        print 'Mul IDX', idx
         if idx == 0:
             continue
         elif idx > count:
             break
-        else:
-            print 'MAnacosts', card._manacosts
-            if card._manacosts >= 4:
-                change.append(idx)
-    for pos in change:
-        print 'Click position:', pos  
+        if card._manacosts >= 4:
+            change.append(idx)
+    for pos in change:  
         if count == 3: 
             mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getMulliganCardArea(pos, (count)))))
         else:
@@ -549,6 +544,9 @@ def playHandcard(card, targetArea):
     mc.mouseDown()   
     time.sleep(0.5)
     mc.mouseMove(targetArea)
+    if card._cardtype == 'Minion':
+        addMyMinonToField(card, (int(getMyMinionCount()/2) + 1))
+    removeHandcardFromPosition(card._zonePos)
     time.sleep(2)
     mc.mouseUp()
     
@@ -574,6 +572,7 @@ def playMinionWithTarget(card, playZone, targetArea):
     mc.mouseDown()   
     time.sleep(0.5)
     mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getUneven1())))
+    addMyMinonToField(card, playZone)
     time.sleep(1)
     mc.mouseUp()
     time.sleep(0.5)
@@ -622,7 +621,6 @@ def choosePlayingCard():
                 else:       
                     #randomPos = np.random.random_integers(0,1)
                     playHandcard(getHandcardByIngameId(choosenOption[0]), mc.getMouseMoveCoords(mc.area(mc.getMinionBoard(1)[1])))
-                    #Insert new Zone if played and bring minion on field
             else:
                 targetIndex = np.random.random_integers(1, len(choosenOption[2])) - 1
                 target = findTarget(choosenOption[2][targetIndex])
@@ -683,7 +681,7 @@ def readingMyTurn(input):
                         i += 1
                         if '- ACTION_END' in input[i]:
                             setFound(True)
-                            cardPlayed(input[idx:(i+1)])
+#                            cardPlayed(input[idx:(i+1)])
                             jump = i - idx
                             break
                     if isFound():
@@ -702,7 +700,7 @@ def readingMyTurn(input):
                         if '- ACTION_END' in input[i]:
                             setFound(True)
                             setWaiting(False)
-                            cardPlayed(getTmp()+input[:(i+1)])
+#                            cardPlayed(getTmp()+input[:(i+1)])
                             nxt = i
                             break
                         i += 1
