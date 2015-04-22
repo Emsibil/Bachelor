@@ -10,6 +10,16 @@ class Card(object):
         self._zone = None
         self._zonePos = None
         self._ingameID = None
+        
+    def set_pos(self, pos):
+        if pos == None:
+            pass
+        self._zonePos = pos
+
+    def get_pos(self):
+        if self._zonePos == None:
+            pass
+        return self._zonePos
 
     #def __setattr__(self, name, value):
      #   if name == 'zone':

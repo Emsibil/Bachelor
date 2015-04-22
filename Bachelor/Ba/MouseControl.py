@@ -339,6 +339,11 @@ def getHand(handcount):
     return Handcard[handcount - 1]
 
 def getHandcardArea(handcount, zonePos):
+    print "get hand area"
+    print handcount
+    print zonePos
+    if zonePos == 0:
+        return area(getHeroPower())
     hand = getHand(handcount)
     rel_area = hand[zonePos]
     _area = area(rel_area[0])
