@@ -293,7 +293,7 @@ def getH5():
     return h5  
 def getH4():
     global h4
-    return h3  
+    return h4  
 def getH3():
     global h3
     return h3  
@@ -349,6 +349,9 @@ def getHandcardArea(handcount, zonePos):
     _area = area(rel_area[0])
     return _area
 
+def getOnBoardArea(minionsOnBoard, card):
+    area(getMinionBoard(minionsOnBoard)[card.get_pos()])
+    
 def getMouseMoveCoords(area):
     x = np.random.random_integers(area[0], area[0]+area[2])
     y = np.random.random_integers(area[1], area[1]+area[3])
