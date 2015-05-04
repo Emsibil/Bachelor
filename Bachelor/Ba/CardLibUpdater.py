@@ -190,6 +190,29 @@ def singleCards():
             cardContent.append(line)
     writeCardsInFile(np.array(strRepOfCards))
     
+def convertText(txt):
+    if '&lt;' in txt:
+        txt = txt.replace('&lt;', '')
+    if 'b&gt;' in txt:
+        txt = txt.replace('b&gt;', '')
+    if '/b&gt;' in txt:
+        txt = txt.replace('/b&gt;', '')
+    if 'i&gt;' in txt:
+        txt = txt.replace('i&gt;', '')
+    if '/i&gt;' in txt:
+        txt = txt.replace('/i&gt;', '')
+    if '$' in txt:
+        txt = txt.replace('$' , '')
+    if '/ ' in txt:
+        txt = txt.replace('/ ', ' ')
+    if '/.' in txt:
+        txt = txt.replace('/.', '.')
+    if '/\n' in txt:
+        txt = txt.replace('/\n', '')
+    if '#' in txt:
+        txt = txt.replace('#', '')
+    return txt
+
 def readSingleCardInfo(content):   
     CardSet = getCardSet()
     CardType = getCardType()
@@ -211,6 +234,7 @@ def readSingleCardInfo(content):
     _CARDTYPE = 'CardType: None'
     _FRACTION = 'Fraction: None'
     _RARITY = 'Rarity: None'
+    _TEXT = 'Text: None'
     _ABILITY = []
     
     numberOfAbilities = 0
@@ -264,7 +288,9 @@ def readSingleCardInfo(content):
                     elif ID == '45':
                         lf = str(line).split('value="')[1].split('"')[0]
                         _LIFE = id[1]+': ' + lf
-                                
+                    elif ID == '184':
+                        txt = str(line).split('"String">')[1].split('<')[0]
+                        _TEXT = id[1]+': ' + convertText(txt)            
         if 'CardID' in line:
             ID = str(line).split('CardID="')[1].split('"')[0]
             _ID = 'CardID: ' + ID
@@ -276,9 +302,11 @@ def readSingleCardInfo(content):
         for a in _ABILITY:
             _ABIL += a + '\n\t'
     
-    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _ABIL + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _CARDSET +'\n'  
+    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _ABIL + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _TEXT + '\n\t' +_CARDSET +'\n'  
                    
 def writeCardsInFile(CardArray):
-    cardFile = open(path('doc')+'/cards.info', 'w')
+    cardFile = open(path('doc')+'/cards2.info', 'w')
     for card in CardArray:
         cardFile.write(card + '\n')
+        
+singleCards()
