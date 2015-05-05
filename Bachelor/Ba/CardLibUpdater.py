@@ -94,7 +94,7 @@ def getClass():
     global Class
     return Class
     
-Ability = np.array(['190', '189', '197', '194', '191']) #Enthaelt noch nicht alle. Nur die markantesten zum Testen.
+Ability = np.array(['190', '189', '197', '194', '191', '218', '349', '217', '220', '212' ]) #Enthaelt noch nicht alle. Nur die markantesten zum Testen.
 def getAbility():
     global Ability
     return Ability
@@ -125,22 +125,22 @@ enumID = np.array([[185 , "CardName"],
                        [208 , "Freeze"],
                        [252 , "CardTextInPlay"],
                        [325 , "TargetingArrowText"],
-                       [189 , "Windfury"],
-                       [218 , "Battlecry"],
+                       [189 , "Windfury"],#
+                       [218 , "Battlecry"],#
                        [200 , "Race"],
                        [192 , "Spellpower"],
                        [187 , "Durability"],
-                       [197 , "Charge"],
+                       [197 , "Charge"],#
                        [362 , "Aura"],
                        [361 , "HealTarget"],
-                       [349 , "ImmuneToSpellpower"],
-                       [194 , "Divine Shield"],
+                       [349 , "ImmuneToSpellpower"],#
+                       [194 , "Divine Shield"],#
                        [350 , "AdjacentBuff"],
-                       [217 , "Deathrattle"],
-                       [191 , "Stealth"],
-                       [220 , "Combo"],
+                       [217 , "Deathrattle"],#
+                       [191 , "Stealth"],#
+                       [220 , "Combo"],#
                        [339 , "Silence"],
-                       [212 , "Enrage"],
+                       [212 , "Enrage"],#
                        [370 , "AffectedBySpellPower"],
                        [240 , "Cant Be Damaged"],
                        [114 , "Elite"],

@@ -60,6 +60,11 @@ class Cardtype(Enum):
     SECRET = 'Secret'
     HERO_POWER = 'Hero Power'
     
+class Option(Enum):
+    END = 'END'
+    PLAY = 'PLAY'
+    ATTACK = 'ATTACK'
+
 PLAYER_NAMES = np.array([None,None])
 def getPlayerName(PlayerID):
     global PLAYER_NAMES
@@ -368,7 +373,8 @@ def clearAll():
     setMyMulliganStateDone(False)
     setPlayerName(1, None)
     setPlayerName(2, None)
-           
+
+
 def attack(line):
     try:
         attackerInfo, targetInfo= line.split('ATTACK')
@@ -386,7 +392,34 @@ def attack(line):
             t_minion._zone = CardState.GRAVEYARD  
     except Exception, e:
         print 'attack', e 
-     
+
+import treelib as t
+def followingOptions(optionTree, mana, parentID):
+    cards = getCards()
+    thisID = parentID + 1
+    for c in cards:
+        if cards[c]._zone == CardState.HAND and cards[c]._manacosts <= mana:
+            #anaylize Card
+            optionTree.create_node((c, Option.PLAY), thisID, parent=parentID)
+            optionTree, thisID = followingOptions(optionTree, mana - cards[c]._manacosts, thisID)
+        elif cards[c]._zone == CardState.PLAY:
+            optionTree.create_node((c, Option.ATTACK), parent=parentID)
+            optionTree, thisID = followingOptions(optionTree, mana, thisID)
+    return (optionTree, thisID)                    
+
+def optionTree(options):
+    oTree = t.Tree()
+    nodeID = 1
+    parentNodeID = 0
+    oTree.create_node(None, nodeID)
+    for opt in options:
+        oTree.create_node(opt, nodeID, parent=parentNodeID)
+        if opt[1] == Option.PLAY:
+            oTree, nodeID = followingOptions(oTree, getMyMana() - getCardByIngameId(opt[0])._manacosts, nodeID)
+        else:
+            oTree, nodeID = followingOptions(oTree, getMyMana())
+    #finished Tree
+
 def cardPlayed(playingLines):
     card = None
     for line in playingLines:
@@ -436,25 +469,25 @@ def showOptions(optionLines):
                     targets = []
                 if 'END_TURN' in optionLines[i]:
                     output += 'End Turn'
-                    addOption(('END', None))
+                    addOption((Option.END, None))
                 elif 'POWER' in optionLines[i] and 'zone=HAND' in optionLines[i]:
                     output += 'Play ' +str(split(optionLines[i], 'name=', ' id'))
                     parameter1 = gameId(optionLines[i])
-                    parameter2 = CardState.PLAY
+                    parameter2 = Option.PLAY
                 elif 'POWER' in optionLines[i] and 'zone=DECK' in optionLines[i]:
                     output += 'Play ' + getCardByIngameId(gameId(optionLines[i]))._name
                 elif 'POWER' in optionLines[i] and 'zone=PLAY' in optionLines[i] and 'zonePos=0' in optionLines[i]:
                     parameter1 = gameId(optionLines[i])
                     if 'cardId=HERO' in optionLines[i]:
                         output += 'Hero Attack'
-                        parameter2 = 'ATTACK'
+                        parameter2 = Option.ATTACK
                     else:
                         output += 'Play Hero Power'
-                        parameter2 = CardState.PLAY
+                        parameter2 = Option.PLAY
                 elif 'POWER' in optionLines[i] and 'zone=PLAY' in optionLines[i] and 'zonePos=0' not in optionLines[i]:
                     output += 'Attack with ' +str(split(optionLines[i], 'name=', ' id'))
                     parameter1 = gameId(optionLines[i])
-                    parameter2 = 'ATTACK'
+                    parameter2 = Option.ATTACK
                 if i+4 < len(optionLines):
                     if 'target' in optionLines[i+4]:
                         output += '\n \t Possible Targets: '
@@ -628,10 +661,10 @@ def choosePlayingCard():
         choosenOption = options[toDo]
         print 'choosenOption', choosenOption
         
-        if choosenOption[0] == 'END':
+        if choosenOption[0] == Option.End:
             EndTurn()
         else:
-            if choosenOption[1] == CardState.PLAY:
+            if choosenOption[1] == Option.PLAY:
                 if len(choosenOption) == 3:
                     targetIndex = np.random.random_integers(1, len(choosenOption[2])) - 1
                     target = findTarget(choosenOption[2][targetIndex])
