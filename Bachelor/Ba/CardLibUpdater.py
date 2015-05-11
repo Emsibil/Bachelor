@@ -94,7 +94,7 @@ def getClass():
     global Class
     return Class
     
-Ability = np.array(['190', '189', '197', '194', '191', '218', '349', '217', '220', '212' ]) #Enthaelt noch nicht alle. Nur die markantesten zum Testen.
+Ability = np.array(['190', '189', '197', '194', '191', '218', '349', '217', '220', '212']) #Enthaelt noch nicht alle. Nur die markantesten zum Testen.
 def getAbility():
     global Ability
     return Ability
@@ -234,7 +234,8 @@ def readSingleCardInfo(content):
     _CARDTYPE = 'CardType: None'
     _FRACTION = 'Fraction: None'
     _RARITY = 'Rarity: None'
-    _TEXT = 'Text: None'
+    _TEXT = 'CardTextInHand: None'
+    _ONETARGET = 'TargetingArrowText: None'
     _ABILITY = []
     
     numberOfAbilities = 0
@@ -290,7 +291,10 @@ def readSingleCardInfo(content):
                         _LIFE = id[1]+': ' + lf
                     elif ID == '184':
                         txt = str(line).split('"String">')[1].split('<')[0]
-                        _TEXT = id[1]+': ' + convertText(txt)            
+                        _TEXT = id[1]+': ' + convertText(txt)
+                    elif ID == '325':
+                        txt = str(line).split('"String">')[1].split('<')[0]
+                        _ONETARGET = id[1] + ': ' + convertText(txt)            
         if 'CardID' in line:
             ID = str(line).split('CardID="')[1].split('"')[0]
             _ID = 'CardID: ' + ID
@@ -302,10 +306,10 @@ def readSingleCardInfo(content):
         for a in _ABILITY:
             _ABIL += a + '\n\t'
     
-    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _ABIL + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _TEXT + '\n\t' +_CARDSET +'\n'  
+    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _ABIL + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _TEXT + '\n\t' + _ONETARGET + '\n\t' +_CARDSET +'\n'  
                    
 def writeCardsInFile(CardArray):
-    cardFile = open(path('doc')+'/cards2.info', 'w')
+    cardFile = open(path('doc')+'/cards3.info', 'w')
     for card in CardArray:
         cardFile.write(card + '\n')
         

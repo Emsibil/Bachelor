@@ -85,3 +85,22 @@ wordlist = np.array(["Hero", "Power", "Taunt", "Deal", "2", "damage", "to", "all
 important_words = np.array(['friendly', 'enemy', 'ALL', 'all', 'Damgage', 'Health', 'Summon', 'destroy'])
 
 target = np.array(['friendly', 'enemy', 'enemies','Minions', 'Minion', 'minion', 'hero', 'character', 'characters','all', 'ALL', 'Weapon', 'adjacent', 'Adjacent'])
+
+def interpretTarget(cardText):
+    targetInfo = []
+    for t in target:
+        if t in cardText:
+            targetInfo.append(t)
+    if 'enemy' in targetInfo:
+        if 'character' in targetInfo:
+            pass
+        elif 'Minions' in targetInfo:
+            pass
+        elif 'Minion' in targetInfo:
+            pass
+        elif 'hero' in targetInfo:
+            pass
+        
+def interpretBattlecry(card):
+    if 'TargetingArrowEffect' in card._ability:
+        

@@ -24,12 +24,12 @@ def manaCost(card):
     if value == 'None':
         return 0
     else:
-         return int(value)
+        return int(value)
      
 def name(card):
     return card[1].split(': ')[1].split('\n')[0]
 
-def id(card):
+def idx(card):
     return card[0].split(': ')[1].split('\n')[0]
 
 def cardType(card):
@@ -48,4 +48,18 @@ def healthValue(card):
         return 0
     else:
         return int(value)
-    
+
+def Abilities(card):
+    abilityLine = 6
+    values = []
+    while 'Ability' in card[abilityLine]:
+        value = card[abilityLine].split(': ')[1].split('\n')[0]
+        if value == 'None':
+            break
+        else:
+            values.append(value)
+        abilityLine = abilityLine + 1
+    return values
+
+        
+        

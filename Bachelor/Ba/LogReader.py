@@ -7,6 +7,7 @@ from tables import Enum
 import cardLibReader as cReader
 import Card
 import MouseControl as mc
+import Dictionary as d
 from Bachelor.Ba.MouseControl import getMinionBoard
 
 
@@ -65,6 +66,15 @@ class Option(Enum):
     PLAY = 'PLAY'
     ATTACK = 'ATTACK'
 
+class Ability(Enum):
+    BATTLECRY = 'Battlecry'
+    ENRAGE = 'Enrage'
+    DEATHRATTLE = 'Deathrattle'
+    CHARGE = 'Charge'
+    TAUNT = 'Taunt'
+    STEALTH = 'Stealth'
+    DIVINESHIELD = 'Divine Shield'
+
 PLAYER_NAMES = np.array([None,None])
 def getPlayerName(PlayerID):
     global PLAYER_NAMES
@@ -103,7 +113,7 @@ def setCurState(new_state):
 
 def createCard(card):
     cardtype = cReader.cardType(card)
-    _card = Card.Card(cReader.id(card), cReader.name(card), cardtype, cReader.manaCost(card))
+    _card = Card.Card(cReader.idx(card), cReader.name(card), cardtype, cReader.manaCost(card))
     if cardtype == Cardtype.MINION:
         _card._attack = cReader.attackValue(card)
         _card._health = cReader.healthValue(card)
@@ -143,7 +153,9 @@ def getCards():
 
 def addHandcardAtPosition(cardId, pos, ingameID):
     cards = getCards()
-    card = createCard(cReader.CardById(cardId))
+    stringCard = cReader.CardById(cardId)
+    card = createCard(stringCard)
+    card._ability = cReader.Abilities(stringCard)
     card._ingameID = ingameID
     if card._cardtype == Cardtype.HERO:
         card._zone = CardState.PLAY
@@ -192,7 +204,13 @@ def reorderMinionsOnBoard(pos):
     for c in cards:
         if cards[c]._zone == CardState.PLAY and cards[c]._zonePos > pos:
             cards[c]._zonePos = cards[c]._zonePos - 1
-            
+    
+def hasAbility(card, abilityName):
+    if abilityName in card._ability:
+        return True
+    else:
+        return False 
+
 MY_HERO = None
 MY_HERO_POWER = None
 ENEMY_HERO = None
@@ -394,12 +412,17 @@ def attack(line):
         print 'attack', e 
 
 import treelib as t
+
+def simulateCards():
+    cards = getCards().copy()
+    e_cards = getEnemyCards().copy()
+    
 def followingOptions(optionTree, mana, parentID):
     cards = getCards()
     thisID = parentID + 1
     for c in cards:
         if cards[c]._zone == CardState.HAND and cards[c]._manacosts <= mana:
-            #anaylize Card
+            #analyze Card
             optionTree.create_node((c, Option.PLAY), thisID, parent=parentID)
             optionTree, thisID = followingOptions(optionTree, mana - cards[c]._manacosts, thisID)
         elif cards[c]._zone == CardState.PLAY:
@@ -595,6 +618,8 @@ def playHandcard(card, targetArea):
         mc.mouseMove(targetArea)
         if card._cardtype == Cardtype.MINION:
             addMyMinonToField(card, (int(getMyMinionCount()/2) + 1))
+            if hasAbility(card, Ability.BATTLECRY):
+                d.interpretBattlecry(card)
         if not card._cardtype == Cardtype.HERO_POWER:
             card._zone = CardState.PLAY
             reorderHandCards(card._zonePos)
