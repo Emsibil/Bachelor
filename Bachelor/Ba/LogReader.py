@@ -1,397 +1,18 @@
-import os
-import time
-import numpy as np
+import treelib as t
 from types import IntType 
 from random import random
-from tables import Enum
-import cardLibReader as cReader
-import Card
-import MouseControl as mc
-import Dictionary as d
-from Bachelor.Ba.MouseControl import getMinionBoard
+from cardLibReader import CardById, Abilities
+from MouseControl import * 
+from Util import *
 
-
-path = 'C:/Program Files (x86)'  #Uni
+#path = 'C:/Program Files (x86)'  #Uni
 #path = 'D:/Programme' #Home
-
-#returns the full path of a special file
-def path(fileName):
-    script_dir = os.path.dirname(__file__)
-    rel_path = fileName
-    abs_file_path = os.path.join(script_dir, rel_path)
-    return abs_file_path
 
 def openLogFile():
     return open('C:/Program Files (x86)/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
 
 def readLog():
     return openLogFile().readlines()
-
-def split(*args):
-    try:
-        if len(args) == 2:
-            return args[0].split(args[1])[1]
-        elif len(args) == 3:
-            return args[0].split(args[1])[1].split(args[2])[0]
-    except Exception, e:
-        print args[0], e
-
-def gameId(line):
-    return int(split(line, 'id=', ' '))
-
-class CardState(Enum):
-    DECK = 0
-    HAND = 1
-    PLAY = 2
-    GRAVEYARD = 3
-    
-class GameState(Enum):
-    SEARCHING = 0
-    GAME_START = 1
-    MULLIGAN = 2
-    MY_TURN = 3
-    ENEMY_TURN = 4
-    GAME_END = 5
-    
-class Cardtype(Enum):
-    HERO = 'Hero'
-    MINION = 'Minion'
-    SPELL = 'Spell'
-    WEAPON = 'Weapon'
-    SECRET = 'Secret'
-    HERO_POWER = 'Hero Power'
-    
-class Option(Enum):
-    END = 'END'
-    PLAY = 'PLAY'
-    ATTACK = 'ATTACK'
-
-class Ability(Enum):
-    BATTLECRY = 'Battlecry'
-    ENRAGE = 'Enrage'
-    DEATHRATTLE = 'Deathrattle'
-    CHARGE = 'Charge'
-    TAUNT = 'Taunt'
-    STEALTH = 'Stealth'
-    DIVINESHIELD = 'Divine Shield'
-
-PLAYER_NAMES = np.array([None,None])
-def getPlayerName(PlayerID):
-    global PLAYER_NAMES
-    return PLAYER_NAMES[PlayerID - 1]
-def setPlayerName(PlayerID, Name):
-    global PLAYER_NAMES
-    PLAYER_NAMES[PlayerID - 1] = Name
-
-MY_MULLIGAN_DONE = False
-def isMyMulliganStateDone():
-    global MY_MULLIGAN_DONE
-    return MY_MULLIGAN_DONE
-def setMyMulliganStateDone(State):
-    global MY_MULLIGAN_DONE
-    MY_MULLIGAN_DONE = State
-    
-ENEMY_MULLIGAN_DONE = False
-def isEnemyMulliganStateDone():
-    global ENEMY_MULLIGAN_DONE
-    return ENEMY_MULLIGAN_DONE
-def setEnemyMulliganStateDone(State):
-    global ENEMY_MULLIGAN_DONE
-    ENEMY_MULLIGAN_DONE = State
-  
-def getGameState(i):
-    global GAME_STATES
-    return GAME_STATES[i]
-
-CUR_STATE = GameState.SEARCHING
-def getCurState():
-    global CUR_STATE
-    return CUR_STATE
-def setCurState(new_state):
-    global CUR_STATE
-    CUR_STATE = new_state
-
-def createCard(card):
-    cardtype = cReader.cardType(card)
-    _card = Card.Card(cReader.idx(card), cReader.name(card), cardtype, cReader.manaCost(card))
-    if cardtype == Cardtype.MINION:
-        _card._attack = cReader.attackValue(card)
-        _card._health = cReader.healthValue(card)
-    if cardtype == Cardtype.HERO:
-        _card._health = cReader.healthValue(card)
-    return _card 
-
-ENEMY_CARDS = {}
-def getEnemyCards():
-    global ENEMY_CARDS
-    return ENEMY_CARDS
-
-def addEnemyMinonToField(card, pos):
-    cards = getEnemyCards()
-    card.set_pos(pos)
-    card._zone = CardState.PLAY
-    cards[card._ingameID] = card
-def removeEnemyCard(idx):
-    card = getEnemyCards()[idx]
-    card._zone = CardState.GRAVEYARD
-def getEnemyMinionCount():
-    count = len([c for c in getEnemyCards().values() if c._zone==CardState.PLAY])
-    return (count - 1)
-def getEnemyCardByIngameID(idx):
-    return getEnemyCards()[idx]
-def reorderEnemyMinionsOnBoard(pos):
-    cards = getEnemyCards()
-    for c in cards:
-        if cards[c]._zone == CardState.PLAY and cards[c]._zonePos > pos:
-            cards[c]._zonePos = cards[c]._zonePos - 1    
-
-CARDS = {}
-
-def getCards():
-    global CARDS
-    return CARDS
-
-def addHandcardAtPosition(cardId, pos, ingameID):
-    cards = getCards()
-    stringCard = cReader.CardById(cardId)
-    card = createCard(stringCard)
-    card._ability = cReader.Abilities(stringCard)
-    card._ingameID = ingameID
-    if card._cardtype == Cardtype.HERO:
-        card._zone = CardState.PLAY
-    else:
-        card._zone = CardState.HAND
-    card.set_pos(pos)
-    #card.zone = CardState.HAND
-    #card.zonePos = pos
-    cards[ingameID] = card
-     
-    print 'got new Card:'
-    output = ''
-    for card in cards.values():
-        if card._cardtype == Cardtype.HERO_POWER:
-            continue
-        output += card._name + ' '
-    print output
-
-def getHandcardCount():
-    count = len([c for c in getCards().values() if c._zone== CardState.HAND])
-    return (count - 1)
-
-def getCardByIngameId(idx):
-    return getCards()[idx]
-    
-def removeCardByIngameId(idx):
-    del getCards()[idx]
-    
-def reorderHandCards(pos):
-    cards = getCards()
-    for c in cards:
-        if cards[c]._zone == CardState.HAND and cards[c]._zonePos > pos:
-            cards[c]._zonePos = cards[c]._zonePos - 1
-
-def addMyMinonToField(card, pos):
-    cards = getCards()
-    card.set_pos(pos)
-    cards[card._ingameID] = card
-    
-def getMyMinionCount():
-    count = len([c for c in getCards().values() if c._zone==CardState.PLAY])
-    return (count - 1)
-
-def reorderMinionsOnBoard(pos):
-    cards = getCards()
-    for c in cards:
-        if cards[c]._zone == CardState.PLAY and cards[c]._zonePos > pos:
-            cards[c]._zonePos = cards[c]._zonePos - 1
-    
-def hasAbility(card, abilityName):
-    if abilityName in card._ability:
-        return True
-    else:
-        return False 
-
-MY_HERO = None
-MY_HERO_POWER = None
-ENEMY_HERO = None
-ENEMY_HERO_POWER = None
-
-def setMyHero(heroId, ingameID):
-    global MY_HERO
-    MY_HERO = heroId
-    hero = createCard(cReader.CardById(heroId))
-    hero._ingameID = ingameID
-    hero._zone = CardState.PLAY
-    addMyMinonToField(hero, 0)
-    print 'Set Hero'
-def setMyHeroPower(powerId, ingameID):
-    global MY_HERO_POWER
-    addHandcardAtPosition(powerId, 0, ingameID)
-    MY_HERO_POWER = powerId
-    print 'Set Hero Power'
-def setEnemyHero(heroId, ingameID):
-    global ENEMY_HERO
-    ENEMY_HERO = heroId
-    hero = createCard(cReader.CardById(heroId))
-    hero._ingameID = ingameID
-    addEnemyMinonToField(hero, 0)
-    print 'Set Enemy Hero'
-def setEnemyHeroPower(powerId, ingameID):
-    global ENEMY_HERO_POWER
-    ENEMY_HERO_POWER = powerId
-    heroPower = createCard(cReader.CardById(powerId))
-    heroPower._ingameID = ingameID
-    heroPower._zone = CardState.HAND
-    heroPower.set_pos(0)
-    print 'Set Enemy Hero Power'
-def getMyHero():
-    global MY_HERO
-    return MY_HERO
-def getMyHeroPower():
-    global MY_HERO_POWER
-    return MY_HERO_POWER
-def getEnemyHero():
-    global ENEMY_HERO
-    return ENEMY_HERO
-def getEnemyHeroPower():
-    global ENEMY_HERO_POWER
-    return ENEMY_HERO_POWER
-
-MY_MANA = 0
-def setMyMana(value):
-    global MY_MANA
-    MY_MANA = value
-def getMyMana():
-    global MY_MANA
-    return MY_MANA
-
-ENEMY_MANA = 0
-def setEnemyMana(value):
-    global ENEMY_MANA
-    ENEMY_MANA = value
-def getEnemyMana():
-    global ENEMY_MANA
-    return ENEMY_MANA  
-
-COMBO = False
-def setCombo(binary):
-    global COMBO
-    COMBO = binary
-def isComboActive():
-    global COMBO
-    return COMBO
-
-OPTIONS = []
-def addOption(option):
-    global OPTIONS
-    OPTIONS.append(option)
-def getOption(nr):
-    global OPTIONS
-    return OPTIONS[nr]
-def getOptions():
-    global OPTIONS
-    return OPTIONS
-def clearOptions():
-    global OPTIONS
-    OPTIONS = []
-
-Mulligan = False
-def isMulligan():
-    global Mulligan
-    return Mulligan
-def setMulligan(binary):
-    global Mulligan
-    Mulligan = binary
-
-CALC_OPTIONS = False
-def setOptionsCalc(binary):
-    global CALC_OPTIONS
-    CALC_OPTIONS = binary
-def isOptionCalc():
-    global CALC_OPTIONS
-    return CALC_OPTIONS
-
-TurnChanged = False
-def setTurnChanged(binary):
-    global TurnChanged
-    TurnChanged = binary
-def isTurnChanged():
-    global TurnChanged
-    return TurnChanged
-
-myTurn = False
-def setMyTurn(binary):
-    global myTurn
-    myTurn = binary
-def isMyTurn():
-    global myTurn
-    return myTurn 
-
-Found= False
-def isFound():
-    global Found
-    return Found
-def setFound(binary):
-    global Found
-    Found = binary
-    
-waiting = False
-def setWaiting(binary):
-    global waiting
-    waiting = binary
-def isWaiting():
-    global waiting
-    return waiting
-
-playerID = 0
-def setPlayerID(Id):
-    global playerID
-    playerID = Id
-def getPlayerID():
-    global playerID
-    return playerID
-
-tmp = None
-def getTmp():
-    global tmp
-    return tmp
-def setTmp(temp):
-    global tmp
-    tmp = temp
-
-def setVariablesDefault():
-    setTmp(None)
-    setWaiting(False)
-    setMyMana(0)
-    setEnemyMana(0)
-    setFound(False)
-    setCombo(False)  
-    setOptionsCalc(False)
-    clearOptions()          
-           
-def clearAll():
-    setVariablesDefault()
-    setMulligan(False)
-    cards = getCards()
-    cards = {}
-    e_cards = getEnemyCards()
-    e_cards = {}
-    hero = getMyHero()
-    hero = None
-    hero_power = getMyHeroPower()
-    hero_power = None
-    e_hero = getEnemyHero()
-    e_hero = None
-    e_hero_power = getEnemyHeroPower()  
-    e_hero_power = None  
-    setPlayerID(0)
-    setMyTurn(False)
-    setTurnChanged(False)
-    setEnemyMulliganStateDone(False)
-    setMyMulliganStateDone(False)
-    setPlayerName(1, None)
-    setPlayerName(2, None)
-
 
 def attack(line):
     try:
@@ -407,11 +28,12 @@ def attack(line):
             removeEnemyCard(a_idx)
         if t_minion._health <= 0:
             reorderMinionsOnBoard(t_minion._zonePos)
-            t_minion._zone = CardState.GRAVEYARD  
+            t_minion._zone = Zone.GRAVEYARD  
     except Exception, e:
         print 'attack', e 
 
-import treelib as t
+def readTrigger(lines):
+    pass
 
 def simulateCards():
     cards = getCards().copy()
@@ -421,11 +43,11 @@ def followingOptions(optionTree, mana, parentID):
     cards = getCards()
     thisID = parentID + 1
     for c in cards:
-        if cards[c]._zone == CardState.HAND and cards[c]._manacosts <= mana:
+        if cards[c]._zone == Zone.HAND and cards[c]._manacosts <= mana:
             #analyze Card
             optionTree.create_node((c, Option.PLAY), thisID, parent=parentID)
             optionTree, thisID = followingOptions(optionTree, mana - cards[c]._manacosts, thisID)
-        elif cards[c]._zone == CardState.PLAY:
+        elif cards[c]._zone == Zone.PLAY:
             optionTree.create_node((c, Option.ATTACK), parent=parentID)
             optionTree, thisID = followingOptions(optionTree, mana, thisID)
     return (optionTree, thisID)                    
@@ -543,7 +165,7 @@ def EnemyCardPlayed(playingLines):
             print 'Played Hero Power'
             break
         elif 'SHOW_ENTITY' in line:
-            card = createCard(cReader.CardById(split(line, 'CardID=', '\n')))
+            card = createCard(split(line, 'CardID=', '\n'))
             card._ingameID = gameId(line)
         if card is not None and 'ZONE_POSITION' in line:
             if card._cardtype == Cardtype.MINION:
@@ -569,8 +191,7 @@ def EnemyCardPlayed(playingLines):
                 print 'Played', card._name
             else:
                 print 'Player', card._name
-                
-               
+                            
 def MulliganChoosing():
     cards = getCards()
     count = getHandcardCount()
@@ -582,66 +203,65 @@ def MulliganChoosing():
     for card in change:
         pos = card._zonePos
         if count == 3: 
-            mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getMulliganCardArea(pos, (count)))))
+            mouseMove(getMouseMoveCoords(area(getMulliganCardArea(pos, (count)))))
         else:
-            mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getMulliganCardArea(pos, (count - 1)))))
+            mouseMove(getMouseMoveCoords(area(getMulliganCardArea(pos, (count - 1)))))
         time.sleep(random()*1+0.5)
-        mc.mouseClick()
+        mouseClick()
         time.sleep(random()*1+0.5)
 
 def MulliganConfirm():
-    mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getMulliganConfirm())))
+    mouseMove(getMouseMoveCoords(area(getMulliganConfirm())))
     time.sleep(2)
-    mc.mouseClick()
+    mouseClick()
 
 def findTarget(idx):
     try:
         cards = getCards()
         for c in cards:
-            if cards[c]._zone == CardState.PLAY and cards[c]._ingameID == idx: 
+            if cards[c]._zone == Zone.PLAY and cards[c]._ingameID == idx: 
                 return (0, cards[c])      
         cards = getEnemyCards()
         for c in cards:
-            if cards[c]._zone == CardState.PLAY and cards[c]._ingameID == idx: 
+            if cards[c]._zone == Zone.PLAY and cards[c]._ingameID == idx: 
                 return (1, cards[c])     
     except:
         print 'No Target Found'
     
-    
 def playHandcard(card, targetArea):
     try:
         count = getHandcardCount()
-        mc.mouseMove(mc.getMouseMoveCoords(mc.getHandcardArea(count, card.get_pos())))
+        mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
         time.sleep(1)
-        mc.mouseDown()   
+        mouseDown()   
         time.sleep(0.5)
-        mc.mouseMove(targetArea)
+        mouseMove(targetArea)
         if card._cardtype == Cardtype.MINION:
             addMyMinonToField(card, (int(getMyMinionCount()/2) + 1))
             if hasAbility(card, Ability.BATTLECRY):
-                d.interpretBattlecry(card)
+                pass
         if not card._cardtype == Cardtype.HERO_POWER:
-            card._zone = CardState.PLAY
+            card._zone = Zone.PLAY
             reorderHandCards(card._zonePos)
         time.sleep(2)
-        mc.mouseUp()
+        mouseUp()
     except Exception, e:
         print 'playHandcards()', e
     
 def drawAttack(ownMinion ,target):
     try:
-        mc.mouseMove(mc.getMouseMoveCoords(mc.getOnBoardArea(getMyMinionCount(), ownMinion)))
+        mouseMove(getMouseMoveCoords(getOnBoardArea(getMyMinionCount(), ownMinion)))
         time.sleep(1)
-        mc.mouseDown()
+        mouseDown()
         time.sleep(0.5)
-        mc.mouseMove(mc.getMouseMoveCoords(mc.getOnBoardArea(getEnemyMinionCount(), target)))
+        mouseMove(getMouseMoveCoords(getOnBoardArea(getEnemyMinionCount(), target)))
         time.sleep(1)
-        mc.mouseUp()
+        mouseUp()
         ownMinion._health = ownMinion._health - target._attack
         target._health = target._health - target._attack
         if ownMinion._health <= 0:
                 reorderMinionsOnBoard(ownMinion._zonePos)
-                ownMinion._zone = CardState.GRAVEYARD
+                ownMinion._zone = Zone.GRAVEYARD
         if target._health <= 0:
             reorderEnemyMinionsOnBoard(target._zonePos)
             removeEnemyCard(target._ingameID)
@@ -650,28 +270,28 @@ def drawAttack(ownMinion ,target):
 
 def playMinionWithTarget(card, playZone, targetArea):
     count = getHandcardCount()
-    mc.mouseMove(mc.getMouseMoveCoords(mc.getHandcardArea(count, card.get_pos())))
+    mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
     time.sleep(1)
-    mc.mouseDown()   
+    mouseDown()   
     time.sleep(0.5)
-    mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getUneven1())))
+    mouseMove(getMouseMoveCoords(area(getUneven1())))
     addMyMinonToField(card, playZone)
     time.sleep(1)
-    mc.mouseUp()
+    mouseUp()
     time.sleep(0.5)
-    mc.mouseMove(targetArea)
+    mouseMove(targetArea)
     time.sleep(1)
-    mc.mouseDown()
+    mouseDown()
     time.sleep(0.5)
-    mc.mouseUp()
+    mouseUp()
         
 def EndTurn():
-    mc.mouseMove(mc.getMouseMoveCoords(mc.area(mc.getTurn())))    
+    mouseMove(getMouseMoveCoords(area(getTurn())))    
     time.sleep(1)
-    mc.mouseDown()
+    mouseDown()
     print "down"
     time.sleep(0.5)
-    mc.mouseUp()
+    mouseUp()
     print "up"
                   
 def choosePlayingCard():
@@ -694,20 +314,20 @@ def choosePlayingCard():
                     targetIndex = np.random.random_integers(1, len(choosenOption[2])) - 1
                     target = findTarget(choosenOption[2][targetIndex])
                     if target[0] == 0:
-                        MinionBoard = mc.getMinionBoard(getMyMinionCount())
+                        MinionBoard = getMinionBoard(getMyMinionCount())
                     else:
-                        MinionBoard = mc.getEnemyMinionBoard(getEnemyMinionCount())
+                        MinionBoard = getEnemyMinionBoard(getEnemyMinionCount())
                     card = getCardByIngameId(choosenOption[0])
                     try:
                         if card._cardtype == Cardtype.MINION:
-                            playMinionWithTarget(card, 1, mc.getMouseMoveCoords(mc.area(MinionBoard[target[1].get_pos()])))
+                            playMinionWithTarget(card, 1, getMouseMoveCoords(area(MinionBoard[target[1].get_pos()])))
                         else:
-                            playHandcard(card, mc.getMouseMoveCoords(mc.area(MinionBoard[target[1].get_pos()])))
+                            playHandcard(card, getMouseMoveCoords(area(MinionBoard[target[1].get_pos()])))
                     except Exception, e:
                         print 'choosingOption with 3 args' ,e   
                 else:       
                     #randomPos = np.random.random_integers(0,1)
-                    playHandcard(getCardByIngameId(choosenOption[0]), mc.getMouseMoveCoords(mc.area(mc.getMinionBoard(1)[1])))
+                    playHandcard(getCardByIngameId(choosenOption[0]), getMouseMoveCoords(area(getMinionBoard(1)[1])))
             else:
                 targetIndex = np.random.random_integers(1, len(choosenOption[2])) - 1
                 target = findTarget(choosenOption[2][targetIndex])
@@ -867,6 +487,12 @@ def readingEnemyTurn(cont):
                     else:
                         nxt = len(cont) - 1
                         setTmp(getTmp() + cont)
+                elif '_ACTION_START' in line and 'SubType=TRIGGER' in line:
+                    i = idx
+                    while i < len(cont) - 1:
+                        if '- ACTION_END' in cont[i]:
+                            readTrigger(cont[idx:(i+1)])
+                            break
                 elif 'Entity='+getPlayerName(2) in line and 'RESOURCES' in line:
                     setEnemyMana(int(split(line, 'value=', '\n')))
             except Exception, e:
@@ -997,7 +623,6 @@ def completeReading(cont, state):
     else:
         print 'no Correct State'
 
-
 def Statedecision():
     log = readLog()
     nol = len(log)
@@ -1023,17 +648,18 @@ def Statedecision():
 def Main():
     Statedecision()
     
-Main()
+#Main()
 
 #-----TESTREADER-----#
 def splitter():
     fi = readLog()
-    power = open(path('doc')+'/powerZone.txt', 'w')
+    power = open(path('doc')+'/power3.txt', 'w')
     for l in fi:
         if '[Power]' in l or '[Zone]' in l:
             power.write(l)
 
-#splitter()
+
+splitter()
 
 
 

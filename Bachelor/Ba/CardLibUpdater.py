@@ -1,12 +1,5 @@
-import os
 import numpy as np
-
-
-def path(fileName):
-    script_dir = os.path.dirname(__file__)
-    rel_path = fileName
-    abs_file_path = os.path.join(script_dir, rel_path)
-    return abs_file_path
+from Bachelor.Ba.Util import path
 
 def translate_cardxml():
     cardxml = open(path('doc/cardxml0.txt'), 'r').readlines()
@@ -242,59 +235,59 @@ def readSingleCardInfo(content):
     for line in content:
         if 'enumID' in line:
             ID = str(line).split('enumID="')[1].split('"')[0]
-            for id in enumID:
-                if id[0] == ID:
+            for idx in enumID:
+                if idx[0] == ID:
                     if ID == '200':
                         value = str(line).split('value="')[1].split('"')[0]
                         for race in Race:
                             if race[0] == value:
-                                _RACE = id[1] + ': ' + race[1]
+                                _RACE = idx[1] + ': ' + race[1]
                     elif ID == '183':
                         value = str(line).split('value="')[1].split('"')[0]
                         for card in CardSet:
                             if card[0] == value:
-                                _CARDSET =id[1] + ': ' + card[1]
+                                _CARDSET =idx[1] + ': ' + card[1]
                     elif ID == '202':
                         value = str(line).split('value="')[1].split('"')[0]
                         for card in CardType:
                             if card[0] == value:
-                                _CARDTYPE = id[1] + ': '+ card[1]
+                                _CARDTYPE = idx[1] + ': '+ card[1]
                     elif ID == '201':
                         value = str(line).split('value="')[1].split('"')[0]
                         for frac in Fraction:
                             if frac[0] == value:
-                                _FRACTION = id[1] + ': ' + frac[1]
+                                _FRACTION = idx[1] + ': ' + frac[1]
                     elif ID == '199':
                         value = str(line).split('value="')[1].split('"')[0]
                         for cl in Class:
                             if cl[0] == value:
-                                _CLASS = id[1] + ': ' + cl[1]
+                                _CLASS = idx[1] + ': ' + cl[1]
                     elif ID == '203':
                         value = str(line).split('value="')[1].split('"')[0]   
                         for rare in Rarity:
                             if rare[0] == value:
-                                _RARITY = id[1] + ': ' + rare[1]
+                                _RARITY = idx[1] + ': ' + rare[1]
                     elif ID in Ability:
                         numberOfAbilities += 1
                         _ABILITY.append('Ability'+str(numberOfAbilities)+': ' + id[1])
                     elif ID == '185':
                         name = str(line).split('"String">')[1].split('<')[0]
-                        _NAME = id[1]+': '+name
+                        _NAME = idx[1]+': '+name
                     elif ID == '48':
                         cost = str(line).split('value="')[1].split('"')[0]
-                        _MANACOST = id[1]+': ' + cost
+                        _MANACOST = idx[1]+': ' + cost
                     elif ID == '47':
                         atk = str(line).split('value="')[1].split('"')[0]
-                        _ATTACK = id[1]+': ' + atk
+                        _ATTACK = idx[1]+': ' + atk
                     elif ID == '45':
                         lf = str(line).split('value="')[1].split('"')[0]
-                        _LIFE = id[1]+': ' + lf
+                        _LIFE = idx[1]+': ' + lf
                     elif ID == '184':
                         txt = str(line).split('"String">')[1].split('<')[0]
-                        _TEXT = id[1]+': ' + convertText(txt)
+                        _TEXT = idx[1]+': ' + convertText(txt)
                     elif ID == '325':
                         txt = str(line).split('"String">')[1].split('<')[0]
-                        _ONETARGET = id[1] + ': ' + convertText(txt)            
+                        _ONETARGET = idx[1] + ': ' + convertText(txt)            
         if 'CardID' in line:
             ID = str(line).split('CardID="')[1].split('"')[0]
             _ID = 'CardID: ' + ID

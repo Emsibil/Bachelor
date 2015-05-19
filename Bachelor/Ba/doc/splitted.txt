@@ -1,0 +1,208 @@
+Deal 2 damage to all enemies. Restore 2 Health to all friendly characters.
+Deal 2 damage.
+Deal 1 damage.
+Deal 4 damage to an enemy and 1 damage to all other enemies.
+Deal 3 damage to a character and Freeze it.
+Deal 1 damage to all enemy minions.
+Deal 6 damage.
+Deal 4 damage to all enemy minions.
+Deal 1 damage to an enemy character and Freeze it.
+BattlecryDeal 4 damage to a minion.
+Deal 2 damage. Restore 2 Health to your hero.
+Deal 3 damage to ALL characters.
+BattlecryDeal 2 damage to an undamaged minion.
+Deal 3 damage to the enemy hero.
+Deal 2 damage to all enemies.
+Deal 3 damage.
+Deal 2 damage to two random enemy minions.
+BattlecryBattlecryBattlecryDeal 3 damage to two random enemy minions.
+Deal 2 damage.
+Deal 5 damage to the enemy hero.
+Deal 1 damage to all enemy minions. Draw a card.
+Deal 5 damage.
+Deal 3 damage randomly split among enemy characters.
+Deal 1 damage. Draw a card.
+Deal 1 damage to a minion. If that kills it, draw a card.
+Deal 4 damage. Discard a random card.
+Deal 1 damage to ALL minions.
+Deal 3 damage. If you have a Beast, deal 5 damage instead.
+BattlecryDeal 2 damage to all enemy minions and Freeze them.
+BattlecryDeal 5 damage to all characters except Ysera.
+DeathrattleBattlecryTaunt. DeathrattleDeal 2 damage. ComboBattlecryComboDeal 2 damage to the enemy hero. ComboChoose One - Deal 3 damage to a minion; or 1 damage and draw a card.
+Deal 3 damage to a minion.
+Deal 1 damage to a minion. Draw a card.
+Choose One - Deal 2 damage; or Silence a minion.
+Deal 2 damage.
+Deal 3 damage. OverloadDeal 5 damage. OverloadDeal 2 damage to 2 random enemy minions. OverloadDeal 2-3 damage to all enemy minions. OverloadDeal 10 damage.
+BattlecryBattlecryDeal 2 damage to a character. If that kills it, summon a random Demon.
+Deal 8 damage randomly split among enemy characters.
+Deal 2 damage to a minion. If it survives, draw a card.
+Deal 4 damage. If you have 12 or less Health, deal 6 instead.
+Deal 1 damage to a minion for each Armor you have.
+Deal 5 damage to a minion and 2 damage to adjacent ones.
+Deal damage equal to your hero's Attack to a minion.
+Deal 2 damage to a minion. If it’s a friendly Demon, give it +2/+2 instead.
+BattlecryDeal 1 damage to a minion and give it +2 Attack.
+Deal 5 damage. Restore 5 Health to your hero.
+Your Hero Power becomes 'Deal 2 damage'. If already in ShadowformChoose One - Deal 5 damage to a minion; or 2 damage to all enemy minions.
+Deal 2 damage to all enemy minions.
+Deal 5 damage to a minion.
+Deal 4 damage.
+Deal 2 damage.
+Deal 2 damage to all enemies.
+Deal 1 damage.
+Deal 5 damage.
+Deal 4 damage. Draw a card.
+Charge. DeathrattleDeathrattleTaunt. DeathrattleDeal 8 damage to the enemy hero, and Freeze it.
+Deal 3 damage to all enemy minions. Restore 3 Health to your hero.
+Deal 5 damage to a minion. Summon a Spore.
+Deal 1 damage to all enemy minions. Summon a Spore.
+Deals double damage to heroes.
+Deals double damage to heroes.
+Deal 4 damage to a random enemy minion.
+Deal damage to each minion equal to its Attack.
+BattlecryDeal 3 damage.
+Deal 5 damage to a minion.  If it's a friendly Demon, give it +5/+5 instead.
+Deal 3-6 damage. OverloadDeal 2-4 damage to a minion. Summon a 1/1 Imp for each damage dealt.
+Deal 1 damage to a random minion. Repeat until a minion dies.
+Deal 3 damage to a minion and the enemy hero.
+DeathrattleBattlecryBattlecryBattlecry/Deathrattle/Give a minion +2 Health.
+Give your hero +2 Attack this turn and 2 Armor.
+Give a minion Taunt and +2/+2. (+2 Attack/+2 Health)/
+Give your characters +2 Attack this turn.
+Give a minion Windfury.
+Give a friendly character +3 Attack this turn.
+Give your minions +3 Attack this turn.
+Give your weapon +2 Attack.
+Give a minion +3 Attack.
+Give a minion +4/+4. (+4 Attack/+4 Health)/
+Give a friendly minion +2 Attack and Charge.
+Give your hero +4 Attack this turn.
+BattlecryBattlecryGive your Totems +2 Health.
+Give a minion Divine Shield.
+BattlecryGive a minion "DeathrattleGive a minion +2 Attack. ComboGive a damaged minion +3/+3.
+BattlecryGive a minion +5/+5. At the start of your next turn, destroy it.
+BattlecryGive a minion +1/+1.
+BattlecryBattlecryCharge. BattlecryBattlecryBattlecryGive your minions Stealth until your next turn.
+Choose One - Give a minion +4 Attack; or +4 Health and Taunt.
+Give your minions "DeathrattleChoose One - Give your minions +1/+1; or Summon a 3/2 Panther.
+Give your minions +1/+1.
+Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.
+BattlecryGive a friendly Beast +2 Attack and Immune this turn.
+Give your hero +4 Attack this turn and 4 Armor.
+Choose One - Give your other minions +2/+2; or Summon two 2/2 Treants with Taunt.
+Give your other minions +2/+2.
+BattlecryBattlecryBattlecryBattlecryGive a friendly minion +1/+1. (+1 Attack/+1 Health)/
+Give your minions +2/+2. (+2 Attack/+2 Health)/
+Give a character Charge and make him able to attack!
+Give a player's weapon -1 Durability.
+Give a minion Mega-Windfury.
+Give your Hero +100 Armor
+Give your Weapon +100/+100
+Give a Minion +1000/+1000
+BattlecryDeathrattleGive a minion +4/+4 and Taunt.
+Give your hero +6 Attack this turn.
+Give your minions +2 Health.
+DeathrattleGive your minions and your weapon +1/+1.
+Give a minion +2/+4 and Spell Damage +1.
+BattlecryGive your weapon +3 Attack. ComboBattlecry/Choose One - Give each player a Mana Crystal; or Each player draws a card.
+Give each player a Mana Crystal.
+Deathrattle/Choose One - Summon 5 Wisps; or Give a minion +5/+5 and Taunt.
+BattlecryBattlecry/Battlecry/BattlecryBattlecryDeathrattleBattlecryBattlecryGive a minion +1 Health.
+Give a minion Taunt.
+Give a friendly minion Stealth until your next turn.
+Give a minion +1 Attack.
+Deal 2 damage to all enemies. Restore 2 Health to all friendly characters.
+Restore 8 Health.
+Restore a minion to full Health and give it Taunt.
+Deal 2 damage. Restore 2 Health to your hero.
+BattlecryRestore 6 Health.
+BattlecryBattlecryDestroy a Demon. Restore 5 Health to your hero.
+BattlecryDestroy a minion. Restore 3 Health to your hero.
+Restore 8 Health. Draw 3 cards.
+BattlecryRestore 4 Health to ALL minions.
+Deal 5 damage. Restore 5 Health to your hero.
+Choose One - Draw 2 cards; or Restore 5 Health.
+Restore 5 Health.
+Restore 8 Health.
+Restore 1 Health to a character.
+Restore 5 Health to a character.
+Restore all Health to a character.
+DeathrattleDeal 3 damage to all enemy minions. Restore 3 Health to your hero.
+Restore 3 Health. If the target is still damaged, summon a Lightwarden.
+Restore all characters to full Health.
+Restore 4 Health to your hero and gain +2 Attack this turn.
+BattlecryReturn an enemy minion to your opponent's hand.
+Return all minions to their owner's hand.
+Return a minion to its owner's hand.
+BattlecryBattlecryDeal 2 damage to the enemy hero. ComboReturn a friendly minion to your hand. It costs (2) less.
+ComboReturn a minion to its owner's hand.
+DeathrattleReturn a friendly minion to your hand.
+Destroy an enemy minion.
+Destroy a damaged enemy minion.
+Destroy a minion with 3 or less Attack.
+BattlecryDestroy a minion with an Attack of 5 or more.
+Destroy a Demon. Restore 5 Health to your hero.
+Destroy your weapon and deal its damage to all enemies.
+BattlecryBattlecryDestroy a minion. Your opponent draws 2 cards.
+Destroy any minion damaged by this minion.
+Taunt. BattlecryDestroy a friendly minion and deal its Attack damage to all enemy minions.
+BattlecryDestroy a minion. Restore 3 Health to your hero.
+Destroy all minions.
+BattlecryDestroy all minions except one. (chosen randomly)/
+Stealth. Destroy any minion damaged by this minion.
+All minions lose Stealth. Destroy all enemy Secrets. Draw a card.
+BattlecryDestroy a random enemy minion.
+BattlecryBattlecryBattlecryC-C-C-COMBODestroy a minion or hero.
+Destroy a hero's weapon.
+Destroy all minions.
+Destroy all heroes.
+Destroy a player's Hero Power.
+Destroy all of a player's Mana Crystals.
+Silence and Destroy ALL Minions.
+Choose a hero. Destroy all Secrets controlled by that hero.
+Destroy any minion damaged by this minion.
+Destroy all minions and summon 2/2 Treants to replace them.
+Destroy a minion, then return it to life with full Health.
+Destroy a minion.
+Destroy all non-Skeleton minions.
+DeathrattleDeathrattleDestroy a random enemy minion. Combo/Destroy a minion. If you have a damaged minion, this costs (4) less.
+BattlecryChange a minion's Health to 1.
+Change a minion's Attack to 1.
+Change a minion's Attack to be equal to its Health.
+BattlecryChange the Health of ALL minions to 1.
+Deal 3 damage to a character and Freeze it.
+Freeze all enemy minions.
+Freeze any character damaged by this minion.
+Deal 1 damage to an enemy character and Freeze it.
+Deal 2 damage to all enemy minions and Freeze them.
+Freeze a character. If it was already Frozen/, deal 4 damage instead.
+Freeze a minion and the minions next to it, and deal 1 damage to them.
+BattlecryFreeze a character.
+Deal 8 damage to the enemy hero, and Freeze it.
+Freeze any character damaged by this minion.
+Freeze a minion.
+Become Hogger for Video Recording.
+BattlecrySet the Health of a character to 1.
+BattlecryBattlecrySwap a minion's Attack and Health.
+Stealth. At the end of your turn, give another random friendly minion +1 Health.
+Stealth/
+Stealth/
+Stealth/
+Stealth/
+Give your minions Stealth until your next turn.
+Stealthed until your next turn.
+Stealth. Destroy any minion damaged by this minion.
+All minions lose Stealth. Destroy all enemy Secrets. Draw a card.
+BattlecryCan't be Silenced. Divine Shield, Stealth./
+Steal a random card from your opponent.
+Stealth. At the start of your turn, gain +1/+1.
+Whenever you summon a Pirate, gain Stealth.
+Stealth/
+Stealth
+Stealth
+Give a friendly minion Stealth until your next turn.
+Stealthed until your next turn.
+Transform a minion into a 1/1 Sheep.
+Transform a minion into a 0/1 Frog with Taunt.
+BattlecryBattlecry

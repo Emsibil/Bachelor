@@ -1,11 +1,4 @@
-import os
-
-def path(fileName):
-    script_dir = os.path.dirname(__file__)
-    rel_path = fileName
-    abs_file_path = os.path.join(script_dir, rel_path)
-    return abs_file_path    
-
+from Util import path   
               
 def CardById(ID):
     cardLib = open(path('doc/cards.info'), 'r').readlines()
