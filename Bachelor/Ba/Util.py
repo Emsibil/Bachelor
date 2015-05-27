@@ -45,6 +45,7 @@ class Zone(Enum):
     HAND = 1
     PLAY = 2
     GRAVEYARD = 3
+    SETASIDE = 4
     
 class Cardtype(Enum):
     HERO = 'Hero'
@@ -53,6 +54,7 @@ class Cardtype(Enum):
     WEAPON = 'Weapon'
     SECRET = 'Secret'
     HERO_POWER = 'Hero Power'
+    ENCHANTMENT = 'Enchantment'
     
 class Option(Enum):
     END = 'END'

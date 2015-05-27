@@ -1,3 +1,4 @@
+import time
 import treelib as t
 from types import IntType 
 from random import random

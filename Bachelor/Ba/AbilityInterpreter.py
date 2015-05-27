@@ -206,7 +206,7 @@ def readingFULL_ENTITY(lines):
     for l in lines:
         if 'CREATOR' in l: 
             break
-        elif 'FULL_ENTITY' in l:
+        elif 'FULL_ENTITY' in l and not 'CardID=\n' in l:
             idx = split(l, 'ID=', ' ')
             cardID = split(l, 'CardID=', '\n')
             card = createCard(cardID)
@@ -219,6 +219,12 @@ def readingFULL_ENTITY(lines):
                 isMyCard = True
         elif 'tage=ZONE_POSITION' in l:
             card.set_pos(int(split(l, 'value=', '\n')))
+        elif 'SHOW_ENTITY' in l:
+            ingameID = int(split(l, 'ID=', ' '))
+            cardID = split(l, 'CardID=', '\n')
+            card = createCard(cardID)
+            card._ingameID = ingameID
+            card._zone = Zone.SETASIDE
     if isMyCard and card._zone == Zone.PLAY:
         addMyMinonToField(card, card.get_pos())
     elif not isMyCard and card._zone == Zone:
@@ -263,4 +269,6 @@ if 'SHOW_ENTITY' in l:
 # [Power] GameState.DebugPrintPower() -             tag=CARDTYPE value=ENCHANTMENT
 # [Power] GameState.DebugPrintPower() -             tag=CREATOR value=24
 # [Power] GameState.DebugPrintPower() -     ACTION_END
+#[Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=[name=Dark Cultist id=24 zone=PLAY zonePos=3 cardId=FP1_023 player=1] tag=IGNORE_DAMAGE_OFF value=0
+#[Power] GameState.DebugPrintPower() -     TAG_CHANGE Entity=[name=Sludge Belcher id=23 zone=PLAY zonePos=2 cardId=FP1_012 player=1] tag=HEALTH value=8
 
