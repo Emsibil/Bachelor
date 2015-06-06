@@ -43,7 +43,7 @@ def healthValue(card):
         return int(value)
 
 def Abilities(card):
-    abilityLine = 6
+    abilityLine = 13
     values = []
     while 'Ability' in card[abilityLine]:
         value = card[abilityLine].split(': ')[1].split('\n')[0]
@@ -54,5 +54,6 @@ def Abilities(card):
         abilityLine = abilityLine + 1
     return values
 
-        
+def durability(card):
+    return card[12].split(': ')[1].split('\n')[0]
         

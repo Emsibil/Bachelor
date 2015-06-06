@@ -142,11 +142,15 @@ def readingLines(card, lines):
             if card._zone == Zone.GRAVEYARD:
                 pass                       
     write(effect)
-    
-def editAbility(target, ability):
-    if ability not in target._ability:
-        target._ability.append(ability)
         
+def silence(card):
+    card._ability = []
+    tmp = createCard(card._id)
+    if card.get_takenDamage() < 
+    card._attack = tmp._attack
+    card._health = tmp._health
+    #hier is noch nicht ganz klar was mit dem scahden passiert
+            
 def BuffTarget(target, effect, value):
     if effect == Buff.ATTACK:
         target._attack = target._attack + value 
@@ -173,8 +177,7 @@ def DebuffTarget(target, effect, value):
     elif Debuff.HEALTH == effect:
         target._health = target._health - value
     elif Debuff.SILENCE == effect:
-        target._ability = []
-        target._enchanment = []
+        silence(target)
     elif Debuff.DESTROY == effect:
         target._zone = Zone.GRAVEYARD
     elif Debuff.TRANSFORM == effect:
@@ -200,37 +203,6 @@ def readInterpreter(card, target, effectTime):
             else:
                 DebuffTarget(target, effect, value)
                 
-def readingFULL_ENTITY(lines):
-    card = None
-    isMyCard = False
-    for l in lines:
-        if 'CREATOR' in l: 
-            break
-        elif 'FULL_ENTITY' in l and not 'CardID=\n' in l:
-            idx = split(l, 'ID=', ' ')
-            cardID = split(l, 'CardID=', '\n')
-            card = createCard(cardID)
-            card._ingameID = idx
-        elif 'tag=ZONE' in l:
-            if split(l, 'value=', '\n') == 'PLAY':
-                card._zone = Zone.PLAY
-        elif 'tag=CONTROLLER' in l:
-            if int(split(l, 'value=', '\n')) == 1:
-                isMyCard = True
-        elif 'tage=ZONE_POSITION' in l:
-            card.set_pos(int(split(l, 'value=', '\n')))
-        elif 'SHOW_ENTITY' in l:
-            ingameID = int(split(l, 'ID=', ' '))
-            cardID = split(l, 'CardID=', '\n')
-            card = createCard(cardID)
-            card._ingameID = ingameID
-            card._zone = Zone.SETASIDE
-    if isMyCard and card._zone == Zone.PLAY:
-        addMyMinonToField(card, card.get_pos())
-    elif not isMyCard and card._zone == Zone:
-        addEnemyMinonToField(card, card.get_pos())
-    elif card._zone == Zone.HAND:
-        addHandcardAtPosition(card._id, card.get_pos, card._ingameID)
 
 if 'META_DAMAGE' in l:
     pass
@@ -239,7 +211,10 @@ if 'META_HEALING' in l:
 if 'FULL_ENTITY' in l:
     pass
 if 'SHOW_ENTITY' in l:
-    pass
+    id = split(l, 'CardID=', '\n')
+    i_id = split(l, 'id=', '')
+    pos = handcount() + 1
+    addHandcardAtPosition(id, pos, i_id)
 # [Power] GameState.DebugPrintPower() - ACTION_START Entity=[name=Shattered Sun Cleric id=64 zone=HAND zonePos=2 cardId=EX1_019 player=2] SubType=PLAY Index=0 Target=[name=Haunted Creeper id=38 zone=PLAY zonePos=1 cardId=FP1_002 player=2]
 # [Power] GameState.DebugPrintPower() -     ACTION_START Entity=[name=Shattered Sun Cleric id=64 zone=HAND zonePos=2 cardId=EX1_019 player=2] SubType=POWER Index=-1 Target=[name=Haunted Creeper id=38 zone=PLAY zonePos=1 cardId=FP1_002 player=2]
 # [Power] GameState.DebugPrintPower() -         META_DATA - Meta=META_TARGET Data=0 Info=1

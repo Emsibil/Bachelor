@@ -6,11 +6,13 @@ from cardLibReader import CardById, Abilities
 from MouseControl import * 
 from Util import *
 
+
 #path = 'C:/Program Files (x86)'  #Uni
 #path = 'D:/Programme' #Home
 
 def openLogFile():
-    return open('C:/Program Files (x86)/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
+    #return open('C:/Program Files (x86)/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
+    return open('D:/Programme/Hearthstone/Hearthstone_Data/output_log.txt' , 'r')
 
 def readLog():
     return openLogFile().readlines()
@@ -24,17 +26,8 @@ def attack(line):
         t_minion = getCardByIngameId(t_idx)
         t_minion._health = t_minion._health - a_minion._attack
         a_minion._health = a_minion._health - t_minion._attack
-        if a_minion._health <= 0:
-            reorderEnemyMinionsOnBoard(a_minion._zonePos)
-            removeEnemyCard(a_idx)
-        if t_minion._health <= 0:
-            reorderMinionsOnBoard(t_minion._zonePos)
-            t_minion._zone = Zone.GRAVEYARD  
     except Exception, e:
         print 'attack', e 
-
-def readTrigger(lines):
-    pass
 
 def simulateCards():
     cards = getCards().copy()
@@ -338,7 +331,99 @@ def choosePlayingCard():
                 drawAttack(getCardByIngameId(choosenOption[0]), target[1])      
     except Exception, e:
         print 'choosePlayingCard:', e
-        
+
+def readTrigger(lines):
+    for l in lines:
+        if 'SubType=TRIGGER' in l:
+            if getCardByIngameId(gameId(l))._zone == Zone.GRAVEYARD:
+                Full_Entity(lines)
+
+def readDeaths(lines):
+    for l in lines:
+        if 'GRAVEYARD' in l:
+            if is_Me(controllerID(l)):
+                card = getCardByIngameId(gameId(l))
+                card._zoone = Zone.GRAVEYARD
+                reorderMinionsOnBoard(card.get_pos())
+            else:
+                card = getEnemyCardByIngameID(gameId(l))
+                card._zoone = Zone.GRAVEYARD
+                reorderEnemyMinionsOnBoard(card.get_pos())
+                
+            
+def readingFULL_ENTITY(lines):
+    card = None
+    isMyCard = False
+    for l in lines:
+        if 'CREATOR' in l: 
+            if card._type == Cardtype.ENCHANTMENT:
+                return Cardtype.ENCHANTMENT
+        elif 'FULL_ENTITY' in l and not 'CardID=\n' in l:
+            idx = split(l, 'ID=', ' ')
+            cardID = split(l, 'CardID=', '\n')
+            card = createCard(cardID)
+            card._ingameID = idx
+        elif 'tag=ZONE' in l:
+            zone = split(l, 'value=', '\n')
+            card._zone = zone
+        elif 'tag=CONTROLLER' in l:
+                isMyCard = is_Me(int(split(l, 'value=', '\n')))
+        elif 'tage=ZONE_POSITION' in l:
+            card.set_pos(int(split(l, 'value=', '\n')))
+        elif 'SHOW_ENTITY' in l:
+            ingameID = int(split(l, 'ID=', ' '))
+            cardID = split(l, 'CardID=', '\n')
+            card = createCard(cardID)
+            card._ingameID = ingameID
+            card._zone = Zone.SETASIDE
+    if isMyCard and card._zone == Zone.PLAY:
+        addMyMinonToField(card, card.get_pos())
+    elif not isMyCard and card._zone == Zone.PLAY:
+        addEnemyMinonToField(card, card.get_pos())
+    elif isMyCard and card._zone == Zone.HAND:
+        addHandcardAtPosition(card._id, card.get_pos, card._ingameID)
+    elif not isMyCard and card._zone == Zone.HAND:
+        pass
+
+def tagging(Id, tag, value):
+    card = getCardByIngameId(Id)
+    if tag == 'HEALTH':
+        card._health = value
+    elif tag == 'ATK':
+        card._attack = value
+    elif tag == 'TAUNT':
+        editAbility(card, Ability.TAUNT, value)
+    elif tag == 'DIVINE_SHIELD':
+        editAbility(card, Ability.DIVINESHIELD, value)    
+    elif tag == 'WINDFURY':
+        editAbility(card, Ability.WINDFURY, value)
+    elif tag == 'STEALTH':
+        editAbility(card, Ability.STEALTH, value)
+    elif tag == 'CHARGE':
+        editAbility(card, Ability.CHARGE, value)    
+
+def Full_Entity(lines):
+    i = 0
+    start = None
+    end = None
+    enchanted = []
+    while i < len(lines):
+        if 'FULL_ENTITY' in lines[i]:
+            start = i
+        elif 'CREATOR' in lines[i] and start is not None:
+            end = i
+            type = readingFULL_ENTITY(lines[start:end])
+            start = None
+            end = None
+            if type == Cardtype.ENCHANTMENT and 'ATTACHED' in lines[i+1]:
+                enchanted.append(int(split(lines[i+1], 'value=', '\n')))
+        if len(enchanted) > 0 and 'id=' in lines[i] and 'cardId=' in lines[i]:
+            idx = gameId(lines[i])
+            if id in enchanted:
+                tag = split(lines[i], 'tag=', ' ')
+                value = int(split(lines[i], 'value=', '\n'))  
+                tagging(idx, tag, value)
+                
 def readingMyTurn(cont):
     nxt = 0
     Power = '[Power]'
@@ -394,6 +479,7 @@ def readingMyTurn(cont):
                         if '- ACTION_END' in cont[i]:
                             setFound(True)
 #                            cardPlayed(cont[idx:(i+1)])
+                            Full_Entity(cont[idx:(i+1)])
                             jump = i - idx
                             break
                     if isFound():
@@ -413,6 +499,7 @@ def readingMyTurn(cont):
                             setFound(True)
                             setWaiting(False)
 #                            cardPlayed(getTmp()+cont[:(i+1)])
+                            Full_Entity(getTmp()+cont[:(i+1)])
                             nxt = i
                             break
                         i += 1
@@ -494,6 +581,12 @@ def readingEnemyTurn(cont):
                         if '- ACTION_END' in cont[i]:
                             readTrigger(cont[idx:(i+1)])
                             break
+                elif '_ACTION_START' in line and 'SubType=DEATHS' in line:
+                    i = idx
+                    while i < len(cont) - 1:
+                        if '- ACTION_END' in cont[i]:
+                            readDeaths(cont[idx:(i+1)])
+                            break
                 elif 'Entity='+getPlayerName(2) in line and 'RESOURCES' in line:
                     setEnemyMana(int(split(line, 'value=', '\n')))
             except Exception, e:
@@ -546,13 +639,12 @@ def readingMulligan(cont):
                     # put removed Card back to DECK
                     pos = int(split(line, 'zonePos=', ' '))
                     addHandcardAtPosition(cardInfo[0], pos, cardInfo[1])
-                elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
-                    if int(split(line, 'value=', '\n')) == 1 and getPlayerName(1) is None:
-                        setPlayerName(1, split(line, 'Entity=', ' tag'))
-                        print getPlayerName(1)
-                    elif int(split(line, 'value=', '\n')) == 2 and getPlayerName(2) is None:
-                        setPlayerName(2, split(line, 'Entity=', ' tag'))
-                        print getPlayerName(2)
+                elif 'TAG_CHANGE' in line and 'CONTROLLER' in line and 'Entity=' in line:
+                    Entity = split(line, 'Entity=', ' tag=')
+                    if Entity == get_Me():
+                        setPlayerName(int(split(line, 'value=', '\n')), get_Me())
+                    else:
+                        setPlayerName(int(split(line, 'value=', '\n')), Entity)
                     continue
             except Exception, e:
                 print 'MULLIGAN:', line, e 
@@ -574,13 +666,13 @@ def readGameStartPowerLines(cont):
                     setFound(False)
                     setPlayerID(int(split(line, 'value=', '\n')))
                     heroInfo = getTmp()
-                    if getPlayerID() == 1:     
+                    if is_Me(getPlayerID()):     
                         setMyHero(heroInfo[0], heroInfo[1])
                     else:
                         setEnemyHero(heroInfo[0], heroInfo[1])
                 elif isWaiting() and not isFound() and 'CardID=' in line:
                     setWaiting(False)
-                    if getPlayerID() == 1:
+                    if is_Me(getPlayerID()):
                         setMyHeroPower(split(line, 'CardID=', '\n'), int(split(line, 'ID=', ' ')))
                     else:
                         setEnemyHeroPower(split(line, 'CardID=', '\n'), int(split(line, 'ID=', ' ')))
@@ -597,13 +689,12 @@ def readGameStartPowerLines(cont):
                     cardInfo = getTmp()
                     # buglogger(line, getTmp())
                     addHandcardAtPosition(cardInfo[0], int(split(line, 'value=', '\n')), cardInfo[1])
-                elif 'TAG_CHANGE' in line and 'CONTROLLER' in line:
-                    if int(split(line, 'value=', '\n')) == 1 and getPlayerName(1) is None:
-                        setPlayerName(1, split(line, 'Entity=', ' tag'))
-                        print getPlayerName(1)
-                    elif int(split(line, 'value=', '\n')) == 2 and getPlayerName(2) is None:
-                        setPlayerName(2, split(line, 'Entity=', ' tag'))
-                        print getPlayerName(2)
+                elif 'TAG_CHANGE' in line and 'CONTROLLER' in line and 'Entity=' in line:
+                    Entity = split(line, 'Entity=', ' tag=')
+                    if Entity == get_Me():
+                        setPlayerName(int(split(line, 'value=', '\n')), get_Me())
+                    else:
+                        setPlayerName(int(split(line, 'value=', '\n')), Entity)
                     continue
             except Exception, e:
                 print 'GAME START', line, e   
@@ -654,7 +745,7 @@ def Main():
 #-----TESTREADER-----#
 def splitter():
     fi = readLog()
-    power = open(path('doc')+'/power3.txt', 'w')
+    power = open(path('doc')+'/power4.txt', 'w')
     for l in fi:
         if '[Power]' in l or '[Zone]' in l:
             power.write(l)

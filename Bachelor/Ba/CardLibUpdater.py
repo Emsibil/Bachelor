@@ -230,6 +230,7 @@ def readSingleCardInfo(content):
     _TEXT = 'CardTextInHand: None'
     _ONETARGET = 'TargetingArrowText: None'
     _ABILITY = []
+    _DURABILITY = 'Durability: None'
     
     numberOfAbilities = 0
     for line in content:
@@ -270,6 +271,9 @@ def readSingleCardInfo(content):
                     elif ID in Ability:
                         numberOfAbilities += 1
                         _ABILITY.append('Ability'+str(numberOfAbilities)+': ' + id[1])
+                    elif ID == '187':
+                        dura = str(line).split('value="')[1].split('"')[0]
+                        _DURABILITY = idx[1] + ': ' + dura
                     elif ID == '185':
                         name = str(line).split('"String">')[1].split('<')[0]
                         _NAME = idx[1]+': '+name
@@ -299,7 +303,7 @@ def readSingleCardInfo(content):
         for a in _ABILITY:
             _ABIL += a + '\n\t'
     
-    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _ABIL + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _TEXT + '\n\t' + _ONETARGET + '\n\t' +_CARDSET +'\n'  
+    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _TEXT + '\n\t' + _ONETARGET + '\n\t' +_CARDSET + '\n\t' + _DURABILITY + '\t\n' + _ABIL +'\n'  
                    
 def writeCardsInFile(CardArray):
     cardFile = open(path('doc')+'/cards3.info', 'w')

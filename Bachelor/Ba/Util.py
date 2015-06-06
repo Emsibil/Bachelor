@@ -4,6 +4,10 @@ from tables import Enum
 from cardLibReader import *
 from Card import *
 
+class Player(Enum):
+    ME = 1
+    ENEMY = 2
+
 class Effect(Enum):
     DEBUFF = 0
     BUFF = 1
@@ -41,11 +45,11 @@ class GameState(Enum):
     GAME_END = 5
     
 class Zone(Enum):
-    DECK = 0
-    HAND = 1
-    PLAY = 2
-    GRAVEYARD = 3
-    SETASIDE = 4
+    DECK = 'DECK'
+    HAND = 'HAND'
+    PLAY = 'PLAY'
+    GRAVEYARD = 'GRAVEYARD'
+    SETASIDE = 'SETASIDE'
     
 class Cardtype(Enum):
     HERO = 'Hero'
@@ -69,6 +73,7 @@ class Ability(Enum):
     TAUNT = 'Taunt'
     STEALTH = 'Stealth'
     DIVINESHIELD = 'Divine Shield'
+    WINDFURY = 'Windfury'
 
 def path(fileName):
     script_dir = os.path.dirname(__file__)
@@ -97,16 +102,35 @@ def split(*args):
         print args[0], e
 
 def gameId(line):
-    return int(split(line, 'id=', ' ')) 
+    return int(split(line, 'id=', ' '))
 
-PLAYER_NAMES = np.array([None,None])
+def controllerID(line): 
+    return int(split(line, 'player=', ']'))
+
+def editAbility(target, ability, value):
+    if value == 1:
+        if ability not in target._ability:
+            target._ability.append(ability)
+    else:
+        if ability in target._ability:
+            target._ability.remove(ability)
+    
+PLAYER_NAMES = {}
 def getPlayerName(PlayerID):
     global PLAYER_NAMES
-    return PLAYER_NAMES[PlayerID - 1]
+    return PLAYER_NAMES[PlayerID]
 def setPlayerName(PlayerID, Name):
     global PLAYER_NAMES
-    PLAYER_NAMES[PlayerID - 1] = Name
+    PLAYER_NAMES[PlayerID] = Name
 
+ME = 'Emsibil'
+def get_Me():
+    global Me
+    return ME
+
+def is_Me(Id):
+    return getPlayerName(Id) == get_Me()
+    
 MY_MULLIGAN_DONE = False
 def isMyMulliganStateDone():
     global MY_MULLIGAN_DONE
@@ -121,7 +145,7 @@ def isEnemyMulliganStateDone():
     return ENEMY_MULLIGAN_DONE
 def setEnemyMulliganStateDone(State):
     global ENEMY_MULLIGAN_DONE
-    ENEMY_MULLIGAN_DONE = State
+    ENEMY_MULLIGAN_DONE = State0
   
 def getGameState(i):
     global GAME_STATES
@@ -157,7 +181,18 @@ def reorderEnemyMinionsOnBoard(pos):
     cards = getEnemyCards()
     for c in cards:
         if cards[c]._zone == Zone.PLAY and cards[c]._zonePos > pos:
-            cards[c]._zonePos = cards[c]._zonePos - 1    
+            cards[c]._zonePos = cards[c]._zonePos - 1
+            
+E_HANCARDS = 0
+def getEnemyHandcardCount():
+    global E_HANCARDS
+    return E_HANCARDS
+
+def addEnemyHancard():
+    count = getEnemyHandcardCount() + 1    
+    
+def removeEnemyHandcard():
+    count = getEnemyHandcardCount() - 1
 
 CARDS = {}
 
