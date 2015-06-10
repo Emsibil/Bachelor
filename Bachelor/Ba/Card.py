@@ -12,7 +12,7 @@ class Card(object):
         self._ingameID = None
         self._enchanment = []
         self._durability = None
-        self._takenDamage = 0
+        self._damage = 0
         
     def set_pos(self, pos):
         if pos == None:
@@ -23,9 +23,17 @@ class Card(object):
         if self._zonePos == None:
             pass
         return self._zonePos
-    
-    def set_takenDamage(self, dmg):
-        self._takenDamage = self._takenDamage + dmg
+
+    def restore_Health(self, health):
+        if health >= self._damage:
+            self._damage = 0
+        else:
+            self._damage = self._damage - health
         
-    def get_takenDamage(self):
-        return self._takenDamage
+    def takes_Damage(self, dmg):
+        self._damage = self._damage + dmg
+        if self._damage >= self._health:
+            self._zone = 'GRAVEYARD'
+        
+    def get_damage(self):
+        return self._damage

@@ -24,8 +24,8 @@ def attack(line):
         t_idx = gameId(targetInfo)
         a_minion = getEnemyCardByIngameID(a_idx) 
         t_minion = getCardByIngameId(t_idx)
-        t_minion._health = t_minion._health - a_minion._attack
-        a_minion._health = a_minion._health - t_minion._attack
+        t_minion.takes_Damage(a_minion._attack)
+        a_minion.takes_Damage(t_minion._attack)
     except Exception, e:
         print 'attack', e 
 
@@ -251,14 +251,12 @@ def drawAttack(ownMinion ,target):
         mouseMove(getMouseMoveCoords(getOnBoardArea(getEnemyMinionCount(), target)))
         time.sleep(1)
         mouseUp()
-        ownMinion._health = ownMinion._health - target._attack
-        target._health = target._health - target._attack
-        if ownMinion._health <= 0:
+        ownMinion.takes_Damage(target._attack)
+        target.takes_Damage(ownMinion._attack)
+        if ownMinion._zone == Zone.GRAVEYARD:
                 reorderMinionsOnBoard(ownMinion._zonePos)
-                ownMinion._zone = Zone.GRAVEYARD
-        if target._health <= 0:
+        if target._zone == Zone.GRAVEYARD:
             reorderEnemyMinionsOnBoard(target._zonePos)
-            removeEnemyCard(target._ingameID)
     except Exception, e:
         print 'drawAttack()', e
 

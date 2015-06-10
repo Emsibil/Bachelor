@@ -1,19 +1,29 @@
 from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
+from Bachelor.Ba.Util import Effect, path
 import xml.etree.ElementTree as etree
-
+import os
 root = Element('Ability')
 def get_root():
     global root
     return root
-tree = ElementTree(root)
+tree = None
 def get_tree():
     global tree
+    if tree is None:
+        tree = ElementTree(root)
     return tree
+edited = Element('Edited')
+def get_edited():
+    global edited
+    edited.text = '1'
 card = Element('Card')
-def get_card(cardID):
+def get_card(cardID, *args):
     global card
     card.set('id', cardID)
+    for a in args:
+        card.append(a)
+    card.append(get_edited())
     return card
 buff = Element('Buff')
 def get_buff(value, name):
@@ -27,13 +37,53 @@ def get_debuff(value, name):
     debuff.text = name
     debuff.set('value', str(value))
     return debuff
+def appendCard(Id, *args):
+    abilities = []
+    for a in args:
+        if a[0] == Effect.Buff:
+            abilities.append(get_buff(a[1], a[2]))
+        else:
+            abilities.append(get_debuff(a[1], a[2]))
+    get_root().append(get_card(Id, abilities))
 
-def write():
-    _tree = get_tree()
-    _root = get_root()
-    _root.append(get_card('CA_20D').append(element))
+def compareAttribValues(oldValue, newValue):
+    if '-' in oldValue:
+        v1, v2 = oldValue.split('-')
+        v1 = int(v1)
+        v2 = int(v2)
+        if v1 <= newValue and v2 >= newValue:
+            return 0
+        elif v1 > newValue:
+            v1 = newValue
+        elif v2 < newValue:
+            v2 = newValue
+        return str(v1)+'-'+str(v2)
+    else:
+        v = int(oldValue)
+        if v == newValue:
+            return 0
+        elif v < newValue:
+            return str(v)+'-'+str(newValue)
+        elif v > newValue:
+            return str(newValue)+'-'+str(v)
     
-write()
-    
-    
-    
+def rewrite(Id, _tree, *args):
+    pass                    
+            
+def addInfo(Id, _tree, *args):
+    pass
+ 
+def write(Id, *args):
+    if os.path.isfile(path('doc/Ability.xml')):
+        _tree = etree.parse(path('doc/Ability.xml'))
+        _root = _tree.getroot()
+        for card in root:
+            if Id in card.attrib:
+                rewrite(Id, _tree, *args)
+            else:
+                addInfo(Id, _tree, *args)
+    else:
+        appendCard(Id, *args)
+        _tree = get_tree()
+        _tree.write(path('doc')+'/Ability.xml')
+        
