@@ -1,5 +1,4 @@
 import os
-import numpy as np
 from tables import Enum
 from cardLibReader import *
 from Card import *
@@ -9,8 +8,14 @@ class Player(Enum):
     ENEMY = 2
 
 class Effect(Enum):
-    DEBUFF = 0
-    BUFF = 1
+    DEBUFF = 'Debuff'
+    BUFF = 'Buff'
+    BOTH = 'BuffDebuff'
+    
+class Stats():
+    ATTACK = 'Attack'
+    HEALTH = 'Health'
+    ARMOR = 'Armor'
     
 class Buff(Enum):
     ATTACK = 'Attack'
@@ -145,7 +150,7 @@ def isEnemyMulliganStateDone():
     return ENEMY_MULLIGAN_DONE
 def setEnemyMulliganStateDone(State):
     global ENEMY_MULLIGAN_DONE
-    ENEMY_MULLIGAN_DONE = State0
+    ENEMY_MULLIGAN_DONE = State
   
 def getGameState(i):
     global GAME_STATES
@@ -440,3 +445,5 @@ def clearAll():
     setMyMulliganStateDone(False)
     setPlayerName(1, None)
     setPlayerName(2, None)
+
+   

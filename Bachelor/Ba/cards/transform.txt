@@ -1,0 +1,10 @@
+ Transform a minion into a 1/1 Sheep.
+ This minion has been transformed into a 1/1 Sheep.
+ Transform a minion into a 0/1 Frog with Taunt.
+ This minion has been transformed!
+ Battlecry: Transform another random minion into a 5/5 Devilsaur or a 1/1 Squirrel.
+ At the start of your turn, transform a random minion into a 1/1 Chicken.
+ Has been transformed into a chicken!
+ Battlecry: If you have a Beast, transform this minion into a 7/7.
+ Battlecry: Draw a card. If it's a minion, transform it into a Chicken.
+ Battlecry: Transform a friendly minion into a random minion with the same Cost.

@@ -1,0 +1,9 @@
+ Whenever you cast a spell, add a 'Fireball' spell to your hand.
+ Deathrattle: Add a random Beast card to your hand.
+ Add a random minion to your hand. It costs (3) less.
+ Whenever this minion takes damage, add a Spare Part card to your hand.
+ Battlecry: Add 4 random Murlocs to your hand. Overload: (3)/
+ Deathrattle: Add a Spare Part card to your hand.
+ Battlecry: If you have a Mech, gain +1/+1 and add a Spare Part to your hand.
+ Battlecry and Deathrattle: Add a Spare Part card to your hand.
+ Whenever you cast a 1-mana spell, add a random Mech to your hand.

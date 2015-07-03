@@ -1,4 +1,4 @@
-from Util import path   
+from Util import path 
               
 def CardById(ID):
     cardLib = open(path('doc/cards.info'), 'r').readlines()
@@ -12,6 +12,15 @@ def CardById(ID):
                 return cardLib[i:j]                
         i += 1
 
+def name(card):
+    return card[1].split(': ')[1].split('\n')[0]
+
+def cardType(card):
+    return card[2].split(': ')[1].split('\n')[0]
+
+def idx(card):
+    return card[0].split(': ')[1].split('\n')[0]
+
 def manaCost(card):
     value = card[3].split(': ')[1].split('\n')[0]
     if value == 'None':
@@ -19,15 +28,6 @@ def manaCost(card):
     else:
         return int(value)
      
-def name(card):
-    return card[1].split(': ')[1].split('\n')[0]
-
-def idx(card):
-    return card[0].split(': ')[1].split('\n')[0]
-
-def cardType(card):
-    return card[2].split(': ')[1].split('\n')[0]
-
 def attackValue(card):
     value = card[4].split(': ')[1].split('\n')[0]
     if value == 'None':
@@ -42,6 +42,27 @@ def healthValue(card):
     else:
         return int(value)
 
+def race(card):
+    r = card[6].split(': ')[1].split('\n')[0]
+    if r == 'None':
+        return None
+    else:
+        return r
+
+def _class(card):
+    c = card[8].split(': ')[1].split('\n')[0]
+    if c == 'None':
+        return None
+    else:
+        return c
+    
+def text(card):
+    t = card[10].split(': ')[1].split('\n')[0]
+    if t == 'None':
+        return None
+    else:
+        return t
+    
 def Abilities(card):
     abilityLine = 13
     values = []

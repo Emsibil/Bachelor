@@ -1,0 +1,36 @@
+ Deal 2 damage to all enemies. Restore 2 Health to all friendly characters.
+ Restore 8 Health.
+ Restore a minion to full Health and give it Taunt.
+ Deal 2 damage. Restore 2 Health to your hero.
+ Battlecry: Restore 6 Health to your hero.
+ Restore 6 Health.
+ Whenever your hero attacks, restore 2 Health to it.
+ Battlecry: Restore 2 Health to all friendly characters.
+ Battlecry: Restore 2 Health.
+ Destroy a Demon. Restore 5 Health to your hero.
+ At the end of your turn, restore 1 Health to all friendly minions.
+ Battlecry: Restore 3 Health.
+ Destroy a minion. Restore 3 Health to your hero.
+ At the start of your turn, restore 3 Health to a damaged friendly character.
+ Restore 8 Health. Draw 3 cards.
+ Battlecry: Restore 4 Health to your hero.
+ Your cards and powers that restore Health now deal damage instead.
+ Restore 4 Health to ALL minions.
+ Deal 5 damage. Restore 5 Health to your hero.
+ Choose One - Draw 2 cards; or Restore 5 Health.
+ Restore 5 Health.
+ Restore 8 Health.
+ Restore 1 Health to a character.
+ Restore 5 Health to a character.
+ Restore all Health to a character.
+ At the end of your turn, restore 6 Health to a damaged character.
+ Deathrattle: Restore 5 Health to the enemy hero.
+ At the start of your turn, restore this minion to full Health.
+ Deal 3 damage to all enemy minions. Restore 3 Health to your hero.
+ Restore 3 Health. If the target is still damaged, summon a Lightwarden.
+ Whenever this minion deals damage, restore that much Health to your hero.
+ Restore all characters to full Health.
+ At the end of your turn, restore 4 Health to your hero.
+ Restore 4 Health to your hero and gain +2 Attack this turn.
+ Battlecry: Restore 8 Health to your hero.
+ If you control a Secret at the end of your turn, restore 4 health to your hero.

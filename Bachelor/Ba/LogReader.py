@@ -5,6 +5,7 @@ from random import random
 from cardLibReader import CardById, Abilities
 from MouseControl import * 
 from Util import *
+from Bachelor.Ba.Xml import XML_write
 
 
 #path = 'C:/Program Files (x86)'  #Uni
@@ -345,7 +346,7 @@ def readDeaths(lines):
                 reorderMinionsOnBoard(card.get_pos())
             else:
                 card = getEnemyCardByIngameID(gameId(l))
-                card._zoone = Zone.GRAVEYARD
+                card._zone = Zone.GRAVEYARD
                 reorderEnemyMinionsOnBoard(card.get_pos())
                 
             
@@ -400,6 +401,16 @@ def tagging(Id, tag, value):
     elif tag == 'CHARGE':
         editAbility(card, Ability.CHARGE, value)    
 
+def toXml(idx, Id, tag, value):
+    if tag == 'TAUNT' or tag == 'DIVINE_SHIELD' or tag == 'WINDFURY' or tag == 'STEALTH' or tag == 'CHARGE':
+        time = 'Unknown'
+        if value == 0:
+            XML_write(Id, (Effect.DEBUFF, value, tag, time))
+        else:
+            XML_write(Id, (Effect.BUFF, value, tag, time))
+    if tag == 'HEALTH' or tag == 'ATK':
+        XML_write(Id, (Effect. , diff, )))
+
 def Full_Entity(lines):
     i = 0
     start = None
@@ -409,11 +420,12 @@ def Full_Entity(lines):
         if 'FULL_ENTITY' in lines[i]:
             start = i
         elif 'CREATOR' in lines[i] and start is not None:
+            Id = split(lines[i], 'value=', '\n')
             end = i
-            type = readingFULL_ENTITY(lines[start:end])
+            typ = readingFULL_ENTITY(lines[start:end])
             start = None
             end = None
-            if type == Cardtype.ENCHANTMENT and 'ATTACHED' in lines[i+1]:
+            if typ == Cardtype.ENCHANTMENT and 'ATTACHED' in lines[i+1]:
                 enchanted.append(int(split(lines[i+1], 'value=', '\n')))
         if len(enchanted) > 0 and 'id=' in lines[i] and 'cardId=' in lines[i]:
             idx = gameId(lines[i])
@@ -421,6 +433,7 @@ def Full_Entity(lines):
                 tag = split(lines[i], 'tag=', ' ')
                 value = int(split(lines[i], 'value=', '\n'))  
                 tagging(idx, tag, value)
+                toXml()
                 
 def readingMyTurn(cont):
     nxt = 0
@@ -471,6 +484,7 @@ def readingMyTurn(cont):
                     setOptionsCalc(False)
                 elif Power in line and '- ACTION_START' in line and 'SubType=PLAY' in line:
                     i = idx
+                    Id = gameId(line)
                     jump = 0
                     while i < (len(cont) - 1):
                         i += 1

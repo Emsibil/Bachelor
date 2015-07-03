@@ -1,0 +1,52 @@
+ Gain an empty Mana Crystal.
+ Battlecry: Gain +1/+1 for each other friendly minion on the battlefield.
+ Gain 2 Mana Crystals this turn only.
+ Whenever this minion takes damage, gain +3 Attack.
+ Gain 5 Armor.
+ You lost the coin flip, but gained a friend./
+ Gain 1 Mana Crystal this turn only.
+ Whenever a character is healed, gain +2 Attack.
+ Battlecry: Gain +1 Health for each card in your hand.
+ Whenever you play a card, gain +1/+1.
+ Whenever you cast a spell, gain +2 Attack this turn.
+ Whenever a Secret is played, gain +1/+1.
+ Choose One - Gain 2 Mana Crystals; or Draw 3 cards.
+ Gain 2 Mana Crystals.
+ Whenever you play a card with Overload/, gain +1/+1.
+ If you control a Secret at the end of your turn, gain +2/+2.
+ Secret: When your hero is attacked, gain 8 Armor.
+ Battlecry: Destroy the minions on either side of this minion and gain their Attack and Health.
+ Gain control of an enemy minion with 3 or less Attack until end of turn.
+ Whenever a friendly minion takes damage, gain 1 Armor.
+ Whenever a Murloc is summoned, gain +1 Attack.
+ Whenever a friendly Beast dies, gain +2/+1.
+ Whenever a friendly Secret is revealed, gain +1 Durability.
+ Battlecry: All minions lose Divine Shield. Gain +3/+3 for each Shield lost.
+ Whenever a minion takes damage, gain +1 Attack.
+ Will be Frozen again at the start of the next turn.
+ Combo: Gain +2/+2 for each card played earlier this turn.
+ Whenever you cast a spell, gain +1 Attack.
+ Battlecry: Destroy a Murloc and gain +2/+2.
+ Battlecry: Gain Attack equal to the Attack of your weapon.
+ At the end of each turn, gain +1/+1 .
+ Whenever a minion dies, gain +1 Attack.
+ Stealth. At the start of your turn, gain +1/+1.
+ Whenever you summon a minion with Deathrattle/, gain +1 Attack.
+ Whenever a minion with Deathrattle dies, gain +2 Attack.
+ Whenever a minion with Deathrattle dies, gain +2 Attack.
+ Both players draw 2 cards and gain a Mana Crystal.
+ Whenever you summon a Pirate, gain Stealth.
+ Whenever your opponent casts a spell, gain a copy of it and give them a Coin.
+ Gain 1 Mana Crystal this turn only.
+ Taunt. Battlecry: Gain +1 Attack for each other Beast you have.
+ Battlecry: Gain 5 Armor.
+ Restore 4 Health to your hero and gain +2 Attack this turn.
+ Whenever you summon a Mech, gain Divine Shield.
+ Whenever a friendly minion dies while this is in your hand, gain +1 Attack.
+ Whenever your opponent casts a spell, gain +1 Attack.
+ Whenever your opponent casts a spell, gain +2 Attack.
+ Whenever you gain Armor, give this minion +1 Attack.
+ Whenever your hero takes damage on your turn, gain +2/+2.
+ Battlecry: If you have a Mech, gain +1/+1 and add a Spare Part to your hand.
+ At the start of each turn, gain +1 Attack.
+ Whenever a friendly Mech dies, gain +2/+2.

@@ -1,0 +1,6 @@
+ Has Charge while you have a weapon equipped.
+ Divine Shield. Taunt. Deathrattle: Equip a 5/3 Ashbringer.
+ Battlecry: Equip a 2/2 weapon.
+ If you have a weapon, give it +1/+1. Otherwise equip a 1/3 weapon.
+ Summon three 1/1 Silver Hand Recruits. Equip a 1/4 Weapon.
+ Battlecry: Equip a random weapon for each player.

@@ -1,0 +1,48 @@
+ Look at the top three cards of your deck. Draw one and discard the others.
+ Draw a card. That card costs (3) less.
+ Whenever this minion takes damage, draw a card.
+ Spell Damage +1. Deathrattle: Draw a card.
+ Battlecry: Each player draws 2 cards.
+ Whenever you cast a spell, draw a card.
+ Deathrattle: Draw a card.
+ Choose One - Deal 3 damage to a minion; or 1 damage and draw a card.
+ Deal 1 damage to a minion. Draw a card.
+ Destroy a minion. Your opponent draws 2 cards.
+ Choose One - Gain 2 Mana Crystals; or Draw 3 cards.
+ Draw 3 cards.
+ Spell Damage +1. Battlecry: Draw a card.
+ Draw cards until you have as many in hand as your opponent.
+ Restore 8 Health. Draw 3 cards.
+ Choose a minion. Whenever it attacks, draw a card.
+ When this minion attacks, the player who blessed it draws a card.
+ When this minion attacks, the enemy player draws a card.
+ Draw a card and deal damage equal to its cost.
+ Deal 2 damage to a minion. If it survives, draw a card.
+ Draw a card for each damaged friendly character.
+ All minions lose Stealth. Destroy all enemy Secrets. Draw a card.
+ At the start of your turn, you have a 50% chance to draw an extra card.
+ Battlecry: Destroy your opponent's weapon and draw cards equal to its Durability.
+ At the end of your turn, draw a Dream Card.
+ At the end of your turn, draw a card.
+ Whenever one of your other minions dies, draw a card.
+ Choose One - Draw 2 cards; or Restore 5 Health.
+ Your minions can't be reduced below 1 Health this turn. Draw a card.
+ Battlecry: Draw some cards. With a pen.
+ Battlecry: Draw TWO cards. She's not a novice engineer./
+ Draw 3 cards.
+ Battlecry: Discard 3 cards, then draw 3 cards.
+ At the start of your turn, destroy this minion and draw 3 cards.
+ Deal 4 damage. Draw a card.
+ Deathrattle: Your opponent draws a card.
+ Both players draw 2 cards and gain a Mana Crystal.
+ When you draw this, deal 2 damage to all characters.
+ Draw a card.
+ Choose One - Give each player a Mana Crystal; or Each player draws a card.
+ Each player draws a card.
+ Whenever another friendly Murloc dies, draw a card. Overload/: (1)
+ Battlecry: Shuffle a Mine into your opponent's deck. When drawn, it explodes for 10 damage.
+ When you draw this, it explodes. You take 10 damage and draw a card.
+ Battlecry: Draw a card. If it's a minion, transform it into a Chicken.
+ At the end of each player's turn, that player draws until they have 3 cards.
+
+Draw x cards.

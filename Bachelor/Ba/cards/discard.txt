@@ -1,0 +1,8 @@
+ Look at the top three cards of your deck. Draw one and discard the others.
+ Battlecry: Discard a random card.
+ Deal 4 damage. Discard a random card.
+ Charge. Battlecry: Discard two random cards.
+ Battlecry: Destroy all other minions and discard your hand.
+ Choose a hero.  That hero's controller discards his hand.
+ Battlecry: Discard 3 cards, then draw 3 cards.
+ Whenever your opponent plays a card, discard the top 3 cards of your deck.

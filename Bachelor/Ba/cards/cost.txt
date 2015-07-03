@@ -1,0 +1,30 @@
+ Draw a card. That card costs (3) less.
+ One of your cards costs (3) less.
+ Your minions cost (3) more.
+ The first minion you play each turn costs (1) less.
+ Costs (1) less for each other card in your hand.
+ Return a friendly minion to your hand. It costs (2) less.
+ The next spell you cast this turn costs (3) less.
+ The next spell you cast this turn costs (3) less.
+ Your minions cost (2) less, but not less than (1).
+ Draw a card and deal damage equal to its cost.
+ Attacking a minion costs 1 Attack instead of 1 Durability.
+ Costs (1) less for each other minion on the battlefield.
+ Your spells cost (1) less.
+ Secret: When an enemy minion attacks, return it to its owner's hand and it costs (2) more.
+ Battlecry: The next Secret you play this turn costs (0).
+ Your next Secret costs (0).
+ ALL minions cost (1) more.
+ Costs (1) less for each damage your hero has taken.
+ Taunt. Costs (1) less per Attack of your weapon.
+ Battlecry: Enemy spells cost (0) next turn.
+ Spells cost (0) this turn!
+ Your cards cost (0) for the rest of the game.
+ Your cards cost (0) for the rest of the game.
+ Minions with Battlecry cost (2) more.
+ Battlecry: Enemy spells cost (5) more next turn.
+ Your spells cost (5) more this turn.
+ Add a random minion to your hand. It costs (3) less.
+ Your Mechs cost (1) less.
+ Destroy a minion. If you have a damaged minion, this costs (4) less.
+ Costs (1) less for each card in your opponent's hand.

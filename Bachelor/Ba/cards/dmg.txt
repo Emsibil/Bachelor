@@ -1,0 +1,64 @@
+ Freeze a character. If it was already Frozen/, deal 4 damage instead.
+ Destroy your weapon and deal its damage to all enemies.
+ Force an enemy minion to deal its damage to the minions next to it.
+ Secret: When your hero takes damage, deal that much damage to the enemy hero.
+ Choose One - Deal 3 damage to a minion; or 1 damage and draw a card.
+ Silence a minion, then deal 1 damage to it.
+ Deal 2 damage to 2 random enemy minions. Overload: (2)
+ Freeze a minion and the minions next to it, and deal 1 damage to them.
+ Destroy a friendly minion and deal its Attack damage to all enemy minions.
+ Draw a card and deal damage equal to its cost.
+ Deal damage equal to your hero's Attack to a minion.
+ Your cards and powers that restore Health now deal damage instead.
+ At the end of your turn, deal 1 damage to this minion and summon a 1/1 Imp.
+ Secret: When your opponent plays a minion, deal 4 damage to it.
+ Your Hero Power becomes 'Deal 2 damage'. If already in Shadowform: 3 damage..
+ If you have a Mech, deal 4 damage randomly split among all enemies.
+ Deal damage to each minion equal to its Attack.
+ Whenever this minion deals damage, restore that much Health to your hero.
+ At the end of your turn, deal 2 damage to a non-Mech minion.
+ Deal 1 damage to a random minion. Repeat until a minion dies.
+ 
+
+Deal 1 damage to a minion for each Armor you have.
+
+Deal x damage to all characters except Ysera.
+Deal x damage to all minions with Deathrattle.
+Deal x damage to HIMSELF.
+
+Deals double damage to heroes.
+
+Random:
+Deal x damage to two random enemy minions.
+Deal x damage randomly split between all other characters.
+Deal x damage randomly split among enemy characters.
+Deal x damage to a random enemy.
+Deal x damage to a random enemy minion.
+
+
+
+---- DONE --- 
+
+Deal x damage. 
+Deal x damage to a minion. 
+Deal x damage to an undamaged minion. 
+Deal x damage to a character.
+Deal x damage to an enemy character
+Deal 3 damage to a minion and the enemy hero.
+Deal 5 damage to a minion and 2 damage to adjacent ones
+Deal 4 damage to an enemy and 1 damage to all other enemies.
+Deal x damage to your hero.
+Deal x damage to the enemy hero.
+Deal x damage to all enemy minions.
+Deal x damage to ALL characters.
+Deal x damage to all enemies.
+Deal x damage to ALL other characters. 
+Deal x damage to ALL/all minions.
+Deal x damage to each hero.
+
+
+
+
+
+
+

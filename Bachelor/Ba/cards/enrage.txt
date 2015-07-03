@@ -1,0 +1,7 @@
+ Enrage: Your weapon has +2 Attack.
+ Enrage: +5 Attack.
+ Taunt. Enrage: +3 Attack
+ Enrage: +3 Attack
+ Enrage: Windfury and +1 Attack
+ Enrage: Just kidding! He never Enrages.
+ Enrage: +1 Attack.

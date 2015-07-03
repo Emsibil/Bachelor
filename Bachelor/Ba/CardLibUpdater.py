@@ -1,8 +1,8 @@
 import numpy as np
-from Bachelor.Ba.Util import path
+from Util_new import path
 
 def translate_cardxml():
-    cardxml = open(path('doc/cardxml0.txt'), 'r').readlines()
+    cardxml = open(path('cards/cardxml0.txt'), 'r').readlines()
     UsContent = []
     isCopying = False
     f = open(path('doc')+'/cards.xml', 'w')
@@ -228,7 +228,6 @@ def readSingleCardInfo(content):
     _FRACTION = 'Fraction: None'
     _RARITY = 'Rarity: None'
     _TEXT = 'CardTextInHand: None'
-    _ONETARGET = 'TargetingArrowText: None'
     _ABILITY = []
     _DURABILITY = 'Durability: None'
     
@@ -270,7 +269,7 @@ def readSingleCardInfo(content):
                                 _RARITY = idx[1] + ': ' + rare[1]
                     elif ID in Ability:
                         numberOfAbilities += 1
-                        _ABILITY.append('Ability'+str(numberOfAbilities)+': ' + id[1])
+                        _ABILITY.append('Ability'+str(numberOfAbilities)+': ' + idx[1])
                     elif ID == '187':
                         dura = str(line).split('value="')[1].split('"')[0]
                         _DURABILITY = idx[1] + ': ' + dura
@@ -288,10 +287,7 @@ def readSingleCardInfo(content):
                         _LIFE = idx[1]+': ' + lf
                     elif ID == '184':
                         txt = str(line).split('"String">')[1].split('<')[0]
-                        _TEXT = idx[1]+': ' + convertText(txt)
-                    elif ID == '325':
-                        txt = str(line).split('"String">')[1].split('<')[0]
-                        _ONETARGET = idx[1] + ': ' + convertText(txt)            
+                        _TEXT = idx[1]+': ' + convertText(txt)          
         if 'CardID' in line:
             ID = str(line).split('CardID="')[1].split('"')[0]
             _ID = 'CardID: ' + ID
@@ -303,10 +299,10 @@ def readSingleCardInfo(content):
         for a in _ABILITY:
             _ABIL += a + '\n\t'
     
-    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _TEXT + '\n\t' + _ONETARGET + '\n\t' +_CARDSET + '\n\t' + _DURABILITY + '\t\n' + _ABIL +'\n'  
+    return _ID + '\n\t' + _NAME  + '\n\t' + _CARDTYPE + '\n\t'  + _MANACOST + '\n\t' + _ATTACK + '\n\t' + _LIFE + '\n\t' + _RACE + '\n\t' + _FRACTION  + '\n\t' + _CLASS + '\n\t' + _RARITY + '\n\t' + _TEXT + '\n\t' +_CARDSET + '\n\t' + _DURABILITY + '\n\t' + _ABIL +'\n'  
                    
 def writeCardsInFile(CardArray):
-    cardFile = open(path('doc')+'/cards3.info', 'w')
+    cardFile = open(path('cards')+'/cards.info', 'w')
     for card in CardArray:
         cardFile.write(card + '\n')
         
