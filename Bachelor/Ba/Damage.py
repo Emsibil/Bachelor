@@ -2,7 +2,7 @@ from tables import Enum
 from Util_new import path, split
 from Board import *
 from Bachelor.Ba.Util_new import Cardtype
-from Bachelor.Ba.Effective import Effectivness
+from Bachelor.Ba.Effective import Effectivness, EnemyAttackPower, MinionDmg
 from types import IntType
 
 class Target(Enum):
@@ -74,6 +74,39 @@ def effectivnessRes(target, value):
         else:
             return Effectivness.LOW
         
+def effectivenessTrans(target, atk, health):
+    if isMyCard(target._ingameID):
+        if target.getHealth() > health or target.getAttack() > atk:
+            return Effectivness.GOOD
+        else:
+            return Effectivness.WORSE
+    else:
+        if target.getHealth() < health or target.getAttack() < atk:
+            return Effectivness.GOOD
+        else:
+            return Effectivness.WORSE
+        
+def effectivnessGain(txt):
+    if 'this turn':
+        return Effectivness.GOOD
+    else:
+        return Effectivness.GREAT
+    
+def effectivnessRet(target):
+    if isMyCard(target._ingameID):
+        if target.getDamage()/target.getHealth() <= 0.5 and target._charge == True:
+            return Effectivness.GREAT
+        elif target.getDamage()/target.getHealth() <= 0.5:
+            return Effectivness.GOOD
+        elif target._charge == True:
+            return Effectivness.GOOD
+    else:
+        if target._getAttack >= 4:
+            return Effectivness.GOOD
+        else:
+           return Effectivness.LOW
+        #vielleicht zusätzlich ob die karte effective is
+
 def toHero(value, effect):
     hero = [c for c in getMyCards().values() if c._cardtype == Cardtype.HERO]
     if effect == Effect.DMG:
@@ -99,7 +132,7 @@ def toAllEnemyMinions(value, effect):
         return (e, len(targets))
     if Effect.RES == effect:
         for t in targets:
-            e = e + effectivnessRes(target, value)
+            e = e + effectivnessRes(t, value)
         return (e, len(targets))
 
 def toAllMyMinions(value, effect):
@@ -111,7 +144,7 @@ def toAllMyMinions(value, effect):
         return (e, len(targets))
     if Effect.RES == effect:
         for t in targets:
-            e = e + effectivnessRes(target, value)
+            e = e + effectivnessRes(t, value)
         return (e, len(targets))
         
 def toAllEnemyChars(value, effect):
@@ -311,3 +344,45 @@ def equip(card):
         if c.compareCardtype(Cardtype.WEAPON) and c.compareZone(Zone.PLAY):
             return Effectivness.BAD
     return Effectivness.GOOD
+
+def transform(card, target):
+    txt = card._text
+    if 'Transform' in txt:
+        if 'random' in txt:
+            pass
+        else:
+            atk, hlt = txt.split('/')
+            return effectivenessTrans(target, int(atk.split('a ')[1]), int(hlt.split(' ')[0]))   
+
+def gain(card):
+    txt = card._text
+    if 'Mana Crystal' in txt:
+        return effectivnessGain(txt)
+    elif 'Attack' in txt:
+        return effectivnessGain(txt)
+    elif 'Health' in txt:
+        return effectivnessGain(txt)
+    elif 'Armor' in txt:
+        return Effectivness.GOOD
+    elif '/' in txt:
+        return effectivnessGain(txt) 
+    elif 'Stealth' in txt or 'Divine Shield' in txt:
+        return Effectivness.GOOD  
+
+def returnToHand(card, target):
+    txt = card._text
+    if Target.MINIONS in txt:
+        if getEnemyMinionCount() - getMyMinionCount() > 0 and MinionDmg() - EnemyAttackPower() > 0:
+            return Effectivness.GREAT
+        elif MinionDmg() - EnemyAttackPower() > 0:
+            return Effectivness.GOOD
+    elif 'to life' in txt:
+        if 'with 1 Health' in txt:
+            return Effectivness.GOOD
+        elif 'with full Health' in txt and target.getDamage()/target.getHealth() < 0.5:
+            return Effectivness.GREAT
+        else:
+            return Effectivness.LOW
+    else:
+        return effectivnessRet(target)
+    

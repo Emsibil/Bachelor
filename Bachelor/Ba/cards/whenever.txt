@@ -1,0 +1,50 @@
+ Whenever your hero attacks, restore 2 Health to it.
+ Whenever a minion is healed, draw a card.
+ Whenever you summon a Beast, draw a card.
+ Whenever you summon a minion with 3 or less Attack, give it Charge.
+ Whenever this minion takes damage, gain +3 Attack.
+ Whenever a character is healed, gain +2 Attack.
+ Whenever this minion takes damage, draw a card.
+ Whenever you play a card, gain +1/+1.
+ Whenever you cast a spell, gain +2 Attack this turn.
+ Whenever a Secret is played, gain +1/+1.
+ Whenever you cast a spell, draw a card.
+ Whenever a player casts a spell, put a copy into the other player’s hand.
+ Whenever you play a card with Overload/, gain +1/+1.
+ Choose a minion. Whenever it attacks, draw a card.
+ Whenever you summon a minion, give it +1/+1 and this loses 1 Durability.
+ Whenever a friendly minion takes damage, gain 1 Armor.
+ Whenever a Murloc is summoned, gain +1 Attack.
+ Whenever a friendly Beast dies, gain +2/+1.
+ Whenever a friendly Secret is revealed, gain +1 Durability.
+ Whenever you cast a spell, add a 'Fireball' spell to your hand.
+ Whenever one of your other minions dies, draw a card.
+ Whenever a minion takes damage, gain +1 Attack.
+ Whenever you play a card, summon a 2/1 Flame of Azzinoth.
+ Whenever you cast a spell, gain +1 Attack.
+ Whenever you cast a spell, summon a 1/1 Violet Apprentice.
+ Whenever a minion dies, gain +1 Attack.
+ Whenever this minion takes damage, deal 1 damage to ALL other characters.
+ Whenever you summon a minion with Deathrattle/, gain +1 Attack.
+ Whenever a minion with Deathrattle dies, gain +2 Attack.
+ Whenever a minion with Deathrattle dies, gain +2 Attack.
+ Whenever your opponent plays a card, discard the top 3 cards of your deck.
+ Whenever this minion deals damage, restore that much Health to your hero.
+ Whenever you summon a Pirate, gain Stealth.
+ Whenever your opponent casts a spell, gain a copy of it and give them a Coin.
+ Whenever this minion takes damage, add a Spare Part card to your hand.
+ Whenever another friendly Murloc dies, draw a card. Overload/: (1)
+ Whenever this minion takes damage, double its Attack.
+ Whenever you summon a Mech, gain Divine Shield.
+ Whenever a friendly minion dies while this is in your hand, gain +1 Attack.
+ Whenever your opponent casts a spell, gain +1 Attack.
+ Whenever your opponent casts a spell, gain +2 Attack.
+ Whenever a character is healed, deal 1 damage to a random enemy.
+ Whenever you summon a Pirate, deal 2 damage to a random enemy.
+ Whenever you gain Armor, give this minion +1 Attack.
+ Whenever your hero takes damage on your turn, gain +2/+2.
+ Whenever you play a 1-Attack minion, give it +2/+2.
+ Whenever a friendly Mech dies, gain +2/+2.
+ Whenever an enemy minion dies, summon a Leper Gnome.
+ Whenever you cast a 1-mana spell, add a random Mech to your hand.
+ Whenever your opponent casts a spell, summon a Burly Rockjaw Trogg.
