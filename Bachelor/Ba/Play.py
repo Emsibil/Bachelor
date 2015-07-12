@@ -1,9 +1,13 @@
 import time
-from MouseControl import *
 from random import random
-from Board import *
-from Util_new import Ability, Cardtype
-from AbilityInterpreter import *
+from Bachelor.Ba.Util_new import Cardtype
+from Bachelor.Ba.Effective import options
+#from Bachelor.Ba.LogReader import playMinionWithTarget
+from Bachelor.Ba.MouseControl import mouseMove, mouseClick, getMouseMoveCoords,\
+    area, mouseDown, mouseUp, getMinionBoard, getOnBoardArea, getMulliganConfirm,\
+    getMulliganCardArea, getTurn, getHandcardArea
+from Bachelor.Ba.Board import getMyMinionCount, getMyCards, getMyHandcardCount,\
+    getEnemyMinionCount, isMyCard
 
 def MulliganChoosing():
     cards = getMyCards()
@@ -27,61 +31,6 @@ def MulliganConfirm():
     mouseMove(getMouseMoveCoords(area(getMulliganConfirm())))
     time.sleep(2)
     mouseClick()
-    
-def playHandcard(card, targetArea):
-    try:
-        count = getMyHandcardCount()
-        mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
-        time.sleep(1)
-        mouseDown()   
-        time.sleep(0.5)
-        mouseMove(targetArea)
-        if card._cardtype == Cardtype.MINION:
-            addMyMinonToMyCards(card, (int(getMyMinionCount()/2) + 1))
-            if hasAbility(card, Ability.BATTLECRY):
-                pass
-        if not card._cardtype == Cardtype.HERO_POWER:
-            card._zone = Zone.PLAY
-            reorderMyHandcards(card._zonePos)
-        time.sleep(2)
-        mouseUp()
-    except Exception, e:
-        print 'playHandcards()', e
-    
-def drawAttack(ownMinion ,target):
-    try:
-        mouseMove(getMouseMoveCoords(getOnBoardArea(getMyMinionCount(), ownMinion)))
-        time.sleep(1)
-        mouseDown()
-        time.sleep(0.5)
-        mouseMove(getMouseMoveCoords(getOnBoardArea(getEnemyMinionCount(), target)))
-        time.sleep(1)
-        mouseUp()
-        ownMinion.takes_Damage(target._attack)
-        target.takes_Damage(ownMinion._attack)
-        if ownMinion._zone == Zone.GRAVEYARD:
-                reorderMyMinionsOnBoard(ownMinion._zonePos)
-        if target._zone == Zone.GRAVEYARD:
-            reorderEnemyMinionsOnBoard(target._zonePos)
-    except Exception, e:
-        print 'drawAttack()', e
-
-def playMinionWithTarget(card, playZone, targetArea):
-    count = getMyHandcardCount()
-    mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
-    time.sleep(1)
-    mouseDown()   
-    time.sleep(0.5)
-    mouseMove(getMouseMoveCoords(area(getUneven1())))
-    addMyMinonToMyCards(card, playZone)
-    time.sleep(1)
-    mouseUp()
-    time.sleep(0.5)
-    mouseMove(targetArea)
-    time.sleep(1)
-    mouseDown()
-    time.sleep(0.5)
-    mouseUp()
         
 def EndTurn():
     mouseMove(getMouseMoveCoords(area(getTurn())))    
@@ -91,47 +40,89 @@ def EndTurn():
     time.sleep(0.5)
     mouseUp()
     print "up"
-    
-    
- # NEUER ANSATZ
 
-
-def playableCards(options):
-    handcards = [c for c in getMyCards().values() if c._zone == Zone.HAND]
-    playable = []
-    for o in options:
-        for h in handcards:
-            if o[0] == h._ingameId:
-                playable.append(h)
-                handcards.remove(h)
-                break
-    return playable
+def playMinionWithTarget(card, target):
+    try:   
+        count = getMyHandcardCount()
+        mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
+        time.sleep(1)
+        mouseDown()   
+        time.sleep(0.5)
+        zone = (random()*(getMyMinionCount() + 1)) + 1
+        mouseMove(getMouseMoveCoords(area(getMinionBoard(getMyMinionCount() + 1)[zone])))
+        time.sleep(0.5)
+        mouseUp()
+        time.sleep(0.5)
+        if isMyCard(target._ingameId):
+            c = getMyMinionCount()
+        else:
+            c = getEnemyMinionCount()
+        mouseMove(getMouseMoveCoords(getOnBoardArea(c, target)))
+        time.sleep(0.5)
+        mouseClick()
+    except Exception, e:
+        print 'playMinionWithTarget()', e
         
-def choosingCard(options):
-    playable = playableCards(options)
-    for card in playable:
-        if (card._cardtype == Cardtype.MINION and card.hasBattlecry()) or card._cardtype == Cardtype.SPELL:
-            targets = needsTargets(options, card)
-            if targets[0]:
-                targetSide = possibleTargetSide(targets[1], card)
-                if isCardListed(card):             
-                    if targetSide == TargetSide.MY:
-                        if isBuff(card):
-                            target = mostEffectiveTarget(targets[1], card)
-                    elif targetSide == TargetSide.ENEMY:
-                        if not isBuff(card):
-                            target = mostEffectiveEnemyTarget(targets[1], card)
-                    else:
-                        if isBuff(card):
-                            target = targetFromMySide(targets[1])
-                        else:
-                            target = targetFromEnemySide(targets[1])
-                else:
-                    target = getCardByIngameId(targets[1][random()*len(targets[1])]) #randomTarget
-                    
-                    
+def playCardWithTarget(card, target):
+    try:   
+        count = getMyHandcardCount()
+        mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
+        time.sleep(1)
+        mouseDown()   
+        time.sleep(0.5)
+        if isMyCard(target._ingameId):
+            c = getMyMinionCount()
+        else:
+            c = getEnemyMinionCount()
+        mouseMove(getMouseMoveCoords(getOnBoardArea(c, target)))
+        time.sleep(0.5)
+        mouseClick()
+    except Exception, e:
+        print 'playCardWithTarget()', e
         
+def playCard(card):
+    try:
+        count = getMyHandcardCount()
+        mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
+        time.sleep(1)
+        mouseDown()   
+        time.sleep(0.5)
+        mouseMove(getMouseMoveCoords(area(getMinionBoard(7)[random()*7])))
+        time.sleep(0.5)
+        mouseUp()
+    except Exception, e:
+        print 'playCard()', e
+        
+def playMinion(card):
+    try:
+        count = getMyHandcardCount()
+        mouseMove(getMouseMoveCoords(getHandcardArea(count, card.get_pos())))
+        time.sleep(1)
+        mouseDown()   
+        time.sleep(0.5)
+        zone = (random()*(getMyMinionCount() + 1)) + 1
+        mouseMove(getMouseMoveCoords(area(getMinionBoard(getMyMinionCount() + 1)[zone])))
+        time.sleep(0.5)
+        mouseUp()
+    except Exception, e:
+        print 'playMinion()', e
+                
+def chooseOption(opt):
+    if len(opt) == 1:
+        EndTurn()
+    else:
+        card, target = options(opt)
+        if target is None:
+            if card.compareCardtype(Cardtype.MINION):
+                playMinion(card)
+            else:
+                playCard(card)
+        else:
+            if card.compareCardtype(Cardtype.MINION):
+                playMinionWithTarget(card, target)
+            else:
+                playCardWithTarget(card, target)
             
-   
+        
     
     

@@ -1,4 +1,5 @@
 from Util_new import Zone
+from Bachelor.Ba.Util_new import Cardtype
 
 ME = 'Emsibil'
 MY_HERO = None
@@ -20,8 +21,7 @@ def getPlayers():
 def isMe(Id):
     return getPlayers[Id] == getMe()
 def getMyHero():
-    global MY_HERO
-    return MY_HERO
+    return [c for c in getMyCards().values() if c.compareCardtype(Cardtype.HERO)]
 def getMyHeroPower():
     global MY_HERO_POWER
     return MY_HERO_POWER

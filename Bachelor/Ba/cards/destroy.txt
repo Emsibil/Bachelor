@@ -2,22 +2,15 @@
  At the start of the corrupting player's turn, destroy this minion.
  Destroy an enemy minion.
  Destroy a damaged enemy minion.
- Destroy a minion with 3 or less Attack.
  Battlecry: Destroy your opponent's weapon.
- Destroy a minion with an Attack of 5 or more.
  Destroy a Demon. Restore 5 Health to your hero.
  Destroy your weapon and deal its damage to all enemies.
  Give a minion +5/+5. At the start of your next turn, destroy it.
  This minion has +5/+5, but will be destroyed soon.
- Battlecry: Destroy an enemy minion with Taunt.
- Battlecry: Destroy a minion with an Attack of 7 or more.
- Destroy a minion. Your opponent draws 2 cards.
  Destroy any minion damaged by this minion.
  Taunt. Battlecry: Destroy one of your Mana Crystals.
  Destroy a friendly minion and deal its Attack damage to all enemy minions.
  Battlecry: Destroy the minions on either side of this minion and gain their Attack and Health.
- Destroy a minion. Restore 3 Health to your hero.
- Destroy all minions.
  Battlecry: Destroy your hero and replace it with Lord Jaraxxus.
  Destroy all minions except one. (chosen randomly)/
  Stealth. Destroy any minion damaged by this minion.
@@ -27,32 +20,25 @@
  Destroy a random enemy minion.
  Charge.  At the end of the turn, destroy this minion.
  Battlecry: Destroy a Murloc and gain +2/+2.
- At the start of your turn, destroy ALL minions.
  Battlecry: Destroy all other minions and discard your hand.
  Battlecry: Destroy a random enemy minion with 2 or less Attack.
  Battlecry: Summon a 2/2 Pirate and destroy all Ninjas.
- C-C-C-COMBO: Destroy a minion.
- Destroy a minion or hero.
  Destroy a hero's weapon.
- Destroy all minions.
  Destroy all heroes.
  Destroy a player's Hero Power.
  Destroy all of a player's Mana Crystals.
  Pick a player and destroy one of his Mana Crystals.
- Silence and Destroy ALL Minions.
  Choose a hero. Destroy all Secrets controlled by that hero.
- Spawn into play to destroy all minions.
  Spawn into play to destroy the AI's Hand and Deck.
  At the start of your turn, destroy this minion and draw 3 cards.
  Destroy any minion damaged by this minion.
- Destroy all minions and summon 2/2 Treants to replace them.
- Destroy a minion, then return it to life with full Health.
- Destroy a minion.
  Destroy all non-Skeleton minions.
  Deathrattle: Destroy the minions next to this one as well.
  Deathrattle: Destroy your opponent's weapon.
  Destroy a random enemy minion. Combo/: And your opponent's weapon.
- Destroy a minion. If you have a damaged minion, this costs (4) less.
  At the end of each turn, destroy this minion if it's your only one.
  At the start of your turn, if you have at least 3 Mechs, destroy them all and form V-07-TR-0N.
  Battlecry: Destroy a Beast.
+
+ Destroy all minions.
+ Destroy a minion.      Battlecry: Destroy an enemy minion with Taunt.      Battlecry: Destroy a minion with an Attack of 7 or more.    Destroy a minion with 3 or less Attack.       Destroy a minion with an Attack of 5 or more.
