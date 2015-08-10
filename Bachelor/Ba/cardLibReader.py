@@ -1,7 +1,7 @@
-from Util import path 
+from Util_new import path 
               
 def CardById(ID):
-    cardLib = open(path('doc/cards.info'), 'r').readlines()
+    cardLib = open(path('cards/cards.info'), 'r').readlines()
     i = 0
     while len(cardLib) > i:
         if 'CardID' in cardLib[i]:
@@ -57,23 +57,26 @@ def _class(card):
         return c
     
 def text(card):
-    t = card[10].split(': ')[1].split('\n')[0]
+    t = card[10].split('CardTextInHand: ')[1].split('\n')[0]
     if t == 'None':
         return None
     else:
         return t
     
 def Abilities(card):
-    abilityLine = 13
-    values = []
-    while 'Ability' in card[abilityLine]:
-        value = card[abilityLine].split(': ')[1].split('\n')[0]
-        if value == 'None':
-            break
-        else:
-            values.append(value)
-        abilityLine = abilityLine + 1
-    return values
+    try:
+        abilityLine = 13
+        values = []
+        while 'Ability' in card[abilityLine]:
+            value = card[abilityLine].split(': ')[1].split('\n')[0]
+            if value == 'None':
+                break
+            else:
+                values.append(value)
+            abilityLine = abilityLine + 1
+        return values
+    except:
+        return
 
 def durability(card):
     return card[12].split(': ')[1].split('\n')[0]

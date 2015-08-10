@@ -148,7 +148,7 @@
 [Power] GameState.DebugPrintPower() -     tag=ZONE_POSITION value=0
 [Power] GameState.DebugPrintPower() -     tag=CANT_PLAY value=0
 [Power] GameState.DebugPrintPower() - FULL_ENTITY - Creating ID=21 CardID=
-[Power] GameState.DebugPrintPower() -     tag=ZONE value=DECK
+[Power] GameState.DebugPrintPower() -     tag=ZONE value=DECK		
 [Power] GameState.DebugPrintPower() -     tag=CONTROLLER value=1
 [Power] GameState.DebugPrintPower() -     tag=ENTITY_ID value=21
 [Power] GameState.DebugPrintPower() -     tag=ZONE_POSITION value=0
@@ -451,7 +451,7 @@
 [Power] GameState.DebugPrintPower() - FULL_ENTITY - Creating ID=68 CardID=
 [Power] GameState.DebugPrintPower() -     tag=ZONE value=HAND
 [Power] GameState.DebugPrintPower() -     tag=CONTROLLER value=1
-[Power] GameState.DebugPrintPower() -     tag=ENTITY_ID value=68
+[Power] GameState.DebugPrintPower() -     tag=ENTTY_ID value=68
 [Power] GameState.DebugPrintPower() -     tag=ZONE_POSITION value=5
 [Power] GameState.DebugPrintPower() -     tag=CANT_PLAY value=0
 [Power] PowerProcessor.PrepareHistoryForCurrentTaskList() - m_currentTaskList=1
@@ -889,7 +889,7 @@
 [Power] GameState.DebugPrintPower() - ACTION_END
 [Power] GameState.DebugPrintPower() - TAG_CHANGE Entity=Turing tag=MULLIGAN_STATE value=DEALING
 [Power] GameState.DebugPrintPower() - ACTION_START Entity=Turing SubType=TRIGGER Index=-1 Target=0
-[Power] GameState.DebugPrintPower() -     SHOW_ENTITY - Updating Entity=[id=60 cardId= type=INVALID zone=DECK zonePos=0 player=2] CardID=CS2_124
+[Power] GameState.DebugPrintPower() -      - Updating Entity=[id=60 cardId= type=INVALID zone=DECK zonePos=0 player=2] CardID=CS2_124
 [Power] GameState.DebugPrintPower() -         tag=HEALTH value=1
 [Power] GameState.DebugPrintPower() -         tag=ATK value=3
 [Power] GameState.DebugPrintPower() -         tag=COST value=3

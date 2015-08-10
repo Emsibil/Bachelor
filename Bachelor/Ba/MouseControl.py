@@ -1,6 +1,7 @@
 import win32api, win32con
 import numpy as np
 import time
+from Board import isMyCard
 
 RESOLUTION = (1920, 1080)
 def getResolution():
@@ -37,7 +38,7 @@ h6 = {1: np.array([(0.3338, 0.9296, 0.038, 0.0703)]),
       3: np.array([(0.4302, 0.8824, 0.038, 0.1194)]), 
       4: np.array([(0.4723, 0.8703, 0.0406, 0.1296)]), 
       5: np.array([(0.5234, 0.8787, 0.0343, 0.1212)]), 
-      6: np.array([(0.5734, 0.907, 0.0925)])}
+      6: np.array([(0.5734, 0.907, 0.0925, 0.07)])}
 h7 = {1: np.array([(0.3333, 0.925, 0.0239, 0.075),(0.325, 0.9333, 0.0354, 0.0351)]), 
       2: np.array([(0.3765, 0.9046, 0.0239, 0.0953),(0.3645, 0.9111, 0.0375, 0.0287)]),
       3: np.array([(0.4161, 0.8870, 0.0265, 0.1148),(0.4526, 0.8768, 0.0364, 0.0398)]), 
@@ -73,8 +74,8 @@ h10 = {1: np.array([(0.3177, 0.9722, 0.025, 0.0277),(0.327, 0.949, 0.0098, 0.023
        9: np.array([(0.5572, 0.8962, 0.0104, 0.1046),(0.5677, 0.8972, 0.0161, 0.0296)]), 
        10: np.array([(0.5859, 0.9361, 0.0515, 0.0638)])}
 
-me = (0.4666, 0.7435, 0.0697, 0.9629)
-enemy = (0.4666, 0.1574, 0.0697, 0.9629)
+me = (0.4791, 0.7222, 0.0468, 0.1018)
+enemy = (0.4791, 0.1388, 0.0468, 0.1018)
 
 def getMe():
     global me
@@ -266,12 +267,12 @@ def getEnemyMinionBoard(minionsOnBoard):
     global eMinionBoard
     return eMinionBoard[minionsOnBoard]
 
-turn = (0.7843, 0.4361, 0.0567, 0.0296)
-heroPower = (0.5666, 0.7259, 0.0468, 0.0722)
-enemyHeroPower = (0.5666, 0.1824, 0.0468, 0.0722)
-Mulligan = {3: np.array([(0.2734, 0.3472, 0.0989, 0.2638), (0.4505, 0.3472, 0.0989, 0.2638), (0.6302, 0.3472, 0.0989, 0.2638)]),
-            4: np.array([(0.2526, 0.3472, 0.0989, 0.2638), (0.3541, 0.3472, 0.0989, 0.2638), (0.5182, 0.3472, 0.0989, 0.2638), (0.651, 0.3472, 0.0989, 0.2638)])}
-MulliganConfirm = (0.4687, 0.7731, 0.0703, 0.037)
+turn = (0.789, 0.4398, 0.0494, 0.0277)
+heroPower = (0.5781, 0.7361, 0.0312, 0.0555)
+enemyHeroPower = (0.5755, 0.1898, 0.0312, 0.0555)
+Mulligan = {3: np.array([(0.2734, 0.3796, 0.0729, 0.1851), (0.4505, 0.3796, 0.0729, 0.1851), (0.6302, 0.3796, 0.0729, 0.1851)]),
+            4: np.array([(0.263, 0.3796, 0.0729, 0.1851), (0.3958, 0.3796, 0.0729, 0.1851), (0.5286, 0.3796, 0.0729, 0.1851), (0.664, 0.3796, 0.0729, 0.1851)])}
+MulliganConfirm = (0.4713, 0.7777, 0.0606, 0.0324)
 
 def getH10():
     global h10
@@ -350,7 +351,11 @@ def getHandcardArea(handcount, zonePos):
     return _area
 
 def getOnBoardArea(minionsOnBoard, card):
-    area(getMinionBoard(minionsOnBoard)[card.get_pos()])
+    if isMyCard(card._ingameID):
+        mBoard = getMinionBoard(minionsOnBoard)
+    else:
+        mBoard = getEnemyMinionBoard(minionsOnBoard)
+    return area(mBoard[card.get_pos()])
     
 def getMouseMoveCoords(area):
     x = np.random.random_integers(area[0], area[0]+area[2])

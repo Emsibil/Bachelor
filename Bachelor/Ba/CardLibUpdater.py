@@ -204,7 +204,7 @@ def convertText(txt):
         txt = txt.replace('/\n', '')
     if '#' in txt:
         txt = txt.replace('#', '')
-    return txt
+    return txt.lower()
 
 def readSingleCardInfo(content):   
     CardSet = getCardSet()
@@ -232,7 +232,7 @@ def readSingleCardInfo(content):
     _DURABILITY = 'Durability: None'
     
     numberOfAbilities = 0
-    for line in content:
+    for index, line in enumerate(content):
         if 'enumID' in line:
             ID = str(line).split('enumID="')[1].split('"')[0]
             for idx in enumID:
@@ -287,6 +287,8 @@ def readSingleCardInfo(content):
                         _LIFE = idx[1]+': ' + lf
                     elif ID == '184':
                         txt = str(line).split('"String">')[1].split('<')[0]
+                        if not '</Tag>' in line:
+                            txt = txt.split('\n')[0] + ' ' + content[index + 1].split('</Tag>')[0]
                         _TEXT = idx[1]+': ' + convertText(txt)          
         if 'CardID' in line:
             ID = str(line).split('CardID="')[1].split('"')[0]

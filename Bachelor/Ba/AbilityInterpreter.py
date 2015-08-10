@@ -1,11 +1,9 @@
 from tables import Enum
-from Bachelor.Ba.Board import isMyCard, Zone, getMyCards,\
+from types import IntType
+from Board import isMyCard, Zone, getMyCards,\
     getEnemyCards, getMyHero, getMyMinionCount, getEnemyMinionCount, getMyHandcardCount,\
     E_HERO, getCardByIngameId
-from Bachelor.Ba.Util_new import split, Cardtype
-from Bachelor.Ba.Effective import Effectivness, EnemyAttackPower, MinionDmg,\
-    ThreatLvl
-from types import IntType
+from Util_new import split, Cardtype, Effectivness, ThreatLvl
 
 class Target(Enum):
     MINION = 'a minion'
@@ -29,6 +27,23 @@ class Effect(Enum):
     DMG = 0
     RES = 1
     
+def EnemyAttackPower():
+    dmg = 0
+    for c in getEnemyCards().values():
+        if c.compareZone(Zone.PLAY):
+            if c.compareCardtype(Cardtype.MINION) or c.compareCardtype(Cardtype.WEAPON):
+                dmg = dmg + c.getAttack()
+    return dmg
+   
+def MinionDmg():
+    dmg = 0 
+    for c in getMyCards().values():
+        if c._zone == Zone.PLAY:
+            if c.mayAttack():
+                if c._cardtype == Cardtype.MINION or (c._cardtype == Cardtype.HERO and c._attack > 0) or (c._cardtype == Cardtype.WEAPON): 
+                    dmg = dmg + c.getAttack()
+    return dmg
+
 def effectivnessDmg(target, value):
     if isMyCard(target._ingameID):
         if target._cardtype == Cardtype.MINION:
@@ -107,7 +122,7 @@ def effectivnessRet(target):
             return Effectivness.GOOD
         else:
             return Effectivness.LOW
-        #vielleicht zusätzlich ob die karte effective is
+        #vielleicht zusaetzlich ob die karte effective is
 
 def effectivnessDsty(target):
     if isMyCard(target._ingameId):
@@ -121,7 +136,7 @@ def toHero(value, effect):
         return (effectivnessDmg(hero, value), 1)
     if effect == Effect.RES:
         return (effectivnessRes(hero, value), 1)
-    #zurückschreiben
+    #zurueckschreiben
     
 def toEnemyHero(value, effect):
     hero = [c for c in getEnemyCards().values() if c._cardtype == Cardtype.HERO]
@@ -129,7 +144,7 @@ def toEnemyHero(value, effect):
         return (effectivnessDmg(hero, value), 1)
     if effect == Effect.RES:
         return (effectivnessRes(hero, value), 1)
-    #zurückschreiben 
+    #zurueckschreiben 
 
 def toAllEnemyMinions(value, effect):
     e = 0

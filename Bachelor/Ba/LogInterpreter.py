@@ -5,8 +5,8 @@ from Cards_new import *
 from Bachelor.Ba.Util_new import getCurState, Player, EffectTime, Cardtype
 from types import IntType
 from Play import *
-from Bachelor.Ba.Board import getCardByIngameId
-from Xml import *
+
+
 
 def setMyHero(Id, CardId):
     global MY_HERO

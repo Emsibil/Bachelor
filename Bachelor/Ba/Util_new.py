@@ -46,20 +46,26 @@ class EffectTime(Enum):
     ON_ACTIVATE = 'aktivateSecret'
     
 class GameState(Enum):
-    SEARCHING = 0
-    GAME_START = 1
-    MULLIGAN = 2
-    MY_TURN = 3
-    ENEMY_TURN = 4
-    GAME_END = 5
+    SEARCHING = 'Searching'
+    GAME_START = 'GameStart'
+    MULLIGAN = 'Mulligan'
+    MY_TURN = 'MyTurn'
+    ENEMY_TURN = 'EnemyTurn'
+    GAME_END = 'GameEnd'
     
-CUR_STATE = GameState.SEARCHING
-def getCurState():
-    global CUR_STATE
-    return CUR_STATE
-def setCurState(new_state):
-    global CUR_STATE
-    CUR_STATE = new_state 
+class Effectivness(Enum):
+    WORSE = -2
+    BAD = -1
+    LOW = 0
+    GOOD = 1
+    GREAT = 2
+    
+class ThreatLvl(Enum):
+    HIGH = -2
+    INCREASED = -1
+    NORMAL = 0
+    LOW = 1
+    NONE = 2
     
 class Zone(Enum):
     DECK = 'DECK'
@@ -67,6 +73,7 @@ class Zone(Enum):
     PLAY = 'PLAY'
     GRAVEYARD = 'GRAVEYARD'
     SETASIDE = 'SETASIDE'
+    WEAPON = 'WEAPON'
     
 class Cardtype(Enum):
     HERO = 'Hero'
@@ -107,6 +114,13 @@ class Tag(Enum):
     CHARGE = 'CHARGE'
     WINDFURY = 'WINDFURY'
     
+class ThreatClasses(Enum):
+    NONE = 0
+    DEFENSE = 1
+    DEFENSE_THREAT = 2
+    THREAT = 3
+    STRONG_DEFENSE = 4
+    
 def TagEqualToAbility(tag):
     if Tag.TAUNT == tag:
         return Ability.TAUNT
@@ -138,63 +152,5 @@ def gameId(line):
     return int(split(line, 'id=', ' '))
 def controllerID(line): 
     return int(split(line, 'player=', ']'))
-
-playerID = 0
-def setPlayerID(Id):
-    global playerID
-    playerID = Id
-def getPlayerID():
-    global playerID
-    return playerID
-tmp = None
-def getTmp():
-    global tmp
-    return tmp
-def setTmp(temp):
-    global tmp
-    tmp = temp
-waiting = False
-def setWaiting(binary):
-    global waiting
-    waiting = binary
-def isWaiting():
-    global waiting
-    return waiting
-Found= False
-def isFound():
-    global Found
-    return Found
-def setFound(binary):
-    global Found
-    Found = binary
-Mulligan = False
-def isMulligan():
-    global Mulligan
-    return Mulligan
-def setMulligan(binary):
-    global Mulligan
-    Mulligan = binary
-COMBO = False
-def setCombo(binary):
-    global COMBO
-    COMBO = binary
-def isComboActive():
-    global COMBO
-    return COMBO
-CALC_OPTIONS = False
-def setOptionsCalc(binary):
-    global CALC_OPTIONS
-    CALC_OPTIONS = binary
-def isOptionCalc():
-    global CALC_OPTIONS
-    return CALC_OPTIONS
-    
-def setVariablesDefault():
-    setTmp(None)
-    setWaiting(False)
-    #setMyMana(0)
-    #setEnemyMana(0)
-    setFound(False)
-    setCombo(False)  
-    setOptionsCalc(False)
-    #clearOptions()     
+def value(line):
+    return split(line, 'value=', '\n')
