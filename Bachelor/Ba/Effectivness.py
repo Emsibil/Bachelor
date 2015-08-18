@@ -581,7 +581,7 @@ def options(options):
                     threatClass = ThreatClasses.DEFENSE_THREAT
                 else:
                     threatClass = ThreatClasses.DEFENSE
-                for option in options:
+                for index,option in enumerate(options):
                     if option[2] is None:
                         continue
                     else:
@@ -594,10 +594,10 @@ def options(options):
                             else:
                                 if card in defense[1]:
                                     new_opt_id.append(Id)          
-                        option = (option[0], option[1], new_opt_id)  
+                        options[index] = (option[0], option[1], new_opt_id)  
             elif threat[0]:
                 threatClass = ThreatClasses.THREAT
-                for option in options:
+                for option in enumerate(options):
                     if option[2] is None:
                         continue
                     else:
@@ -605,10 +605,10 @@ def options(options):
                         for Id in option[2]:
                             if getCardByIngameId(Id) in threat[1]:
                                 new_opt_id.append(Id)
-                        option = (option[0], option[1], new_opt_id)   
+                        options[index] = (option[0], option[1], new_opt_id)   
                 if isMyDefenseStrong(myBoard, enemyTargets):
                     threatClass = ThreatClasses.STRONG_DEFENSE
-                    for option in options:
+                    for index, option in enumerate(options):
                         if option[2] is None:
                             continue
                         elif option[1] == Option.ATTACK and getCardByIngameId(option[0])._taunt:
@@ -616,13 +616,14 @@ def options(options):
                             for Id in option[2]:
                                 if not isMyCard(Id) and not getCardByIngameId(Id).compareCardtype(Cardtype.HERO):
                                     new_opt_id.append(Id)
-                            option = (option[0], option[1], new_opt_id) 
+                            options[index] = (option[0], option[1], new_opt_id) 
                         else:
                             new_opt_id = []
                             for Id in option[2]:
                                 if not isMyCard(Id) and getCardByIngameId(Id) not in threat[1]:
                                     new_opt_id.append(Id)             
-                            option = (option[0], option[1], new_opt_id)        
+                            options[index] = (option[0], option[1], new_opt_id)        
+                            
             efficiency = None
             for option in options:
                 if option == options[0]:

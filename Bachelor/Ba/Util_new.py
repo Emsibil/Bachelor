@@ -10,11 +10,6 @@ class TargetSide(Enum):
     ENEMY = 'Enemy'
     BOTH = 'Both'
     
-class Effect(Enum):
-    DEBUFF = 'Debuff'
-    BUFF = 'Buff'
-    BOTH = 'BuffDebuff'
-    
 class Stats():
     ATTACK = 'Attack'
     HEALTH = 'Health'
@@ -120,6 +115,33 @@ class ThreatClasses(Enum):
     DEFENSE_THREAT = 2
     THREAT = 3
     STRONG_DEFENSE = 4
+    
+raceDict = {1: 'minion', 2: 'beast', 3: 'mech', 4: 'dragon', 5: 'pirate', 6: 'demon', 7: 'murloc', 8: 'character', 9: 'hero', 10: 'weapon'}
+def getRaceDict():
+    global raceDict
+    return raceDict
+
+class Side(Enum):
+    MY = 0
+    ENEMY = 1
+    BOTH = 2
+    
+class Effect(Enum):
+    DAMAGE = 'damage'
+    RESTORE = 'restore'
+    RETURN = 'return'
+    DESTROY = 'destroy'
+    GAIN = 'gain'
+    TRANSFORM = 'transform'
+    ADD = 'add'
+    EQUIP = 'equip'
+    DRAW = 'draw'
+    DISCARD = 'discard'
+    AURA = 'aura'
+    GIVE = 'give'
+    OVERLOAD = 'overload'
+    HAVE = 'have +'
+    SUMMON = 'summon'
     
 def TagEqualToAbility(tag):
     if Tag.TAUNT == tag:

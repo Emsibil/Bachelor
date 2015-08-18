@@ -1,10 +1,8 @@
-from cv2 import CascadeClassifier
-from numpy import asarray
 from Image import BICUBIC
 from ImageGrab import grab
 from random import random
 from time import sleep
-from Util_new import split, GameState, value, Zone, path
+from Util_new import split, GameState, value, Zone
 from LogInterpreter_new import GameStart_Full_Entity, setPlayer, Mulligan,\
     isMulliganOver, SubType, SubTypeMulliganTrigger, readOptions,\
     isPlayerOneInMulligan, isPlayerTwoInMulligan, setPlayerOneInMulligan, setPlayerTwoInMulligan
@@ -103,15 +101,21 @@ def isMyTurn():
     img = grab()
     img = img.resize((800, 600),BICUBIC)
     img = img.crop((614, 248, 685, 292))
-    end_turn= CascadeClassifier(path("data\\turn\\cascade.xml"))
-    _img = asarray(img)
-    end = end_turn.detectMultiScale(_img, 1.001, 1)
-    if len(end) == 1:
-        print "My Turn"
-        return True
-    else:
-        print "Enemy Turn"
+    img = img.crop((7,19,59,33))
+    img = img.convert('LA')
+    pix = img.load()
+    w, h = img.size
+    count = 0
+    for x in range(w):
+        for y in range(h):
+            #print pix1[x, y]
+            if pix[x, y][0] == 0:
+                count = count + 1
+    if count < 75 or count > 85:
         return False
+    else:
+        print 'MyTurn Confirmed'
+        return True
     
 def readMyTurn(lines):
     try:
@@ -121,8 +125,8 @@ def readMyTurn(lines):
                 setJumpLines(getJumpLines() - 1)
                 continue
             elif '[Power]' in l:
-                print l
-                if ('- ACTION_START' in l and 'SubType=' in l and not 'GameEntity' in l) or waitingForMoreLines():
+                #print l
+                if ('- ACTION_START' in l and 'SubType=' in l and ('DEATHS' in l or not 'GameEntity' in l)) or waitingForMoreLines():
                     readSubType(index, lines, numOfLines)
                 elif 'option' in l or waitingForMoreOptionLines():
                     i = index
@@ -172,8 +176,8 @@ def readEnemyTurn(lines):
                 setJumpLines(getJumpLines() - 1)
                 continue
             elif '[Power]' in l:
-                print l
-                if ('- ACTION_START' in l and 'SubType=' in l and not 'GameEntity' in l) or waitingForMoreLines():
+                #print l
+                if ('- ACTION_START' in l and 'SubType=' in l and ('DEATHS' in l or not 'GameEntity' in l)) or waitingForMoreLines():
                     readSubType(index, lines, numOfLines)
                 elif 'FINAL_GAMEOVER' in l:
                     print 'Game End'
@@ -198,7 +202,7 @@ def readMulligan(lines):
                 setJumpLines(getJumpLines() - 1)
                 continue
             elif '[Power]' in l:
-                print l
+                #print l
                 if ('- ACTION_START' in l and 'SubType=TRIGGER' in l) or waitingForMoreLines():
                     i = index
                     while not '- ACTION_END' in lines[i] and i < numOfLines:
@@ -239,7 +243,7 @@ def readGameStart(lines):
                 continue
             elif '[Power]' in l:
                 if 'FULL_ENTITY' in l or ('tag' in l and waitingForMoreLines()):
-                    if (index + 1) < numOfLines:
+                    if (index + 1) <= numOfLines:
                         i = index + 1
                     else:
                         i = index
@@ -265,17 +269,20 @@ def readGameStart(lines):
         print 'readGameStart():', e
                
 def completeReading(lines, state):
-    if state == getCurState():
-        if getCurState() == GameState.GAME_START:
-            readGameStart(lines)
-        elif getCurState() == GameState.MULLIGAN:
-            readMulligan(lines)
-        elif getCurState() == GameState.MY_TURN:
-            readMyTurn(lines)
-        elif getCurState() == GameState.ENEMY_TURN:
-            readEnemyTurn(lines)
-        elif getCurState() == GameState.GAME_END:
-            setCurState(GameState.SEARCHING)
-            return
-    else:
-        print 'no Correct State'
+    try:
+        if state == getCurState():
+            if getCurState() == GameState.GAME_START:
+                readGameStart(lines)
+            elif getCurState() == GameState.MULLIGAN:
+                readMulligan(lines)
+            elif getCurState() == GameState.MY_TURN:
+                readMyTurn(lines)
+            elif getCurState() == GameState.ENEMY_TURN:
+                readEnemyTurn(lines)
+            elif getCurState() == GameState.GAME_END:
+                setCurState(GameState.SEARCHING)
+                return
+        else:
+            print 'no Correct State'
+    except Exception, e:
+        print 'completeReading()', e

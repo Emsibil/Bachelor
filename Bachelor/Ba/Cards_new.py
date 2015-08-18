@@ -1,6 +1,6 @@
 from cardLibReader import attackValue, healthValue, manaCost,\
     CardById, cardType, text, name, durability, race, Abilities
-from Util_new import Cardtype, Ability
+from Util_new import Cardtype, Ability, Zone
 
 class Card(object):
     def __init__(self, Id, ingameId, name, cardtype, manacosts):
@@ -12,8 +12,14 @@ class Card(object):
         self._zonePos = None
         self._ingameID = ingameId
         self._text = None
-        self._exhausted = False
+        self._exhausted = False   
 
+    def __repr__(self):
+        if self._id is not None:
+            return '%d %s' %(self._ingameID, self._name) 
+        else:
+            return '%d' %(self._ingameID) 
+    
     def set_pos(self, pos):
         if pos == None:
             pass
@@ -66,6 +72,8 @@ class Minion(Card):
         
     def takes_Damage(self, dmg):
         self._damage = dmg
+        if self._damage >= self._health:
+            self._zone = Zone.GRAVEYARD
             #if self._damage >= self._health:
                 #   self._zone = 'GRAVEYARD'
             
@@ -122,7 +130,7 @@ class Hero(Card):
             self._damage = self._damage - health
             
     def getHealth(self):
-        return self._health
+        return self._health - self._damage
 
     def getAttack(self):
         if self._attack is None:
@@ -131,6 +139,8 @@ class Hero(Card):
     
     def takes_Damage(self, dmg):
         self._damage = dmg
+        if self._damage >= self._health:
+            self._zone = Zone.GRAVEYARD
         
     def get_damage(self):
         return self._damage
@@ -145,6 +155,10 @@ class Weapon(Card):
         
     def takes_Damage(self, dmg):
         self._durability = dmg
+        if self._durability <= 0:
+            self._zone = Zone.GRAVEYARD
+    def getAttack(self):
+        return self._attack
  
 def createUNKONWCard(Id):
     return Card(None, Id, None, None, None)

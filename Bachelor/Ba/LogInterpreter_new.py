@@ -115,20 +115,23 @@ def EntityFinder(line):
 
 def EntityChanger(line):
     try:
+        card = None
         try:
             card = getCardByIngameId(gameId(line))
         except:
-            card = createCard(gameId(line), split(line, 'cardId', ' '))
-            card._zone = split(line, 'zone=', ' ')
-            card.set_pos(int(split(line, 'zonePos=', ' ')))
+            print 'EntityChanger could not find Card and build it new'
+            _card = createCard(gameId(line), split(line, 'cardId=', ' '))
+            _card._zone = split(line, 'zone=', ' ')
+            _card.set_pos(int(split(line, 'zonePos=', ' ')))
             if isThatMyId(int(split(line, 'player=', ']'))):
-                addCardToMyCards(card)
+                addCardToMyCards(_card)
             else:
-                addCardToEnemyCards(card)
-        if 'ZONE ' in line:
-            card._zone = value(line)
-        elif 'ZONE_POSITION' in line:
+                addCardToEnemyCards(_card)
+            card = getCardByIngameId(_card._ingameID)
+        if 'ZONE_POSITION' in line:
             card.set_pos(int(value(line)))
+        elif 'ZONE ' in line:
+            card._zone = value(line)
         elif not 'PREDAMAGE' in line and 'DAMAGE' in line:
             card.takes_Damage(int(value(line)))
         elif 'ATK' in line:
@@ -155,6 +158,9 @@ def EntityChanger(line):
              
 def GameStart_Full_Entity(lines):
     try:
+        card = None
+        playerId = None
+        zone = None   
         for l in lines:
             if 'FULL_ENTITY' in l:
                 card = createCard(int(split(l, 'ID=', ' ')), split(l, 'CardID=', '\n'))
@@ -172,12 +178,12 @@ def GameStart_Full_Entity(lines):
                     elif card.compareCardtype(Cardtype.HERO_POWER):
                         card._zone = Zone.HAND
                         card.set_pos(0)
-                if  playerId == 1:
-                    setPlayerOneCard(card)
-                else:
-                    setPlayerTwoCard(card)
             elif 'ZONE_POSITION' in l:
                 card.set_pos(int(value(l)))
+        if  playerId == 1:
+            setPlayerOneCard(card)
+        else:
+            setPlayerTwoCard(card)
     except Exception, e:
         print 'GameStart_Full_Entity()', e
 
@@ -190,6 +196,7 @@ def Mulligan():
 def Full_Entity(lines):
     try:
         card = None
+        zone = Zone.DECK
         for l in lines:
             if 'FULL_ENTITY' in l:
                 if not split(l, 'CardID=', '\n') == '': 
@@ -240,7 +247,7 @@ def searching_Show_Entity(index, lines):
         while not 'TAG_CHANGE' in lines[i]:
             i = i + 1
         Show_Entity(lines[index:(i-1)])
-        return i - index - 1
+        return i - index - 2
     except Exception, e:
         print 'searching_Show_Entity()', e
         
@@ -291,6 +298,11 @@ def SubType(lines):
                 jumpLines = searching_Show_Entity(index, lines)
             elif 'FULL_ENTITY' in l:
                 jumpLines = searching_Full_Entity(index, lines)
+            elif 'TEMP_RESOURCES' in l:
+                if isThatMe(split(l, 'Entity=', ' tag')):
+                    setMyMana(getMyMana() + int(value(l)))
+                else:
+                    setEnemyMana(getEnemyMana() + int(value(l)))
             elif 'RESOURCES_USED' in l:
                 if isThatMe(split(l, 'Entity=', ' tag')):
                     setMyMana(getMyMana() - int(value(l)))
@@ -325,11 +337,19 @@ def readOptions(lines):
                     output += 'End Turn'
                     parameter2 = Option.END
                 elif 'POWER' in lines[i] and 'zone=HAND' in lines[i]:
-                    output += 'Play ' +str(split(lines[i], 'name=', ' id'))
-                    parameter1 = gameId(lines[i])
-                    parameter2 = Option.PLAY
+                    Id = gameId(lines[i])
+                    if getCardByIngameId(Id).compareZone(Zone.HAND):
+                        output += 'Play ' +str(split(lines[i], 'name=', ' id'))
+                        parameter1 = Id
+                        parameter2 = Option.PLAY
+                    elif getCardByIngameId(Id).compareZone(Zone.PLAY):
+                        output += 'Attack with ' +str(split(lines[i], 'name=', ' id'))
+                        parameter1 = Id
+                        parameter2 = Option.ATTACK
                 elif 'POWER' in lines[i] and 'zone=DECK' in lines[i]:
                     output += 'Play ' + getCardByIngameId(gameId(lines[i]))._name
+                    parameter1 = gameId(lines[i])
+                    parameter2 = Option.PLAY
                 elif 'POWER' in lines[i] and 'zone=PLAY' in lines[i] and 'zonePos=0' in lines[i]:
                     parameter1 = gameId(lines[i])
                     if 'cardId=HERO' in lines[i]:
@@ -355,7 +375,7 @@ def readOptions(lines):
                 else:
                     targets.append(gameId(lines[i]))
             i += 1
-        if parameter1 is not None:
+        if parameter2 is not None:
             if not len(targets) == 0:
                 addOption((parameter1, parameter2, targets))
             else:

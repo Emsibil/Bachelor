@@ -1,12 +1,12 @@
 from time import sleep
 from random import random
 from Util_new import Cardtype, Zone, Option
-from Effectivness import options
+from Effectivness_new import options
 from MouseControl import mouseMove, mouseClick, getMouseMoveCoords,\
     area, mouseDown, mouseUp, getMinionBoard, getOnBoardArea, getMulliganConfirm,\
     getMulliganCardArea, getTurn, getHandcardArea
 from Board import getMyMinionCount, getMyCards, getMyHandcardCount,\
-    getEnemyMinionCount, isMyCard
+    getEnemyMinionCount, isMyCard, getMyHandcards
     
 OPTIONS = []
 def addOption(option):
@@ -24,8 +24,13 @@ def clearOptions():
 
 def MulliganChoosing():
     try:
-        cards = getMyCards()
+        cards = getMyHandcards()
         count = getMyHandcardCount()
+        for c in cards:
+            if c is None:
+                continue
+            elif cards.get_pos() is None:
+                continue
         change = []
         for card in cards.values():
             if card._id is not None:
@@ -69,7 +74,7 @@ def playMinionWithTarget(card, target):
         sleep(0.5)
         mouseUp()
         sleep(0.5)
-        if isMyCard(target._ingameId):
+        if isMyCard(target._ingameID):
             c = getMyMinionCount()
         else:
             c = getEnemyMinionCount()

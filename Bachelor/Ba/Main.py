@@ -10,25 +10,28 @@ def readLog():
     return openLogFile().readlines()
 
 def Statedecision():
-    log = readLog()
-    nol = len(log)
-    while True:
-        sleep(0.04)
-        new_log = readLog()
-        new_nol = len(new_log)
-        new_lines = new_log[nol : new_nol]
-        i = 0
-        while i < len(new_lines):
-            if 'CREATE_GAME' in new_lines[i] and getCurState() == GameState.SEARCHING:
-                setCurState(GameState.GAME_START)
-                completeReading(new_lines[i:], GameState.GAME_START)
-                break
-            elif not getCurState() == GameState.SEARCHING: 
-                completeReading(new_lines[i:], getCurState())
-                break
-            i += 1   
-        log = new_log
-        nol = new_nol
+    try:
+        log = readLog()
+        nol = len(log)
+        while True:
+            sleep(0.04)
+            new_log = readLog()
+            new_nol = len(new_log)
+            new_lines = new_log[nol : new_nol]
+            i = 0
+            while i < len(new_lines):
+                if 'CREATE_GAME' in new_lines[i] and getCurState() == GameState.SEARCHING:
+                    setCurState(GameState.GAME_START)
+                    completeReading(new_lines[i:], GameState.GAME_START)
+                    break
+                elif not getCurState() == GameState.SEARCHING: 
+                    completeReading(new_lines[i:], getCurState())
+                    break
+                i += 1   
+            log = new_log
+            nol = new_nol
+    except Exception, e:
+        print 'Statedecision()', e
     
 def Main():
     Statedecision()

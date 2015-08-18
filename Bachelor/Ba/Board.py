@@ -18,23 +18,21 @@ def getPlayer(Id):
     global PLAYERS
     return PLAYERS[Id]
 
-def getMyHero():
-    return [c for c in getMyCards().values() if c.compareCardtype(Cardtype.HERO)][0]
-def getMyHeroPower():
-    global MY_HERO_POWER
-    return MY_HERO_POWER
-def getEnemyHero():
-    global E_HERO
-    return E_HERO
-def getEnemyHeroPower():
-    global E_HERO_POWER
-    return E_HERO_POWER
 def getMyCards():
     global MY_CARDS
     return MY_CARDS
 def setMyCards(cardDict):
     global MY_CARDS
     MY_CARDS = cardDict
+
+def getMyHero():
+    return [c for c in getMyCards().values() if c.compareCardtype(Cardtype.HERO)][0]
+def getMyHeroPower():
+    return [c for c in getMyCards().values() if c.compareCardtype(Cardtype.HERO_POWER)][0]
+def getEnemyHero():
+    return [c for c in getEnemyCards().values() if c.compareCardtype(Cardtype.HERO)][0]
+def getEnemyHeroPower():
+    return [c for c in getEnemyCards().values() if c.compareCardtype(Cardtype.HERO_POWER)][0]
 def addCardToMyCards(card):
     cards = getMyCards()
     cards[card._ingameID] = card
@@ -92,3 +90,18 @@ def getCardByIngameId(Id):
         return getMyCardByIngameId(Id)
     except:
         return getEnemyCardByIngameId(Id)    
+    
+def getEnemyMinionsInPlay():
+    return [c for c in getEnemyCards().values() if c.compareCardtype(Cardtype.MINION) and c.compareZone(Zone.PLAY)]
+
+def getMyMinionsInPlay():
+    return [c for c in getMyCards().values() if c.compareCardtype(Cardtype.MINION) and c.compareZone(Zone.PLAY)]
+
+def getEnemyWeapon():
+    return [c for c in getEnemyCards().values() if c.compareZone(Zone.WEAPON)]
+
+def getMyWeapon():
+    return [c for c in getMyCards().values() if c.compareZone(Zone.WEAPON)]
+
+def getMyHandcards():
+    return [c for c in getMyCards().values() if c.compareZone(Zone.HAND)]
